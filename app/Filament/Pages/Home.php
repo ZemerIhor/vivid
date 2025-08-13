@@ -37,6 +37,7 @@ class Home extends Page implements HasForms
         $settings = app(HomeSettings::class);
 
         $this->data = [
+            'banner_image' => $settings->banner_image,
             'banner_title' => $settings->banner_title ?? ['en' => '', 'pl' => ''],
             'banner_description' => $settings->banner_description ?? ['en' => '', 'pl' => ''],
             'hero_slides' => $settings->hero_slides ?? ['en' => [], 'pl' => []],
@@ -56,7 +57,7 @@ class Home extends Page implements HasForms
             'feedback_form_title' => $settings->feedback_form_title ?? ['en' => '', 'pl' => ''],
             'feedback_form_description' => $settings->feedback_form_description ?? ['en' => '', 'pl' => ''],
             'feedback_form_image' => $settings->feedback_form_image,
-            'feedback_form_image_alt' => $settings->faq_main_image_alt ?? ['en' => '', 'pl' => ''],
+            'feedback_form_image_alt' => $settings->feedback_form_image_alt ?? ['en' => '', 'pl' => ''],
             'tenders_title' => $settings->tenders_title ?? ['en' => '', 'pl' => ''],
             'tender_items' => $settings->tender_items ?? ['en' => [], 'pl' => []],
             'tenders_phone' => $settings->tenders_phone ?? ['en' => '', 'pl' => ''],
@@ -80,6 +81,29 @@ class Home extends Page implements HasForms
     {
         return $form
             ->schema([
+                Section::make(__('Главный баннер'))
+                    ->schema([
+                        FileUpload::make('banner_image')
+                            ->label(__('Изображение баннера'))
+                            ->directory('home/main_banner')
+                            ->disk('public')
+                            ->preserveFilenames()
+                            ->maxSize(5120)
+                            ->image()
+                            ->nullable(),
+                        Translate::make()
+                            ->locales(['en', 'pl'])
+                            ->schema([
+                                TextInput::make('banner_title')
+                                    ->label(__('Заголовок баннера'))
+                                    ->maxLength(255),
+                                Textarea::make('banner_description')
+                                    ->label(__('Описание баннера'))
+                                    ->maxLength(500),
+                            ]),
+                    ])
+                    ->collapsible(),
+
                 Section::make(__('Баннер'))
                     ->schema([
                         Translate::make()
@@ -278,7 +302,7 @@ class Home extends Page implements HasForms
                                     ->schema([
                                         TextInput::make('title')
                                             ->label(__('Назва'))
-                                            ->maxLength(255),
+                                            ->maxLength(255), // Removed required()
                                         FileUpload::make('icon')
                                             ->label(__('Иконка категории'))
                                             ->directory('home/tenders/icons')
@@ -356,6 +380,7 @@ class Home extends Page implements HasForms
 
             // Handle file fields (allow null values)
             $fileFields = [
+                'banner_image',
                 'advantages_image_1', 'advantages_image_2', 'advantages_image_3',
                 'main_comparison_image', 'feedback_form_image', 'about_location_image',
                 'faq_main_image',
