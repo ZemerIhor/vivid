@@ -89,7 +89,8 @@ class Home extends Page implements HasForms
                             ->disk('public')
                             ->preserveFilenames()
                             ->maxSize(5120)
-                            ->image(),
+                            ->image()
+                            ->nullable(),
                         Translate::make()
                             ->locales(['en', 'pl'])
                             ->schema([
@@ -126,7 +127,8 @@ class Home extends Page implements HasForms
                                             ->disk('public')
                                             ->preserveFilenames()
                                             ->maxSize(5120)
-                                            ->image(),
+                                            ->image()
+                                            ->nullable(),
                                     ])
                                     ->maxItems(5)
                                     ->collapsible()
@@ -150,7 +152,8 @@ class Home extends Page implements HasForms
                                             ->disk('public')
                                             ->preserveFilenames()
                                             ->maxSize(5120)
-                                            ->image(),
+                                            ->image()
+                                            ->nullable(),
                                         TextInput::make('title')
                                             ->label(__('Заголовок'))
                                             ->maxLength(100),
@@ -169,21 +172,24 @@ class Home extends Page implements HasForms
                             ->disk('public')
                             ->preserveFilenames()
                             ->maxSize(5120)
-                            ->image(),
+                            ->image()
+                            ->nullable(),
                         FileUpload::make('advantages_image_2')
                             ->label(__('Изображение 2'))
                             ->directory('home/advantages')
                             ->disk('public')
                             ->preserveFilenames()
                             ->maxSize(5120)
-                            ->image(),
+                            ->image()
+                            ->nullable(),
                         FileUpload::make('advantages_image_3')
                             ->label(__('Изображение 3'))
                             ->directory('home/advantages')
                             ->disk('public')
                             ->preserveFilenames()
                             ->maxSize(5120)
-                            ->image(),
+                            ->image()
+                            ->nullable(),
                     ])
                     ->collapsible(),
 
@@ -216,7 +222,8 @@ class Home extends Page implements HasForms
                                             ->disk('public')
                                             ->preserveFilenames()
                                             ->maxSize(5120)
-                                            ->image(),
+                                            ->image()
+                                            ->nullable(),
                                     ])
                                     ->maxItems(3)
                                     ->collapsible()
@@ -235,7 +242,8 @@ class Home extends Page implements HasForms
                             ->disk('public')
                             ->preserveFilenames()
                             ->maxSize(5120)
-                            ->image(),
+                            ->image()
+                            ->nullable(),
                     ])
                     ->collapsible(),
 
@@ -259,7 +267,8 @@ class Home extends Page implements HasForms
                                             ->disk('public')
                                             ->preserveFilenames()
                                             ->maxSize(5120)
-                                            ->image(),
+                                            ->image()
+                                            ->nullable(),
                                     ])
                                     ->maxItems(10)
                                     ->collapsible()
@@ -275,7 +284,8 @@ class Home extends Page implements HasForms
                             ->disk('public')
                             ->preserveFilenames()
                             ->maxSize(5120)
-                            ->image(),
+                            ->image()
+                            ->nullable(),
                     ])
                     ->collapsible(),
 
@@ -292,15 +302,15 @@ class Home extends Page implements HasForms
                                     ->schema([
                                         TextInput::make('title')
                                             ->label(__('Назва'))
-                                            ->maxLength(255)
-                                            ->required(),
+                                            ->maxLength(255), // Removed required()
                                         FileUpload::make('icon')
                                             ->label(__('Иконка категории'))
                                             ->directory('home/tenders/icons')
                                             ->disk('public')
                                             ->preserveFilenames()
                                             ->maxSize(5120)
-                                            ->image(),
+                                            ->image()
+                                            ->nullable(),
                                         TextInput::make('background_color')
                                             ->label(__('Колір фону (HEX, наприклад #34C759)'))
                                             ->maxLength(7)
@@ -353,7 +363,8 @@ class Home extends Page implements HasForms
                             ->disk('public')
                             ->preserveFilenames()
                             ->maxSize(5120)
-                            ->image(),
+                            ->image()
+                            ->nullable(),
                     ])
                     ->collapsible(),
             ])
@@ -367,6 +378,7 @@ class Home extends Page implements HasForms
 
             Log::info('Home Settings Form Data', ['data' => $data]);
 
+            // Handle file fields (allow null values)
             $fileFields = [
                 'banner_image',
                 'advantages_image_1', 'advantages_image_2', 'advantages_image_3',
@@ -375,11 +387,10 @@ class Home extends Page implements HasForms
             ];
 
             foreach ($fileFields as $field) {
-                if (isset($data[$field])) {
-                    $data[$field] = is_array($data[$field]) ? ($data[$field][0] ?? null) : $data[$field];
-                }
+                $data[$field] = isset($data[$field]) && is_array($data[$field]) ? ($data[$field][0] ?? null) : ($data[$field] ?? null);
             }
 
+            // Handle translatable arrays (ensure they are arrays, even if empty)
             $translatableArrays = [
                 'hero_slides', 'advantages_cards', 'comparison_items', 'faq_items',
                 'tender_items', 'review_items',
@@ -390,20 +401,17 @@ class Home extends Page implements HasForms
                     $data[$field] = ['en' => [], 'pl' => []];
                 } else {
                     foreach (['en', 'pl'] as $locale) {
-                        if (!isset($data[$field][$locale]) || !is_array($data[$field][$locale])) {
-                            $data[$field][$locale] = [];
-                        }
+                        $data[$field][$locale] = isset($data[$field][$locale]) && is_array($data[$field][$locale]) ? $data[$field][$locale] : [];
                     }
                 }
             }
 
+            // Process hero_slides images
             if (isset($data['hero_slides']) && is_array($data['hero_slides'])) {
                 foreach ($data['hero_slides'] as $locale => &$slides) {
                     if (is_array($slides)) {
                         foreach ($slides as &$slide) {
-                            if (isset($slide['background_image'])) {
-                                $slide['background_image'] = is_array($slide['background_image']) ? ($slide['background_image'][0] ?? null) : $slide['background_image'];
-                            }
+                            $slide['background_image'] = isset($slide['background_image']) && is_array($slide['background_image']) ? ($slide['background_image'][0] ?? null) : ($slide['background_image'] ?? null);
                         }
                         unset($slide);
                     }
@@ -411,13 +419,12 @@ class Home extends Page implements HasForms
                 unset($slides);
             }
 
+            // Process advantages_cards icons
             if (isset($data['advantages_cards']) && is_array($data['advantages_cards'])) {
                 foreach ($data['advantages_cards'] as $locale => &$cards) {
                     if (is_array($cards)) {
                         foreach ($cards as &$card) {
-                            if (isset($card['icon'])) {
-                                $card['icon'] = is_array($card['icon']) ? ($card['icon'][0] ?? null) : $card['icon'];
-                            }
+                            $card['icon'] = isset($card['icon']) && is_array($card['icon']) ? ($card['icon'][0] ?? null) : ($card['icon'] ?? null);
                         }
                         unset($card);
                     }
@@ -425,13 +432,12 @@ class Home extends Page implements HasForms
                 unset($cards);
             }
 
+            // Process comparison_items images
             if (isset($data['comparison_items']) && is_array($data['comparison_items'])) {
                 foreach ($data['comparison_items'] as $locale => &$items) {
                     if (is_array($items)) {
                         foreach ($items as &$item) {
-                            if (isset($item['image'])) {
-                                $item['image'] = is_array($item['image']) ? ($item['image'][0] ?? null) : $item['image'];
-                            }
+                            $item['image'] = isset($item['image']) && is_array($item['image']) ? ($item['image'][0] ?? null) : ($item['image'] ?? null);
                         }
                         unset($item);
                     }
@@ -439,13 +445,12 @@ class Home extends Page implements HasForms
                 unset($items);
             }
 
+            // Process tender_items icons
             if (isset($data['tender_items']) && is_array($data['tender_items'])) {
                 foreach ($data['tender_items'] as $locale => &$items) {
                     if (is_array($items)) {
                         foreach ($items as &$item) {
-                            if (isset($item['icon'])) {
-                                $item['icon'] = is_array($item['icon']) ? ($item['icon'][0] ?? null) : $item['icon'];
-                            }
+                            $item['icon'] = isset($item['icon']) && is_array($item['icon']) ? ($item['icon'][0] ?? null) : ($item['icon'] ?? null);
                         }
                         unset($item);
                     }
@@ -453,13 +458,12 @@ class Home extends Page implements HasForms
                 unset($items);
             }
 
+            // Process faq_items icons
             if (isset($data['faq_items']) && is_array($data['faq_items'])) {
                 foreach ($data['faq_items'] as $locale => &$items) {
                     if (is_array($items)) {
                         foreach ($items as &$item) {
-                            if (isset($item['icon'])) {
-                                $item['icon'] = is_array($item['icon']) ? ($item['icon'][0] ?? null) : $item['icon'];
-                            }
+                            $item['icon'] = isset($item['icon']) && is_array($item['icon']) ? ($item['icon'][0] ?? null) : ($item['icon'] ?? null);
                         }
                         unset($item);
                     }
