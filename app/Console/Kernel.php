@@ -12,7 +12,43 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        // $schedule->command('inspire')->hourly();
+        // Очистка старых логов каждую неделю
+        $schedule->command('app:clean-logs --days=30 --size=100 --force')
+                 ->weekly()
+                 ->sundays()
+                 ->at('02:00')
+                 ->emailOutputOnFailure('admin@example.com');
+
+        // Очистка старых неопубликованных отзывов каждый месяц
+        $schedule->command('app:reviews clean --days=60 --force')
+                 ->monthly()
+                 ->at('03:00');
+
+        // Диагностика системы каждый день
+        $schedule->command('app:diagnostics --json')
+                 ->daily()
+                 ->at('06:00')
+                 ->emailOutputOnFailure('admin@example.com');
+
+        // Очистка кэша каждую ночь (частичная)
+        $schedule->command('app:clear-cache products --force')
+                 ->daily()
+                 ->at('04:00');
+
+        // Очистка кэша сессий и временных файлов
+        $schedule->command('cache:clear')
+                 ->weekly()
+                 ->saturdays()
+                 ->at('01:00');
+                 
+        $schedule->command('session:gc')
+                 ->daily()
+                 ->at('05:00');
+
+        // Оптимизация базы данных
+        $schedule->command('model:prune')
+                 ->daily()
+                 ->at('01:30');
     }
 
     /**

@@ -2,30 +2,31 @@
 
 namespace App\Http\Middleware;
 
+use App\Services\LanguageService;
 use Closure;
-use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Session;
+use Illuminate\Http\Request;
 
 class Localization
 {
-    public function handle($request, Closure $next)
-    {
-        $locale = $request->segment(1);
+    public function __construct(
+        private LanguageService $languageService
+    ) {}
 
-        if (in_array($locale, ['en', 'pl'])) {
-            // Локаль указана в URL (например, /en/...)
-            App::setLocale($locale);
-            Session::put('locale', $locale);
-        } else {
-            // Нет локали в URL (например, /products/{slug}), используем сессию или фоллбек
-            $locale = Session::get('locale', config('app.locale', 'en'));
-            App::setLocale($locale);
-        }
+    /**
+     * Handle an incoming request.
+     */
+    public function handle(Request $request, Closure $next)
+    {
+        $urlLocale = $request->segment(1);
+        $detectedLocale = $this->languageService->detectLocale($urlLocale);
+        
+        // Устанавливаем локаль через сервис
+        $this->languageService->setLocale($detectedLocale);
 
         \Log::info('Localization Middleware', [
-            'locale' => $locale,
-            'session_locale' => Session::get('locale'),
-            'app_locale' => App::getLocale(),
+            'url_locale' => $urlLocale,
+            'detected_locale' => $detectedLocale,
+            'final_locale' => $this->languageService->getCurrentLocale(),
             'path' => $request->path(),
         ]);
 

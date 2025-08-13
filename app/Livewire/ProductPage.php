@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Livewire;
-use Lunar\Models\Url;
+
+use App\Repositories\ProductRepositoryInterface;
 use App\Traits\FetchesUrls;
 use Illuminate\Support\Collection;
 use Illuminate\View\View;
@@ -17,40 +18,22 @@ class ProductPage extends Component
 
     public array $selectedOptionValues = [];
     public int $quantity = 1;
-
     public $slug;
+    protected ?Product $product = null;
+
+    public function __construct(
+        private ProductRepositoryInterface $productRepository
+    ) {
+        parent::__construct();
+    }
+
     public function mount($slug): void
     {
-        // Find the URL record for the given slug
-        $url = Url::where('slug', $slug)
-            ->where('element_type', (new Product)->getMorphClass())
-            ->first();
-
-        if (!$url) {
-            // Check if the slug exists in any language
-            $url = Url::whereIn('slug', [$slug, $slug . 'vfv']) // Handle both English and Ukrainian slugs
-            ->where('element_type', (new Product)->getMorphClass())
-                ->first();
-
-            if (!$url) {
-                abort(404);
-            }
-        }
-
-        // Fetch product with relations
-        $this->url = $this->fetchUrl(
-            $url->slug,
-            (new Product)->getMorphClass(),
-            [
-                'element.media',
-                'element.variants.basePrices.currency',
-                'element.variants.basePrices.priceable',
-                'element.variants.values.option',
-            ]
-        );
-
-        if (!$this->url) {
-            abort(404);
+        // Find product using repository
+        $this->product = $this->productRepository->findBySlug($slug);
+        
+        if (!$this->product) {
+            abort(404, 'Product not found');
         }
 
         $this->slug = $slug;
@@ -88,7 +71,7 @@ class ProductPage extends Component
 
     public function getProductProperty(): Product
     {
-        return $this->url->element;
+        return $this->product;
     }
 
     public function getImagesProperty(): Collection
@@ -139,19 +122,7 @@ class ProductPage extends Component
 
     public function getSimilarProductsProperty(): Collection
     {
-        if (!$this->product->category) {
-            return collect([]);
-        }
-
-        return $this->product->category->products()
-            ->where('id', '!=', $this->product->id)
-            ->with([
-                'media',
-                'variants.basePrices.currency',
-                'variants.basePrices.priceable',
-            ])
-            ->take(4)
-            ->get();
+        return $this->productRepository->getSimilarProducts($this->product, 4);
     }
 
     public function incrementQuantity(): void

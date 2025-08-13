@@ -116,9 +116,15 @@ class AppServiceProvider extends ServiceProvider
         $shippingModifiers->add(
             ShippingModifier::class
         );
+        
         \Lunar\Facades\ModelManifest::replace(
             \Lunar\Models\Contracts\Product::class,
             \App\Models\Product::class,
         );
+        
+        // Регистрируем Observer'ы
+        \App\Models\Review::observe(\App\Observers\ReviewObserver::class);
+        \App\Models\BlogPost::observe(\App\Observers\BlogPostObserver::class);
+        \App\Models\Product::observe(\App\Observers\ProductObserver::class);
     }
 }

@@ -9,7 +9,13 @@ class Review extends Model
 {
     use HasTranslations;
 
-    protected $guarded = ['id']; // Разрешаем массовое заполнение всех полей, кроме id
+    protected $fillable = [
+        'name',
+        'rating', 
+        'comment',
+        'published',
+        'published_at'
+    ];
 
     public $translatable = ['comment']; // Поле comment будет переводимым
 

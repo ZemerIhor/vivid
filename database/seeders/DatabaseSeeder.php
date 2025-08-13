@@ -23,6 +23,10 @@ class DatabaseSeeder extends Seeder
         // Optional: additional product attributes in the 'details' group
         $this->call(ProductAttributesSeeder::class);
 
+        // Content seeders
+        $this->call(BlogPostSeeder::class);
+        $this->call(ReviewSeeder::class);
+
         // You can enable the following when needed
         // $this->call(CustomerSeeder::class);
         // $this->call(ShippingSeeder::class);

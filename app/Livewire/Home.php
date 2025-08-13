@@ -2,22 +2,34 @@
 
 namespace App\Livewire;
 
-use App\Models\BlogPost;
+use App\Repositories\BlogPostRepositoryInterface;
+use App\Repositories\ProductRepositoryInterface;
 use App\Settings\HomeSettings;
 use Illuminate\View\View;
 use Livewire\Component;
 use Lunar\Models\Collection;
-use App\Models\Product;
 use Lunar\Models\Url;
+use Illuminate\Support\Facades\Cache;
 
 class Home extends Component
 {
+    public function __construct(
+        private BlogPostRepositoryInterface $blogPostRepository,
+        private ProductRepositoryInterface $productRepository
+    ) {
+        parent::__construct();
+    }
+
     /**
      * Return the sale collection.
      */
     public function getSaleCollectionProperty(): Collection | null
     {
-        return Url::whereElementType((new Collection)->getMorphClass())->whereSlug('sale')->first()?->element ?? null;
+        return Cache::remember('home.sale_collection', 3600, function () {
+            return Url::whereElementType((new Collection)->getMorphClass())
+                ->whereSlug('sale')
+                ->first()?->element;
+        });
     }
 
     /**
@@ -29,14 +41,20 @@ class Home extends Component
             return null;
         }
 
-        $collectionProducts = $this->getSaleCollectionProperty()
-            ->products()->inRandomOrder()->limit(4)->get();
+        return Cache::remember('home.sale_collection_images', 1800, function () {
+            $collectionProducts = $this->getSaleCollectionProperty()
+                ->products()
+                ->with('thumbnail')
+                ->inRandomOrder()
+                ->limit(4)
+                ->get();
 
-        $saleImages = $collectionProducts->map(function ($product) {
-            return $product->thumbnail;
+            $saleImages = $collectionProducts->map(function ($product) {
+                return $product->thumbnail;
+            });
+
+            return $saleImages->chunk(2);
         });
-
-        return $saleImages->chunk(2);
     }
 
     /**
@@ -44,13 +62,15 @@ class Home extends Component
      */
     public function getRandomCollectionProperty(): ?Collection
     {
-        $collections = Url::whereElementType((new Collection)->getMorphClass());
+        return Cache::remember('home.random_collection', 1800, function () {
+            $collections = Url::whereElementType((new Collection)->getMorphClass());
 
-        if ($this->getSaleCollectionProperty()) {
-            $collections = $collections->where('element_id', '!=', $this->getSaleCollectionProperty()?->id);
-        }
+            if ($this->getSaleCollectionProperty()) {
+                $collections = $collections->where('element_id', '!=', $this->getSaleCollectionProperty()?->id);
+            }
 
-        return $collections->inRandomOrder()->first()?->element;
+            return $collections->inRandomOrder()->first()?->element;
+        });
     }
 
     /**
@@ -58,30 +78,12 @@ class Home extends Component
      */
     public function getBlogPostsProperty()
     {
-        return BlogPost::query()
-            ->where('published', true)
-            ->whereNotNull('published_at')
-            ->orderBy('published_at', 'desc')
-            ->take(6)
-            ->get();
+        return $this->blogPostRepository->getRecent(6);
     }
 
     public function render(HomeSettings $settings): View
     {
-        $products = Product::with(['thumbnail', 'defaultUrl'])->get();
-
-        // Добавляем отладку для проверки slug и attribute_data
-        \Log::info('Home::render products', [
-            'locale' => app()->getLocale(),
-            'products' => $products->map(function ($product) {
-                return [
-                    'id' => $product->id,
-                    'slug' => $product->slug,
-                    'defaultUrl' => $product->defaultUrl?->toArray(),
-                    'attribute_data' => $product->attribute_data,
-                ];
-            })->toArray(),
-        ]);
+        $products = $this->productRepository->getAllWithRelations();
 
         return view('livewire.home', [
             'allProducts' => $products,
