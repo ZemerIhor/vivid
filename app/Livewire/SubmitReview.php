@@ -2,22 +2,21 @@
 
 namespace App\Livewire;
 
-use App\Http\Requests\StoreReviewRequest;
 use App\Services\ReviewService;
 use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 
 class SubmitReview extends Component
 {
-    public $name; // Имя автора
-    public $rating; // Рейтинг
-    public $comment; // Текст отзыва
-    public $isSubmitting = false; // Флаг отправки
+    public $name;
+    public $rating;
+    public $comment;
+    public $isSubmitting = false;
+    private ReviewService $reviewService;
 
-    public function __construct(
-        private ReviewService $reviewService
-    ) {
-        parent::__construct();
+    public function boot(ReviewService $reviewService)
+    {
+        $this->reviewService = $reviewService;
     }
 
     // Правила валидации

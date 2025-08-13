@@ -13,11 +13,15 @@ use Illuminate\Support\Facades\Cache;
 
 class Home extends Component
 {
-    public function __construct(
-        private BlogPostRepositoryInterface $blogPostRepository,
-        private ProductRepositoryInterface $productRepository
+    private BlogPostRepositoryInterface $blogPostRepository;
+    private ProductRepositoryInterface $productRepository;
+
+    public function boot(
+        BlogPostRepositoryInterface $blogPostRepository,
+        ProductRepositoryInterface $productRepository
     ) {
-        parent::__construct();
+        $this->blogPostRepository = $blogPostRepository;
+        $this->productRepository = $productRepository;
     }
 
     /**

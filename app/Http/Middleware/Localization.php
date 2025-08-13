@@ -8,25 +8,23 @@ use Illuminate\Http\Request;
 
 class Localization
 {
-    public function __construct(
-        private LanguageService $languageService
-    ) {}
-
     /**
      * Handle an incoming request.
      */
     public function handle(Request $request, Closure $next)
     {
+        $languageService = app(LanguageService::class);
+        
         $urlLocale = $request->segment(1);
-        $detectedLocale = $this->languageService->detectLocale($urlLocale);
+        $detectedLocale = $languageService->detectLocale($urlLocale);
         
         // Устанавливаем локаль через сервис
-        $this->languageService->setLocale($detectedLocale);
+        $languageService->setLocale($detectedLocale);
 
         \Log::info('Localization Middleware', [
             'url_locale' => $urlLocale,
             'detected_locale' => $detectedLocale,
-            'final_locale' => $this->languageService->getCurrentLocale(),
+            'final_locale' => $languageService->getCurrentLocale(),
             'path' => $request->path(),
         ]);
 

@@ -11,14 +11,17 @@ class ReviewsPage extends Component
 {
     use WithPagination;
 
-    public $filterRating = null; // Фильтр по рейтингу
-    public $perPage = 6; // Количество отзывов на страницу
+    public $filterRating = null;
+    public $perPage = 6;
+    private ReviewRepositoryInterface $reviewRepository;
+    private ReviewService $reviewService;
 
-    public function __construct(
-        private ReviewRepositoryInterface $reviewRepository,
-        private ReviewService $reviewService
+    public function boot(
+        ReviewRepositoryInterface $reviewRepository,
+        ReviewService $reviewService
     ) {
-        parent::__construct();
+        $this->reviewRepository = $reviewRepository;
+        $this->reviewService = $reviewService;
     }
 
     /**

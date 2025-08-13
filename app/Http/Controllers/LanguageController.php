@@ -8,19 +8,17 @@ use Illuminate\Support\Facades\URL as FacadeURL;
 
 class LanguageController extends Controller
 {
-    public function __construct(
-        private LanguageService $languageService
-    ) {}
-
     /**
      * Switch application language
      */
     public function switch(string $locale)
     {
+        $languageService = app(LanguageService::class);
+        
         try {
             $redirectTo = request('redirect_to', FacadeURL::full());
-            $path = $this->languageService->switchLanguage($locale, $redirectTo);
-            $path = $this->languageService->addQueryParameters($path, $redirectTo);
+            $path = $languageService->switchLanguage($locale, $redirectTo);
+            $path = $languageService->addQueryParameters($path, $redirectTo);
             
             return redirect($path ?: "/{$locale}");
         } catch (\InvalidArgumentException $e) {

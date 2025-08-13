@@ -10,16 +10,16 @@ class BlogPage extends Component
 {
     use WithPagination;
 
-    public $selectedCategory = 'blog'; // Default to 'blog' for tab navigation
-    public $view = 'grid'; // Default view mode (grid or list)
-    public $categories = []; // Selected category IDs for filtering
-    public $searchQuery = ''; // Поисковый запрос
-    public $perPage = 12; // Количество постов на страницу
+    public $selectedCategory = 'blog';
+    public $view = 'grid';
+    public $categories = [];
+    public $searchQuery = '';
+    public $perPage = 12;
+    private BlogPostRepositoryInterface $blogPostRepository;
 
-    public function __construct(
-        private BlogPostRepositoryInterface $blogPostRepository
-    ) {
-        parent::__construct();
+    public function boot(BlogPostRepositoryInterface $blogPostRepository)
+    {
+        $this->blogPostRepository = $blogPostRepository;
     }
 
     /**

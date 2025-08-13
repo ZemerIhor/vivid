@@ -12,11 +12,11 @@ class BlogPostPage extends Component
 {
     public BlogPost $post;
     public $relatedPosts = [];
+    private BlogPostRepositoryInterface $blogPostRepository;
 
-    public function __construct(
-        private BlogPostRepositoryInterface $blogPostRepository
-    ) {
-        parent::__construct();
+    public function boot(BlogPostRepositoryInterface $blogPostRepository)
+    {
+        $this->blogPostRepository = $blogPostRepository;
     }
 
     public function mount($slug)

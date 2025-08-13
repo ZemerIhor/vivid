@@ -20,11 +20,11 @@ class ProductPage extends Component
     public int $quantity = 1;
     public $slug;
     protected ?Product $product = null;
+    private ProductRepositoryInterface $productRepository;
 
-    public function __construct(
-        private ProductRepositoryInterface $productRepository
-    ) {
-        parent::__construct();
+    public function boot(ProductRepositoryInterface $productRepository)
+    {
+        $this->productRepository = $productRepository;
     }
 
     public function mount($slug): void
