@@ -35,7 +35,7 @@ class ReviewResource extends Resource
                         ->required(),
                 ])
                 ->fieldTranslatableLabel(fn ($field, $locale) => __($field->getName(), [], $locale))
-                ->locales(['en', 'uk']),
+                ->locales(['en', 'pl']),
             TextInput::make('name')
                 ->label('Имя')
                 ->required(),

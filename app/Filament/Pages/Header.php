@@ -51,7 +51,7 @@ class Header extends Page implements HasForms
                 Section::make(__('Социальные сети'))
                     ->schema([
                         Translate::make()
-                            ->locales(['en', 'uk'])
+                            ->locales(['en', 'pl'])
                             ->schema([
                                 TextInput::make('instagram_url')
                                     ->label(__('Instagram URL'))

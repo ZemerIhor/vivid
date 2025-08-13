@@ -1,6 +1,6 @@
 @php
     $footer = app(\App\Settings\FooterSettings::class);
-    $currentLocale = app()->getLocale(); // Get current locale (e.g., 'en' or 'uk')
+    $currentLocale = app()->getLocale(); // Get current locale (e.g., 'en' or 'pl')
 @endphp
 
 <div x-data="{ isScrolled: false, mobileMenu: false, languageMenu: false }" @scroll.window="isScrolled = (window.scrollY > 0)">
@@ -9,7 +9,7 @@
             role="banner">
         <div class="nav-header flex relative px-2 justify-between items-center w-full h-auto container mx-auto">
             <!-- Logo -->
-            <a href="{{ app()->getLocale() === 'uk' ? url('/') : url('/en') }}"
+            <a href="{{ app()->getLocale() === 'pl' ? url('/') : url('/en') }}"
                class="flex items-center"
                aria-label="{{ __('messages.banner.catalog_button_aria_label') }}"
                wire:navigate>
@@ -202,7 +202,7 @@
                     $segments = explode('/', $currentUrl);
 
                     // Удалим текущую локаль, если она есть
-                    if (in_array($segments[0], ['en', 'uk'])) {
+                    if (in_array($segments[0], ['en', 'pl'])) {
                         array_shift($segments);
                     }
 
@@ -283,7 +283,7 @@
                                     {{ __('messages.language.english') }}
                                 </a>
                             @endif
-                            @if(app()->getLocale() !== 'uk')
+                            @if(app()->getLocale() !== 'pl')
                                 <a
                                     href="{{ $ukUrl }}"
                                     class="block px-4 py-2 text-sm text-zinc-800 hover:bg-green-600 hover:text-white"

@@ -20,7 +20,7 @@ class RouteGenerationTest extends TestCase
 
     public function test_catalog_route_generation_with_locale_is_prefixed()
     {
-        $url = route('catalog.view', ['locale' => 'uk'], false);
+        $url = route('catalog.view', ['locale' => 'pl'], false);
         $this->assertSame('/uk/catalog', $url);
     }
 

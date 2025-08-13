@@ -25,13 +25,13 @@ class ProductAttributesSeeder extends Seeder
 
             // Атрибуты
             $attributes = [
-                'calories' => ['en' => 'Calories', 'uk' => 'Калорійність'],
-                'moisture' => ['en' => 'Moisture content', 'uk' => 'Масова доля загальної вологи'],
-                'strength' => ['en' => 'Mechanical strength', 'uk' => 'Механічна міцність'],
-                'ash' => ['en' => 'Ash content', 'uk' => 'Зольність'],
-                'dimensions' => ['en' => 'Dimensions', 'uk' => 'Розміри'],
-                'material' => ['en' => 'Material', 'uk' => 'Сировина'],
-                'packaging' => ['en' => 'Packaging type', 'uk' => 'Вид пакування'],
+                'calories' => ['en' => 'Calories', 'pl' => 'Калорійність'],
+                'moisture' => ['en' => 'Moisture content', 'pl' => 'Масова доля загальної вологи'],
+                'strength' => ['en' => 'Mechanical strength', 'pl' => 'Механічна міцність'],
+                'ash' => ['en' => 'Ash content', 'pl' => 'Зольність'],
+                'dimensions' => ['en' => 'Dimensions', 'pl' => 'Розміри'],
+                'material' => ['en' => 'Material', 'pl' => 'Сировина'],
+                'packaging' => ['en' => 'Packaging type', 'pl' => 'Вид пакування'],
             ];
 
             $position = $group->attributes()->count() + 1;

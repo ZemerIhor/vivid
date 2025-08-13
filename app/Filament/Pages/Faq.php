@@ -52,7 +52,7 @@ class Faq extends Page implements HasForms
                 Section::make(__('Часто задаваемые вопросы'))
                     ->schema([
                         Translate::make()
-                            ->locales(['en', 'uk'])
+                            ->locales(['en', 'pl'])
                             ->schema([
                                 Repeater::make('faq_blocks')
                                     ->label(__('Блоки FAQ'))

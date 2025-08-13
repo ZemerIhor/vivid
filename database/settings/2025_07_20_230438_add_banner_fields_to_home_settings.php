@@ -9,8 +9,8 @@ return new class extends SettingsMigration
     public function up(): void
     {
         $this->migrator->add('home.banner_image', null);
-        $this->migrator->add('home.banner_title', ['en' => '', 'uk' => '']);
-        $this->migrator->add('home.banner_description', ['en' => '', 'uk' => '']);
+        $this->migrator->add('home.banner_title', ['en' => '', 'pl' => '']);
+        $this->migrator->add('home.banner_description', ['en' => '', 'pl' => '']);
     }
 
     public function down(): void

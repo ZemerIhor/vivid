@@ -46,7 +46,7 @@ class BlogPostResource extends Resource
                         ->label('SEO опис'),
                 ])
                 ->fieldTranslatableLabel(fn ($field, $locale) => __($field->getName(), [], $locale))
-                ->locales(['en', 'uk']),
+                ->locales(['en', 'pl']),
             TextInput::make('slug')
                 ->required()
                 ->unique(ignoreRecord: true),

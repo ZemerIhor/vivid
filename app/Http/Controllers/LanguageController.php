@@ -15,7 +15,7 @@ class LanguageController extends Controller
 {
     public function switch($locale)
     {
-        if (!in_array($locale, ['en', 'uk'])) {
+        if (!in_array($locale, ['en', 'pl'])) {
             \Log::warning('Invalid locale attempted: ' . $locale);
             return Redirect::back()->with('error', 'Invalid locale');
         }

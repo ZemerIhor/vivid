@@ -21,7 +21,7 @@ Route::get('/lang/{locale}', [\App\Http\Controllers\LanguageController::class, '
 
 // Быстрое переключение языка
 Route::get('/switch/{locale}', function ($locale) {
-    if (!in_array($locale, ['uk', 'en'])) {
+    if (!in_array($locale, ['pl', 'en'])) {
         abort(404);
     }
 

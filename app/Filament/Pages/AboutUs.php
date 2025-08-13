@@ -133,7 +133,7 @@ class AboutUs extends Page implements HasForms
                                     ->label(__('messages.about_us.hero_logo_alt'))
                                     ->rules(['nullable', 'string', 'max:255']),
                                 Translate::make()
-                                    ->locales(['en', 'uk'])
+                                    ->locales(['en', 'pl'])
                                     ->schema([
                                         TextInput::make('hero_title')
                                             ->label(__('messages.about_us.hero_title'))
@@ -176,7 +176,7 @@ class AboutUs extends Page implements HasForms
                                     ->defaultItems(3)
                                     ->maxItems(3),
                                 Translate::make()
-                                    ->locales(['en', 'uk'])
+                                    ->locales(['en', 'pl'])
                                     ->schema([
                                         Repeater::make('advantages')
                                             ->label(__('messages.about_us.advantages'))
@@ -206,7 +206,7 @@ class AboutUs extends Page implements HasForms
                         Section::make(__('messages.about_us.about_section'))
                             ->schema([
                                 Translate::make()
-                                    ->locales(['en', 'uk'])
+                                    ->locales(['en', 'pl'])
                                     ->schema([
                                         TextInput::make('about_title')
                                             ->label(__('messages.about_us.about_title'))
@@ -248,7 +248,7 @@ class AboutUs extends Page implements HasForms
                                     ->cloneable()
                                     ->defaultItems(5),
                                 Translate::make()
-                                    ->locales(['en', 'uk'])
+                                    ->locales(['en', 'pl'])
                                     ->schema([
                                         TextInput::make('gallery_title')
                                             ->label(__('messages.about_us.gallery_title'))
@@ -278,7 +278,7 @@ class AboutUs extends Page implements HasForms
                                     ->cloneable()
                                     ->defaultItems(5),
                                 Translate::make()
-                                    ->locales(['en', 'uk'])
+                                    ->locales(['en', 'pl'])
                                     ->schema([
                                         TextInput::make('certificates_title')
                                             ->label(__('messages.about_us.certificates_title'))

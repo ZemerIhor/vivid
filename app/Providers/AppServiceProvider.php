@@ -103,7 +103,7 @@ class AppServiceProvider extends ServiceProvider
                         ]),
                     FilamentorPlugin::make(),
                     FilamentTranslateFieldPlugin::make()
-                        ->defaultLocales(['en', 'uk']),
+                        ->defaultLocales(['en', 'pl']),
                 ])
         )->register();
     }

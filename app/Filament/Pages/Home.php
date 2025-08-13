@@ -38,39 +38,39 @@ class Home extends Page implements HasForms
 
         $this->data = [
             'banner_image' => $settings->banner_image,
-            'banner_title' => $settings->banner_title ?? ['en' => '', 'uk' => ''],
-            'banner_description' => $settings->banner_description ?? ['en' => '', 'uk' => ''],
-            'hero_slides' => $settings->hero_slides ?? ['en' => [], 'uk' => []],
-            'advantages_cards' => $settings->advantages_cards ?? ['en' => [], 'uk' => []],
+            'banner_title' => $settings->banner_title ?? ['en' => '', 'pl' => ''],
+            'banner_description' => $settings->banner_description ?? ['en' => '', 'pl' => ''],
+            'hero_slides' => $settings->hero_slides ?? ['en' => [], 'pl' => []],
+            'advantages_cards' => $settings->advantages_cards ?? ['en' => [], 'pl' => []],
             'advantages_image_1' => $settings->advantages_image_1,
             'advantages_image_2' => $settings->advantages_image_2,
             'advantages_image_3' => $settings->advantages_image_3,
-            'comparison_title' => $settings->comparison_title ?? ['en' => '', 'uk' => ''],
+            'comparison_title' => $settings->comparison_title ?? ['en' => '', 'pl' => ''],
             'main_comparison_image' => $settings->main_comparison_image,
-            'main_comparison_alt' => $settings->main_comparison_alt ?? ['en' => '', 'uk' => ''],
-            'comparison_items' => $settings->comparison_items ?? ['en' => [], 'uk' => []],
-            'central_text_value' => $settings->central_text_value ?? ['en' => '', 'uk' => ''],
-            'central_text_unit' => $settings->central_text_unit ?? ['en' => '', 'uk' => ''],
-            'faq_items' => $settings->faq_items ?? ['en' => [], 'uk' => []],
+            'main_comparison_alt' => $settings->main_comparison_alt ?? ['en' => '', 'pl' => ''],
+            'comparison_items' => $settings->comparison_items ?? ['en' => [], 'pl' => []],
+            'central_text_value' => $settings->central_text_value ?? ['en' => '', 'pl' => ''],
+            'central_text_unit' => $settings->central_text_unit ?? ['en' => '', 'pl' => ''],
+            'faq_items' => $settings->faq_items ?? ['en' => [], 'pl' => []],
             'faq_main_image' => $settings->faq_main_image ?? null,
-            'faq_main_image_alt' => $settings->faq_main_image_alt ?? ['en' => '', 'uk' => ''],
-            'feedback_form_title' => $settings->feedback_form_title ?? ['en' => '', 'uk' => ''],
-            'feedback_form_description' => $settings->feedback_form_description ?? ['en' => '', 'uk' => ''],
+            'faq_main_image_alt' => $settings->faq_main_image_alt ?? ['en' => '', 'pl' => ''],
+            'feedback_form_title' => $settings->feedback_form_title ?? ['en' => '', 'pl' => ''],
+            'feedback_form_description' => $settings->feedback_form_description ?? ['en' => '', 'pl' => ''],
             'feedback_form_image' => $settings->feedback_form_image,
-            'feedback_form_image_alt' => $settings->feedback_form_image_alt ?? ['en' => '', 'uk' => ''],
-            'tenders_title' => $settings->tenders_title ?? ['en' => '', 'uk' => ''],
-            'tender_items' => $settings->tender_items ?? ['en' => [], 'uk' => []],
-            'tenders_phone' => $settings->tenders_phone ?? ['en' => '', 'uk' => ''],
-            'about_title' => $settings->about_title ?? ['en' => '', 'uk' => ''],
-            'about_description' => $settings->about_description ?? ['en' => '', 'uk' => ''],
-            'about_more_link' => $settings->about_more_link ?? ['en' => '', 'uk' => ''],
-            'about_certificates_link' => $settings->about_certificates_link ?? ['en' => '', 'uk' => ''],
-            'about_statistic_title' => $settings->about_statistic_title ?? ['en' => '', 'uk' => ''],
-            'about_statistic_description' => $settings->about_statistic_description ?? ['en' => '', 'uk' => ''],
+            'feedback_form_image_alt' => $settings->feedback_form_image_alt ?? ['en' => '', 'pl' => ''],
+            'tenders_title' => $settings->tenders_title ?? ['en' => '', 'pl' => ''],
+            'tender_items' => $settings->tender_items ?? ['en' => [], 'pl' => []],
+            'tenders_phone' => $settings->tenders_phone ?? ['en' => '', 'pl' => ''],
+            'about_title' => $settings->about_title ?? ['en' => '', 'pl' => ''],
+            'about_description' => $settings->about_description ?? ['en' => '', 'pl' => ''],
+            'about_more_link' => $settings->about_more_link ?? ['en' => '', 'pl' => ''],
+            'about_certificates_link' => $settings->about_certificates_link ?? ['en' => '', 'pl' => ''],
+            'about_statistic_title' => $settings->about_statistic_title ?? ['en' => '', 'pl' => ''],
+            'about_statistic_description' => $settings->about_statistic_description ?? ['en' => '', 'pl' => ''],
             'about_location_image' => $settings->about_location_image,
-            'about_location_caption' => $settings->about_location_caption ?? ['en' => '', 'uk' => ''],
-            'reviews_title' => $settings->reviews_title ?? ['en' => '', 'uk' => ''],
-            'review_items' => $settings->review_items ?? ['en' => [], 'uk' => []],
+            'about_location_caption' => $settings->about_location_caption ?? ['en' => '', 'pl' => ''],
+            'reviews_title' => $settings->reviews_title ?? ['en' => '', 'pl' => ''],
+            'review_items' => $settings->review_items ?? ['en' => [], 'pl' => []],
         ];
 
         Log::info('Home Settings Loaded Data', ['data' => $this->data]);
@@ -91,7 +91,7 @@ class Home extends Page implements HasForms
                             ->maxSize(5120)
                             ->image(),
                         Translate::make()
-                            ->locales(['en', 'uk'])
+                            ->locales(['en', 'pl'])
                             ->schema([
                                 TextInput::make('banner_title')
                                     ->label(__('Заголовок баннера'))
@@ -106,7 +106,7 @@ class Home extends Page implements HasForms
                 Section::make(__('Баннер'))
                     ->schema([
                         Translate::make()
-                            ->locales(['en', 'uk'])
+                            ->locales(['en', 'pl'])
                             ->schema([
                                 Repeater::make('hero_slides')
                                     ->label(__('Слайды баннера'))
@@ -139,7 +139,7 @@ class Home extends Page implements HasForms
                 Section::make(__('Преимущества'))
                     ->schema([
                         Translate::make()
-                            ->locales(['en', 'uk'])
+                            ->locales(['en', 'pl'])
                             ->schema([
                                 Repeater::make('advantages_cards')
                                     ->label(__('Карточки преимуществ'))
@@ -190,7 +190,7 @@ class Home extends Page implements HasForms
                 Section::make(__('Сравнение'))
                     ->schema([
                         Translate::make()
-                            ->locales(['en', 'uk'])
+                            ->locales(['en', 'pl'])
                             ->schema([
                                 TextInput::make('comparison_title')
                                     ->label(__('Заголовок'))
@@ -242,7 +242,7 @@ class Home extends Page implements HasForms
                 Section::make(__('Поширені запитання'))
                     ->schema([
                         Translate::make()
-                            ->locales(['en', 'uk'])
+                            ->locales(['en', 'pl'])
                             ->schema([
                                 Repeater::make('faq_items')
                                     ->label(__('Пункти FAQ'))
@@ -282,7 +282,7 @@ class Home extends Page implements HasForms
                 Section::make(__('Тендери'))
                     ->schema([
                         Translate::make()
-                            ->locales(['en', 'uk'])
+                            ->locales(['en', 'pl'])
                             ->schema([
                                 TextInput::make('tenders_title')
                                     ->label(__('Заголовок'))
@@ -321,7 +321,7 @@ class Home extends Page implements HasForms
                 Section::make(__('Про нас'))
                     ->schema([
                         Translate::make()
-                            ->locales(['en', 'uk'])
+                            ->locales(['en', 'pl'])
                             ->schema([
                                 TextInput::make('about_title')
                                     ->label(__('Заголовок'))
@@ -387,9 +387,9 @@ class Home extends Page implements HasForms
 
             foreach ($translatableArrays as $field) {
                 if (!isset($data[$field]) || !is_array($data[$field])) {
-                    $data[$field] = ['en' => [], 'uk' => []];
+                    $data[$field] = ['en' => [], 'pl' => []];
                 } else {
-                    foreach (['en', 'uk'] as $locale) {
+                    foreach (['en', 'pl'] as $locale) {
                         if (!isset($data[$field][$locale]) || !is_array($data[$field][$locale])) {
                             $data[$field][$locale] = [];
                         }

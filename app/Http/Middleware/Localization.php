@@ -12,7 +12,7 @@ class Localization
     {
         $locale = $request->segment(1);
 
-        if (in_array($locale, ['en', 'uk'])) {
+        if (in_array($locale, ['en', 'pl'])) {
             // Локаль указана в URL (например, /en/...)
             App::setLocale($locale);
             Session::put('locale', $locale);

@@ -39,11 +39,11 @@ class Footer extends Page implements HasForms
 
         $this->data = [
             'phone' => $settings->phone ?? '',
-            'email' => $settings->email ?? ['en' => '', 'uk' => ''],
-            'address' => $settings->address ?? ['en' => '', 'uk' => ''],
-            'copyright_text' => $settings->copyright_text ?? ['en' => '', 'uk' => ''],
+            'email' => $settings->email ?? ['en' => '', 'pl' => ''],
+            'address' => $settings->address ?? ['en' => '', 'pl' => ''],
+            'copyright_text' => $settings->copyright_text ?? ['en' => '', 'pl' => ''],
             'social_links' => $settings->social_links ?? [],
-            'sections' => $settings->sections ?? ['en' => [], 'uk' => []],
+            'sections' => $settings->sections ?? ['en' => [], 'pl' => []],
         ];
 
         $this->form->fill($this->data);
@@ -58,7 +58,7 @@ class Footer extends Page implements HasForms
                     ->required()
                     ->maxLength(255),
                 Translate::make()
-                    ->locales(['en', 'uk'])
+                    ->locales(['en', 'pl'])
                     ->schema([
                         TextInput::make('email')
                             ->label(__('Email'))
@@ -142,16 +142,16 @@ class Footer extends Page implements HasForms
                 'email' => $data['email'] ?? '',
                 'address' => [
                     'en' => $data['address']['en'] ?? '',
-                    'uk' => $data['address']['uk'] ?? '',
+                    'pl' => $data['address']['pl'] ?? '',
                 ],
                 'copyright_text' => [
                     'en' => $data['copyright_text']['en'] ?? '',
-                    'uk' => $data['copyright_text']['uk'] ?? '',
+                    'pl' => $data['copyright_text']['pl'] ?? '',
                 ],
                 'social_links' => $data['social_links'] ?? [],
                 'sections' => [
                     'en' => $data['sections']['en'] ?? [],
-                    'uk' => $data['sections']['uk'] ?? [],
+                    'pl' => $data['sections']['pl'] ?? [],
                 ],
             ];
 

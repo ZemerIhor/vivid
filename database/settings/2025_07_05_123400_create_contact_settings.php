@@ -7,7 +7,7 @@ return new class extends SettingsMigration
     public function up(): void
     {
         $this->migrator->add('contacts.main_address', [
-            'uk' => '35680, вулиця Миру, будинок 1, cмт. Смига, Дубенський район, Рівненська область',
+            'pl' => '35680, вулиця Миру, будинок 1, cмт. Смига, Дубенський район, Рівненська область',
             'en' => '35680, Myru Street, Building 1, Smyha, Dubno District, Rivne Region',
         ]);
         $this->migrator->add('contacts.main_email', 'office@landgrou.com');
@@ -15,7 +15,7 @@ return new class extends SettingsMigration
         $this->migrator->add('contacts.sales_email', 'sales@landgrou.com');
         $this->migrator->add('contacts.export_phone', '+48731303479');
         $this->migrator->add('contacts.export_contact', [
-            'uk' => 'Вадим Каневський',
+            'pl' => 'Вадим Каневський',
             'en' => 'Wadym Kaniewski',
         ]);
         $this->migrator->add('contacts.export_email', 'w.kaniewski@landgrou.com');
@@ -29,7 +29,7 @@ return new class extends SettingsMigration
         ]);
         $this->migrator->add('contacts.map_image', '');
         $this->migrator->add('contacts.map_image_alt', [
-            'uk' => 'Карта розташування офісу',
+            'pl' => 'Карта розташування офісу',
             'en' => 'Office Location Map',
         ]);
     }

@@ -37,32 +37,32 @@ class GlobalSet extends Page implements HasForms
 
         // Инициализация данных формы из настроек
         $this->data = [
-            'site_name' => $settings->site_name ?? ['en' => '', 'uk' => ''],
-            'meta_description' => $settings->meta_description ?? ['en' => '', 'uk' => ''],
+            'site_name' => $settings->site_name ?? ['en' => '', 'pl' => ''],
+            'meta_description' => $settings->meta_description ?? ['en' => '', 'pl' => ''],
             'logo' => $settings->logo ?? '',
             'favicon' => $settings->favicon ?? '',
             'contact_email' => $settings->contact_email ?? 'contact@example.com',
-            'feedback_form_title' => $settings->feedback_form_title ?? ['en' => '', 'uk' => ''],
-            'feedback_form_description' => $settings->feedback_form_description ?? ['en' => '', 'uk' => ''],
+            'feedback_form_title' => $settings->feedback_form_title ?? ['en' => '', 'pl' => ''],
+            'feedback_form_description' => $settings->feedback_form_description ?? ['en' => '', 'pl' => ''],
             'feedback_form_image' => $settings->feedback_form_image ?? '',
-            'home_title' => $settings->home_title ?? ['en' => 'Home Page', 'uk' => 'Головна сторінка'],
-            'home_meta_description' => $settings->home_meta_description ?? ['en' => 'Welcome to our site’s home page', 'uk' => 'Ласкаво просимо на головну сторінку нашого сайту'],
-            'about_us_title' => $settings->about_us_title ?? ['en' => 'About Us', 'uk' => 'Про нас'],
-            'about_us_meta_description' => $settings->about_us_meta_description ?? ['en' => 'Learn more about our company', 'uk' => 'Дізнайтесь більше про нашу компанію'],
-            'contacts_title' => $settings->contacts_title ?? ['en' => 'Contacts', 'uk' => 'Контакти'],
-            'contacts_meta_description' => $settings->contacts_meta_description ?? ['en' => 'Get in touch with us', 'uk' => 'Зв’яжіться з нами'],
-            'faq_title' => $settings->faq_title ?? ['en' => 'FAQ', 'uk' => 'Поширені запитання'],
-            'faq_meta_description' => $settings->faq_meta_description ?? ['en' => 'Answers to frequently asked questions', 'uk' => 'Відповіді на поширені запитання'],
-            'reviews_title' => $settings->reviews_title ?? ['en' => 'Reviews', 'uk' => 'Відгуки'],
-            'reviews_meta_description' => $settings->reviews_meta_description ?? ['en' => 'Read our customer reviews', 'uk' => 'Читайте відгуки наших клієнтів'],
-            'submit_review_title' => $settings->submit_review_title ?? ['en' => 'Submit Review', 'uk' => 'Залишити відгук'],
-            'submit_review_meta_description' => $settings->submit_review_meta_description ?? ['en' => 'Share your feedback about our products', 'uk' => 'Поділіться своїм відгуком про наші продукти'],
-            'blog_title' => $settings->blog_title ?? ['en' => 'Blog', 'uk' => 'Блог'],
-            'blog_meta_description' => $settings->blog_meta_description ?? ['en' => 'Read our latest articles and news', 'uk' => 'Читайте наші останні статті та новини'],
-            'checkout_title' => $settings->checkout_title ?? ['en' => 'Checkout', 'uk' => 'Оформлення замовлення'],
-            'checkout_meta_description' => $settings->checkout_meta_description ?? ['en' => 'Complete your order quickly and easily', 'uk' => 'Оформіть ваше замовлення швидко та зручно'],
-            'checkout_success_title' => $settings->checkout_success_title ?? ['en' => 'Order Successfully Placed', 'uk' => 'Замовлення успішно оформлено'],
-            'checkout_success_meta_description' => $settings->checkout_success_meta_description ?? ['en' => 'Thank you for your order!', 'uk' => 'Дякуємо за ваше замовлення!'],
+            'home_title' => $settings->home_title ?? ['en' => 'Home Page', 'pl' => 'Головна сторінка'],
+            'home_meta_description' => $settings->home_meta_description ?? ['en' => 'Welcome to our site’s home page', 'pl' => 'Ласкаво просимо на головну сторінку нашого сайту'],
+            'about_us_title' => $settings->about_us_title ?? ['en' => 'About Us', 'pl' => 'Про нас'],
+            'about_us_meta_description' => $settings->about_us_meta_description ?? ['en' => 'Learn more about our company', 'pl' => 'Дізнайтесь більше про нашу компанію'],
+            'contacts_title' => $settings->contacts_title ?? ['en' => 'Contacts', 'pl' => 'Контакти'],
+            'contacts_meta_description' => $settings->contacts_meta_description ?? ['en' => 'Get in touch with us', 'pl' => 'Зв’яжіться з нами'],
+            'faq_title' => $settings->faq_title ?? ['en' => 'FAQ', 'pl' => 'Поширені запитання'],
+            'faq_meta_description' => $settings->faq_meta_description ?? ['en' => 'Answers to frequently asked questions', 'pl' => 'Відповіді на поширені запитання'],
+            'reviews_title' => $settings->reviews_title ?? ['en' => 'Reviews', 'pl' => 'Відгуки'],
+            'reviews_meta_description' => $settings->reviews_meta_description ?? ['en' => 'Read our customer reviews', 'pl' => 'Читайте відгуки наших клієнтів'],
+            'submit_review_title' => $settings->submit_review_title ?? ['en' => 'Submit Review', 'pl' => 'Залишити відгук'],
+            'submit_review_meta_description' => $settings->submit_review_meta_description ?? ['en' => 'Share your feedback about our products', 'pl' => 'Поділіться своїм відгуком про наші продукти'],
+            'blog_title' => $settings->blog_title ?? ['en' => 'Blog', 'pl' => 'Блог'],
+            'blog_meta_description' => $settings->blog_meta_description ?? ['en' => 'Read our latest articles and news', 'pl' => 'Читайте наші останні статті та новини'],
+            'checkout_title' => $settings->checkout_title ?? ['en' => 'Checkout', 'pl' => 'Оформлення замовлення'],
+            'checkout_meta_description' => $settings->checkout_meta_description ?? ['en' => 'Complete your order quickly and easily', 'pl' => 'Оформіть ваше замовлення швидко та зручно'],
+            'checkout_success_title' => $settings->checkout_success_title ?? ['en' => 'Order Successfully Placed', 'pl' => 'Замовлення успішно оформлено'],
+            'checkout_success_meta_description' => $settings->checkout_success_meta_description ?? ['en' => 'Thank you for your order!', 'pl' => 'Дякуємо за ваше замовлення!'],
         ];
 
         Log::info('Global Settings form initialized', ['data' => $this->data]);
@@ -77,7 +77,7 @@ class GlobalSet extends Page implements HasForms
                 Section::make(__('messages.settings.main_section'))
                     ->schema([
                         Translate::make()
-                            ->locales(['en', 'uk'])
+                            ->locales(['en', 'pl'])
                             ->schema([
                                 TextInput::make('site_name')
                                     ->label(__('messages.settings.site_name'))
@@ -115,7 +115,7 @@ class GlobalSet extends Page implements HasForms
                 Section::make(__('messages.settings.feedback_form_section'))
                     ->schema([
                         Translate::make()
-                            ->locales(['en', 'uk'])
+                            ->locales(['en', 'pl'])
                             ->schema([
                                 TextInput::make('feedback_form_title')
                                     ->label(__('messages.settings.feedback_form_title'))
@@ -141,7 +141,7 @@ class GlobalSet extends Page implements HasForms
                 Section::make(__('messages.settings.static_pages_section'))
                     ->schema([
                         Translate::make()
-                            ->locales(['en', 'uk'])
+                            ->locales(['en', 'pl'])
                             ->schema([
                                 TextInput::make('home_title')
                                     ->label(__('messages.settings.home_title'))

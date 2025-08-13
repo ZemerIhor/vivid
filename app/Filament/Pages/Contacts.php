@@ -35,17 +35,17 @@ class Contacts extends Page implements HasForms
         $settings = app(ContactSettings::class);
 
         $this->data = [
-            'main_address' => $settings->main_address ?? ['en' => '', 'uk' => ''],
+            'main_address' => $settings->main_address ?? ['en' => '', 'pl' => ''],
             'main_email' => $settings->main_email ?? '',
             'sales_phones' => $settings->sales_phones ?? [],
             'sales_email' => $settings->sales_email ?? '',
             'export_phone' => $settings->export_phone ?? '',
-            'export_contact' => $settings->export_contact ?? ['en' => '', 'uk' => ''],
+            'export_contact' => $settings->export_contact ?? ['en' => '', 'pl' => ''],
             'export_email' => $settings->export_email ?? '',
             'additional_emails' => collect($settings->additional_emails ?? [])->map(function ($value, $key) {
                 return ['key' => $key, 'value' => $value];
             })->values()->toArray(),
-            'map_image_alt' => $settings->map_image_alt ?? ['en' => '', 'uk' => ''],
+            'map_image_alt' => $settings->map_image_alt ?? ['en' => '', 'pl' => ''],
             'map_latitude' => $settings->map_latitude ?? '',
             'map_longitude' => $settings->map_longitude ?? '',
         ];
@@ -81,7 +81,7 @@ class Contacts extends Page implements HasForms
                             ->required()
                             ->maxLength(20),
                         Translate::make()
-                            ->locales(['en', 'uk'])
+                            ->locales(['en', 'pl'])
                             ->schema([
                                 TextInput::make('main_address')
                                     ->label(__('messages.contacts.address'))

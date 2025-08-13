@@ -86,11 +86,11 @@
 
                                     $locale = app()->getLocale();
                                     $routeParams = ['slug' => $slug];
-                                    if ($locale !== 'uk') {
+                                    if ($locale !== 'pl') {
                                         $routeParams['locale'] = $locale;
                                     }
 
-                                    $postUrl = $hasValidSlug ? route('blog.post', $routeParams, false) : route('home', $locale !== 'uk' ? ['locale' => $locale] : [], false);
+                                    $postUrl = $hasValidSlug ? route('blog.post', $routeParams, false) : route('home', $locale !== 'pl' ? ['locale' => $locale] : [], false);
                                 @endphp
 
                             <article wire:key="post-{{ $post->id }}" class="flex flex-col items-start rounded-3xl bg-neutral-200 relative blog-card max-sm:w-full overflow-hidden" style="border-radius: 20px" tabindex="0" role="article">

@@ -9,8 +9,8 @@ return [
     | These are the locales this package will use generate the tabs
     |
     */
-    'default_locales' => ['uk', 'en'],
-    'required_locales' => ['uk', 'en'],
+    'default_locales' => ['pl', 'en'],
+    'required_locales' => ['pl', 'en'],
     /*
     |--------------------------------------------------------------------------
     | Required Locales
