@@ -19,7 +19,10 @@
                 $postUrl = $hasValidSlug ? route('blog.post', $routeParams, false) : route('home', $locale !== config('app.fallback_locale') ? ['locale' => $locale] : [], false);
             @endphp
 
-            <a href="{{ $postUrl }}" wire:navigate class="block overflow-hidden relative flex-1 shrink self-stretch my-auto rounded-3xl basis-0 bg-neutral-200 min-w-60 hover:shadow-lg transition-shadow h-full" aria-label="{{ __('blog.read_article', ['title' => $post->getTranslation('title', $locale)]) }}">
+            <a
+{{--                href="{{'$postUrl }}" --}}
+    href="#"
+               wire:navigate class="block overflow-hidden relative flex-1 shrink self-stretch my-auto rounded-3xl basis-0 bg-neutral-200 min-w-60 hover:shadow-lg transition-shadow h-full" aria-label="{{ __('blog.read_article', ['title' => $post->getTranslation('title', $locale)]) }}">
                 <article class="overflow-hidden" role="article">
                     <div class="overflow-hidden z-0 w-full">
                         <img
@@ -49,7 +52,8 @@
 
     @if ($posts->count() > 0)
         <a
-            href="{{ route('blog.index', $locale !== config('app.fallback_locale') ? ['locale' => $locale] : []) }}"
+{{--            href="{{ route('blog.index', $locale !== config('app.fallback_locale') ? ['locale' => $locale] : []) }}"--}}
+    href="#"
             class="flex gap-2 justify-center items-center self-center px-6 py-2.5 mt-5 text-base font-bold leading-snug text-green-600 whitespace-nowrap rounded-2xl border-2 border-green-600 border-solid min-h-11 max-md:px-5 hover:bg-green-50 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-offset-2 transition-colors"
             aria-label="{{ __('messages.blog.read_more') }}"
         >
