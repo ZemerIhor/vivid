@@ -209,7 +209,7 @@
                     $pathWithoutLocale = implode('/', $segments);
 
                     $enUrl = url('/en/' . $pathWithoutLocale);
-                    $ukUrl = url('/uk/' . $pathWithoutLocale);
+                    $ukUrl = url('/pl/' . $pathWithoutLocale);
 
                     \Log::info('Header Language Switch', [
                         'current_locale' => app()->getLocale(),
