@@ -115,7 +115,7 @@
                 $pageDescription = __('messages.search.meta_description', [], $locale);
                 break;
             case 'blog.post':
-                $post = \App\Models\Post::where('slug', request()->route()->parameter('slug'))->first();
+                $post = \App\Models\BlogPost::where('slug', request()->route()->parameter('slug'))->first();
                 $pageTitle = $post ? ($post->translateAttribute('title') ?? __('messages.blog.post_default_title', [], $locale)) : __('messages.blog.post_default_title', [], $locale);
                 $pageDescription = $post ? (strip_tags($post->translateAttribute('excerpt')) ?? __('messages.blog.post_default_meta_description', [], $locale)) : __('messages.blog.post_default_meta_description', [], $locale);
                 break;
