@@ -20,7 +20,7 @@
 
             @php
                 use Datlechin\FilamentMenuBuilder\Models\Menu;
-                $headerLocation = app()->getLocale() === 'en' ? 'header_en' : 'header_uk';
+                $headerLocation = app()->getLocale() === 'en' ? 'header_en' : 'header_pl';
                 $headerMenu = Menu::location($headerLocation);
                 \Log::info('Header Menu Debug', [
                     'location' => $headerLocation,
