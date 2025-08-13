@@ -47,12 +47,89 @@ class LanguageService
     }
 
     /**
+     * Detect locale from URL or session
+     */
+    public function detectLocale(?string $urlLocale = null): string
+    {
+        // Сначала проверяем URL
+        if ($urlLocale && $this->isValidLocale($urlLocale)) {
+            return $urlLocale;
+        }
+
+        // Затем сессию
+        $sessionLocale = Session::get('locale');
+        if ($sessionLocale && $this->isValidLocale($sessionLocale)) {
+            return $sessionLocale;
+        }
+
+        // Затем заголовки браузера
+        $browserLocale = $this->getBrowserLocale();
+        if ($browserLocale && $this->isValidLocale($browserLocale)) {
+            return $browserLocale;
+        }
+
+        // Дефолтная локаль
+        return config('app.locale', 'en');
+    }
+
+    /**
      * Set application locale
      */
-    private function setLocale(string $locale): void
+    public function setLocale(string $locale): bool
     {
+        if (!$this->isValidLocale($locale)) {
+            return false;
+        }
+
         Session::put('locale', $locale);
         App::setLocale($locale);
+        
+        return true;
+    }
+
+    /**
+     * Get locale from browser headers
+     */
+    private function getBrowserLocale(): ?string
+    {
+        $acceptLanguage = request()->header('Accept-Language');
+        
+        if (!$acceptLanguage) {
+            return null;
+        }
+
+        // Парсим Accept-Language заголовок
+        $languages = [];
+        foreach (explode(',', $acceptLanguage) as $lang) {
+            $parts = explode(';', trim($lang));
+            $locale = trim($parts[0]);
+            $quality = 1.0;
+            
+            if (isset($parts[1]) && str_starts_with(trim($parts[1]), 'q=')) {
+                $quality = (float) substr(trim($parts[1]), 2);
+            }
+            
+            $languages[$locale] = $quality;
+        }
+
+        // Сортируем по качеству
+        arsort($languages);
+
+        // Ищем поддерживаемую локаль
+        foreach (array_keys($languages) as $locale) {
+            // Проверяем полную локаль (например, en-US)
+            if ($this->isValidLocale($locale)) {
+                return $locale;
+            }
+            
+            // Проверяем основную часть (например, en из en-US)
+            $mainLocale = explode('-', $locale)[0];
+            if ($this->isValidLocale($mainLocale)) {
+                return $mainLocale;
+            }
+        }
+
+        return null;
     }
 
     /**

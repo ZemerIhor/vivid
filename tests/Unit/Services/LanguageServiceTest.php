@@ -71,18 +71,38 @@ class LanguageServiceTest extends TestCase
         $this->assertEquals('pl', $this->service->getCurrentLocale());
     }
 
-    public function test_get_locale_from_request_returns_session_locale_when_no_url_locale()
+    public function test_detect_locale_returns_url_locale_when_valid()
     {
-        // Simulate session locale
+        $result = $this->service->detectLocale('pl');
+        $this->assertEquals('pl', $result);
+        
+        $result = $this->service->detectLocale('en');
+        $this->assertEquals('en', $result);
+    }
+
+    public function test_detect_locale_returns_session_locale_when_url_invalid()
+    {
         session(['locale' => 'pl']);
         
-        // Mock request without locale in URL
-        $this->mock('request', function ($mock) {
-            $mock->shouldReceive('segment')->with(1)->andReturn('products');
-        });
-        
-        $result = $this->service->getLocaleFromRequest();
-        
+        $result = $this->service->detectLocale('invalid');
         $this->assertEquals('pl', $result);
+    }
+
+    public function test_detect_locale_returns_default_when_no_valid_locale()
+    {
+        $result = $this->service->detectLocale('invalid');
+        $this->assertEquals('en', $result); // Assuming 'en' is the default
+    }
+
+    public function test_set_locale_returns_true_for_valid_locale()
+    {
+        $this->assertTrue($this->service->setLocale('en'));
+        $this->assertTrue($this->service->setLocale('pl'));
+    }
+
+    public function test_set_locale_returns_false_for_invalid_locale()
+    {
+        $this->assertFalse($this->service->setLocale('invalid'));
+        $this->assertFalse($this->service->setLocale('fr'));
     }
 }
