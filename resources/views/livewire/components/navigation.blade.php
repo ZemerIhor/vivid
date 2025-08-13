@@ -215,7 +215,7 @@
                         'current_locale' => app()->getLocale(),
                         'current_url' => request()->fullUrl(),
                         'en_url' => $enUrl,
-                        'uk_url' => $ukUrl,
+                        'pl_url' => $ukUrl,
                     ]);
                 @endphp
 
@@ -289,7 +289,7 @@
                                     class="block px-4 py-2 text-sm text-zinc-800 hover:bg-green-600 hover:text-white"
                                     wire:navigate
                                 >
-                                    {{ __('messages.language.ukrainian') }}
+                                    {{ __('messages.language.poland') }}
                                 </a>
                             @endif
                         </div>

@@ -145,7 +145,7 @@ return [
     'language' => [
         'current' => 'Język',
         'english' => 'Angielski',
-        'ukrainian' => 'Ukraiński',
+        'poland' => 'Ukraiński',
     ],
     'header' => [
         'instagram_subscribe' => 'Subskrybuj na Instagramie',
