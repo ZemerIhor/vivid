@@ -57,14 +57,14 @@
                     </fieldset>
                     <footer class="flex z-0 flex-col mt-10 w-full max-md:max-w-full">
                         <div class="flex gap-4 items-center w-full text-base font-bold leading-snug whitespace-nowrap max-md:max-w-full" role="group">
-                            <button
-                                type="button"
-                                wire:click="goBack"
-                                class="gap-2 px-6 py-2.5 text-green-600 rounded-2xl border-2 border-solid border-[color:var(--Primaries-700,#228F5D)] min-h-11 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-offset-2 hover:bg-green-50 transition-colors"
-                                aria-label="{{ __('messages.feedback_form.back_button') }}"
-                            >
-                                {{ __('messages.feedback_form.back_button') }}
-                            </button>
+{{--                            <button--}}
+{{--                                type="button"--}}
+{{--                                wire:click="goBack"--}}
+{{--                                class="gap-2 px-6 py-2.5 text-green-600 rounded-2xl border-2 border-solid border-[color:var(--Primaries-700,#228F5D)] min-h-11 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-offset-2 hover:bg-green-50 transition-colors"--}}
+{{--                                aria-label="{{ __('messages.feedback_form.back_button') }}"--}}
+{{--                            >--}}
+{{--                                {{ __('messages.feedback_form.back_button') }}--}}
+{{--                            </button>--}}
                             <button
                                 type="submit"
                                 wire:loading.attr="disabled"
