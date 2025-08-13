@@ -43,6 +43,33 @@ class HomeSettings extends Settings
     public  $about_location_image = null;
     public $about_location_caption;
 
+    protected array $translatable = [
+        'banner_title',
+        'banner_description',
+        'hero_slides',
+        'advantages_cards',
+        'comparison_title',
+        'main_comparison_alt',
+        'comparison_items',
+        'central_text_value',
+        'central_text_unit',
+        'faq_items',
+        'faq_main_image_alt',
+        'feedback_form_title',
+        'feedback_form_description',
+        'feedback_form_image_alt',
+        'tenders_title',
+        'tender_items',
+        'tenders_phone',
+        'about_title',
+        'about_description',
+        'about_more_link',
+        'about_certificates_link',
+        'about_statistic_title',
+        'about_statistic_description',
+        'about_location_caption',
+    ];
+
     public static function group(): string
     {
         return 'home';
