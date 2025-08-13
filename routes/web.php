@@ -55,4 +55,5 @@ Route::group(['prefix' => '{locale?}', 'middleware' => ['localization']], functi
     Route::get('/products/{slug}', ProductPage::class)->name('product.view');
 
 
+
 });
