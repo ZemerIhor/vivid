@@ -57,4 +57,5 @@ Route::group(['prefix' => '{locale?}', 'middleware' => ['localization']], functi
 
 
 
+
 });
