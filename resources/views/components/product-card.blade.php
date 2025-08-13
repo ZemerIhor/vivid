@@ -75,7 +75,7 @@
                         class="px-4 py-2 text-sm font-bold text-green-600 rounded-2xl border-2 border-green-600 hover:bg-green-600 hover:text-white focus:outline-none focus:ring-2 focus:ring-green-600 w-full max-w-xs"
                         aria-label="{{ __('messages.feedback_form.submit_button') }}"
                     >
-                        Замовити
+                        {{ __('messages.feedback_form.submit_button') }}
                     </button>
                 </div>
             </div>
