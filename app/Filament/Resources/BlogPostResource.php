@@ -32,7 +32,7 @@ class BlogPostResource extends Resource
                 ->columnSpanFull()
                 ->schema([
                     TextInput::make('title')
-                        ->label('Заголовок')
+                        ->label('Назва')
                         ->required(),
                     Textarea::make('excerpt')
                         ->label('Короткий опис'),
@@ -41,22 +41,24 @@ class BlogPostResource extends Resource
                         ->required()
                         ->columnSpanFull(),
                     TextInput::make('seo_title')
-                        ->label('SEO заголовок'),
+                        ->label('SEO назва'),
                     Textarea::make('seo_description')
                         ->label('SEO опис'),
                 ])
                 ->fieldTranslatableLabel(fn ($field, $locale) => __($field->getName(), [], $locale))
                 ->locales(['en', 'pl']),
             TextInput::make('slug')
+                ->label('Слаг (URL)')
                 ->required()
                 ->unique(ignoreRecord: true),
             FileUpload::make('banner')
+                ->label('Банер')
                 ->image()
                 ->disk('public'),
             Toggle::make('published')
-                ->label('Опубликовано'),
+                ->label('Опубліковано'),
             DateTimePicker::make('published_at')
-                ->label('Дата публикации'),
+                ->label('Дата публікації'),
         ]);
     }
 
@@ -65,21 +67,21 @@ class BlogPostResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('title')
-                    ->label('Заголовок')
+                    ->label('Назва')
                     ->getStateUsing(fn ($record) => $record->getTranslation('title', app()->getLocale()))
                     ->limit(40),
                 IconColumn::make('published')
                     ->boolean()
-                    ->label('Публ.'),
+                    ->label('Опубл.'),
                 TextColumn::make('published_at')
                     ->dateTime()
-                    ->label('Дата публикации'),
+                    ->label('Дата публікації'),
             ])
             ->filters([])
             ->actions([
                 \Filament\Tables\Actions\EditAction::make(),
                 Action::make('duplicate')
-                    ->label('Дублировать')
+                    ->label('Дублювати')
                     ->icon('heroicon-o-document-duplicate')
                     ->action(function ($record) {
                         $newRecord = $record->replicate();
@@ -98,7 +100,7 @@ class BlogPostResource extends Resource
                         $newRecord->save();
 
                         Notification::make()
-                            ->title('Пост успешно дублирован')
+                            ->title('Пост успішно дубльовано')
                             ->success()
                             ->send();
                     })

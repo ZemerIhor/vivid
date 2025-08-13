@@ -31,22 +31,22 @@ class ReviewResource extends Resource
                 ->columnSpanFull()
                 ->schema([
                     Textarea::make('comment')
-                        ->label('Отзыв')
+                        ->label('Відгук')
                         ->required(),
                 ])
                 ->fieldTranslatableLabel(fn ($field, $locale) => __($field->getName(), [], $locale))
                 ->locales(['en', 'pl']),
             TextInput::make('name')
-                ->label('Имя')
+                ->label('Ім’я')
                 ->required(),
             Select::make('rating')
                 ->label('Рейтинг')
                 ->options([1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5])
                 ->required(),
             Toggle::make('published')
-                ->label('Опубликовано'),
+                ->label('Опубліковано'),
             DateTimePicker::make('published_at')
-                ->label('Дата публикации'),
+                ->label('Дата публікації'),
         ]);
     }
 
@@ -55,25 +55,25 @@ class ReviewResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('name')
-                    ->label('Имя'),
+                    ->label('Ім’я'),
                 TextColumn::make('rating')
                     ->label('Рейтинг'),
                 TextColumn::make('comment')
-                    ->label('Отзыв')
+                    ->label('Відгук')
                     ->getStateUsing(fn ($record) => $record->getTranslation('comment', app()->getLocale()))
                     ->limit(50),
                 IconColumn::make('published')
-                    ->label('Опубликовано')
+                    ->label('Опубліковано')
                     ->boolean(),
                 TextColumn::make('published_at')
-                    ->label('Дата публикации')
-                    ->formatStateUsing(fn ($state) => $state ? \Carbon\Carbon::parse($state)->locale(app()->getLocale())->translatedFormat('d F Y') : 'Не опубликовано'),
+                    ->label('Дата публікації')
+                    ->formatStateUsing(fn ($state) => $state ? \Carbon\Carbon::parse($state)->locale('uk')->translatedFormat('d F Y') : 'Не опубліковано'),
             ])
             ->filters([])
             ->actions([
                 \Filament\Tables\Actions\EditAction::make(),
                 Action::make('duplicate')
-                    ->label('Дублировать')
+                    ->label('Дублювати')
                     ->icon('heroicon-o-document-duplicate')
                     ->action(function ($record) {
                         $newRecord = $record->replicate();
@@ -90,7 +90,7 @@ class ReviewResource extends Resource
                         $newRecord->save();
 
                         Notification::make()
-                            ->title('Отзыв успешно дублирован')
+                            ->title('Відгук успішно дубльовано')
                             ->success()
                             ->send();
                     })
