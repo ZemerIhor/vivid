@@ -475,7 +475,7 @@
                             class="px-6 py-3 bg-green-600 text-white rounded-2xl hover:bg-green-700 transition"
                             aria-label="{{ __('messages.feedback_form.submit_button') }}"
                         >
-                            Замовити
+                          {{ __('messages.feedback_form.submit_button') }}
                   </button>
                 </nav>
             </header>
