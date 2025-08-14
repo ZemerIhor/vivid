@@ -23,7 +23,7 @@ class Home extends Page implements HasForms
     protected static ?string $navigationIcon = 'heroicon-o-document-text';
     protected static string $view = 'filament.pages.home';
     protected static string $settings = HomeSettings::class;
-    protected static ?string $navigationLabel = 'Home Settings';
+    protected static ?string $navigationLabel = 'Налаштування головної';
 
     public static function getSlug(): string
     {

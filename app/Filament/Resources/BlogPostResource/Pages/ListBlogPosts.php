@@ -13,7 +13,20 @@ class ListBlogPosts extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+            Actions\CreateAction::make()
+                ->label('Створити пост'),
+        ];
+    }
+
+    public function getTitle(): string
+    {
+        return 'Блог пости';
+    }
+
+    protected function getHeaderWidgets(): array
+    {
+        return [
+            // BlogPostResource\Widgets\BlogPostStatsWidget::class,
         ];
     }
 }

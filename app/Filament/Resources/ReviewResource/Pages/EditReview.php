@@ -13,7 +13,25 @@ class EditReview extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
-            Actions\DeleteAction::make(),
+            Actions\ViewAction::make()
+                ->label('Переглянути'),
+            Actions\DeleteAction::make()
+                ->label('Видалити'),
         ];
+    }
+
+    public function getTitle(): string
+    {
+        return 'Редагувати відгук';
+    }
+
+    protected function getRedirectUrl(): string
+    {
+        return $this->getResource()::getUrl('index');
+    }
+
+    protected function getSavedNotificationTitle(): ?string
+    {
+        return 'Відгук успішно оновлено';
     }
 }

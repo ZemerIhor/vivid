@@ -24,7 +24,7 @@ class Footer extends Page implements HasForms
 
     protected static string $settings = FooterSettings::class;
 
-    protected static ?string $navigationLabel = 'Footer Settings';
+    protected static ?string $navigationLabel = 'Налаштування футера';
 
     public static function getSlug(): string
     {

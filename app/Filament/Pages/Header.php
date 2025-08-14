@@ -22,7 +22,7 @@ class Header extends Page implements HasForms
 
     protected static string $settings = HeaderSettings::class;
 
-    protected static ?string $navigationLabel = 'Header Settings';
+    protected static ?string $navigationLabel = 'Налаштування шапки';
 
     public static function getSlug(): string
     {

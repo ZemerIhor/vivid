@@ -13,7 +13,20 @@ class ListReviews extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+            Actions\CreateAction::make()
+                ->label('Створити відгук'),
+        ];
+    }
+
+    public function getTitle(): string
+    {
+        return 'Відгуки клієнтів';
+    }
+
+    protected function getHeaderWidgets(): array
+    {
+        return [
+            // ReviewResource\Widgets\ReviewStatsWidget::class,
         ];
     }
 }

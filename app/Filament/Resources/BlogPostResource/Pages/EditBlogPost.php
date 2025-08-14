@@ -13,7 +13,25 @@ class EditBlogPost extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
-            Actions\DeleteAction::make(),
+            Actions\ViewAction::make()
+                ->label('Переглянути'),
+            Actions\DeleteAction::make()
+                ->label('Видалити'),
         ];
+    }
+
+    public function getTitle(): string
+    {
+        return 'Редагувати блог пост';
+    }
+
+    protected function getRedirectUrl(): string
+    {
+        return $this->getResource()::getUrl('index');
+    }
+
+    protected function getSavedNotificationTitle(): ?string
+    {
+        return 'Блог пост успішно оновлено';
     }
 }

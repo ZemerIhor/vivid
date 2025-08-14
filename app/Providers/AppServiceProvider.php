@@ -21,6 +21,7 @@ use Filament\SpatieLaravelTranslatablePlugin;
 use Geosem42\Filamentor\FilamentorPlugin;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\App;
 use Kenepa\TranslationManager\TranslationManagerPlugin;
 use Lunar\Admin\Filament\Resources\ProductResource;
 use Lunar\Admin\Support\Facades\LunarPanel;
@@ -113,6 +114,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(ShippingModifiers $shippingModifiers): void
     {
+        
         $shippingModifiers->add(
             ShippingModifier::class
         );

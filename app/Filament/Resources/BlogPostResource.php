@@ -25,6 +25,12 @@ class BlogPostResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    protected static ?string $navigationLabel = 'Блог пости';
+    
+    protected static ?string $modelLabel = 'Блог пост';
+    
+    protected static ?string $pluralModelLabel = 'Блог пости';
+
     public static function form(Form $form): Form
     {
         return $form->schema([
@@ -45,20 +51,24 @@ class BlogPostResource extends Resource
                     Textarea::make('seo_description')
                         ->label('SEO опис'),
                 ])
-                ->fieldTranslatableLabel(fn ($field, $locale) => __($field->getName(), [], $locale))
+                ->fieldTranslatableLabel(fn ($field, $locale) => $field->getLabel() . ' (' . strtoupper($locale) . ')')
                 ->locales(['en', 'pl']),
             TextInput::make('slug')
-                ->label('Слаг (URL)')
+                ->label('URL-адреса')
                 ->required()
-                ->unique(ignoreRecord: true),
+                ->unique(ignoreRecord: true)
+                ->helperText('Унікальна адреса для посту'),
             FileUpload::make('banner')
                 ->label('Банер')
                 ->image()
-                ->disk('public'),
+                ->disk('public')
+                ->helperText('Зображення для посту'),
             Toggle::make('published')
-                ->label('Опубліковано'),
+                ->label('Опубліковано')
+                ->helperText('Чи видимий пост на сайті'),
             DateTimePicker::make('published_at')
-                ->label('Дата публікації'),
+                ->label('Дата публікації')
+                ->helperText('Коли пост буде опублікований'),
         ]);
     }
 
@@ -68,18 +78,39 @@ class BlogPostResource extends Resource
             ->columns([
                 TextColumn::make('title')
                     ->label('Назва')
-                    ->getStateUsing(fn ($record) => $record->getTranslation('title', app()->getLocale()))
-                    ->limit(40),
+                    ->getStateUsing(fn ($record) => $record->getTranslation('title', 'en') ?? $record->getTranslation('title', 'pl') ?? 'Без назви')
+                    ->limit(40)
+                    ->searchable(),
+                TextColumn::make('slug')
+                    ->label('URL')
+                    ->limit(30)
+                    ->searchable(),
                 IconColumn::make('published')
                     ->boolean()
-                    ->label('Опубл.'),
+                    ->label('Опублікований')
+                    ->sortable(),
                 TextColumn::make('published_at')
-                    ->dateTime()
-                    ->label('Дата публікації'),
+                    ->dateTime('d.m.Y H:i')
+                    ->label('Дата публікації')
+                    ->sortable(),
+                TextColumn::make('created_at')
+                    ->dateTime('d.m.Y H:i')
+                    ->label('Створено')
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
-            ->filters([])
+            ->filters([
+                \Filament\Tables\Filters\TernaryFilter::make('published')
+                    ->label('Статус публікації')
+                    ->placeholder('Всі пости')
+                    ->trueLabel('Опубліковані')
+                    ->falseLabel('Неопубліковані'),
+            ])
             ->actions([
-                \Filament\Tables\Actions\EditAction::make(),
+                \Filament\Tables\Actions\ViewAction::make()
+                    ->label('Переглянути'),
+                \Filament\Tables\Actions\EditAction::make()
+                    ->label('Редагувати'),
                 Action::make('duplicate')
                     ->label('Дублювати')
                     ->icon('heroicon-o-document-duplicate')
@@ -87,14 +118,16 @@ class BlogPostResource extends Resource
                         $newRecord = $record->replicate();
                         $newRecord->published = false;
                         $newRecord->published_at = null;
-                        // Ensure unique slug
-                        $newRecord->slug = $newRecord->slug . '-' . uniqid();
+                        $newRecord->slug = $newRecord->slug . '-копія-' . uniqid();
                         $newRecord->save();
 
                         // Copy translations
-                        foreach ($record->getTranslations() as $attribute => $translations) {
-                            foreach ($translations as $locale => $value) {
-                                $newRecord->setTranslation($attribute, $locale, $value);
+                        foreach (['title', 'excerpt', 'content', 'seo_title', 'seo_description'] as $field) {
+                            foreach (['en', 'pl'] as $locale) {
+                                $value = $record->getTranslation($field, $locale);
+                                if ($value) {
+                                    $newRecord->setTranslation($field, $locale, $value);
+                                }
                             }
                         }
                         $newRecord->save();
@@ -105,11 +138,18 @@ class BlogPostResource extends Resource
                             ->send();
                     })
                     ->requiresConfirmation()
+                    ->modalHeading('Дублювати пост')
+                    ->modalDescription('Ви впевнені, що хочете створити копію цього поста?')
+                    ->modalSubmitActionLabel('Так, дублювати')
                     ->color('warning'),
+                \Filament\Tables\Actions\DeleteAction::make()
+                    ->label('Видалити'),
             ])
             ->bulkActions([
-                \Filament\Tables\Actions\DeleteBulkAction::make(),
-            ]);
+                \Filament\Tables\Actions\DeleteBulkAction::make()
+                    ->label('Видалити вибрані'),
+            ])
+            ->defaultSort('created_at', 'desc');
     }
 
     public static function getRelations(): array
