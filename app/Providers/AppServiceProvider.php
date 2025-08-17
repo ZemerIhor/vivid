@@ -21,6 +21,7 @@ use Filament\SpatieLaravelTranslatablePlugin;
 use Geosem42\Filamentor\FilamentorPlugin;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\ServiceProvider;
 use Kenepa\TranslationManager\TranslationManagerPlugin;
 use Lunar\Admin\Filament\Resources\ProductResource;
 use Lunar\Admin\Support\Facades\LunarPanel;
