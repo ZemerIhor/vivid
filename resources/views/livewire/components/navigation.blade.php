@@ -156,17 +156,6 @@
             <div class="desktop-menu ">
                  <div class="flex items-center">
 
-             @if (!empty($footer->phone))
-                                <div class="contact-item">
-                                    <a href="tel:{{ $footer->phone }}" class=""
-                                        aria-label="{{ __('messages.footer.phone_aria_label') }}">
-                                        {{ $footer->phone }}
-                                    </a>
-                                </div>
-                            @endif
-                </div>
-
-                <div class="hidden">
                 @if ($headerMenu)
                     <ul class="mobile-menu-items">
                         @foreach ($headerMenu->menuItems as $item)
@@ -175,7 +164,7 @@
                                 @if ($item->children)
                                     <ul>
                                         @foreach ($item->children as $child)
-                                            <li><a href="{{ $child->url }}">{{ $child->title }}</a></li>
+                                            <li><a href="#">{{ $child->title }}</a></li>
                                         @endforeach
                                     </ul>
                                 @endif
@@ -183,7 +172,6 @@
                         @endforeach
                     </ul>
                 @endif
-                </div>
 
             </div>
 
