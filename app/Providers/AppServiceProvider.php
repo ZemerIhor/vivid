@@ -20,7 +20,6 @@ use Datlechin\FilamentMenuBuilder\MenuPanel\StaticMenuPanel;
 use Filament\SpatieLaravelTranslatablePlugin;
 use Geosem42\Filamentor\FilamentorPlugin;
 use Illuminate\Support\Facades\Blade;
-use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\App;
 use Kenepa\TranslationManager\TranslationManagerPlugin;
 use Lunar\Admin\Filament\Resources\ProductResource;
@@ -55,13 +54,13 @@ class AppServiceProvider extends ServiceProvider
                 ->plugins([
                     new ShippingPlugin,
                     FilamentMenuBuilderPlugin::make()
-                        ->addLocation('header_en', 'Header EN') // Локация для хедера (английский)
-                        ->addLocation('header_uk', 'Header UK') // Локация для хедера (украинский)
-                        ->addLocation('footer_en', 'Footer EN') // Локация для футера (английский)
-                        ->addLocation('footer_uk', 'Footer UK') // Локация для футера (украинский)
+                        ->addLocation('header_en', 'Header EN') // Location for header (English)
+                        ->addLocation('header_pl', 'Header PL') // Location for header (Polish)
+                        ->addLocation('footer_en', 'Footer EN') // Location for footer (English)
+                        ->addLocation('footer_pl', 'Footer PL') // Location for footer (Polish)
                         ->showCustomLinkPanel(true)
                         ->addMenuPanels([
-                            // Хедер для английской локали
+                            // Header for English locale
                             StaticMenuPanel::make('header_en')
                                 ->addMany([
                                     'Home' => url('/en'),
@@ -72,18 +71,18 @@ class AppServiceProvider extends ServiceProvider
                                     'About Us' => url('/en/about-us'),
                                     'Contacts' => url('/en/contacts'),
                                 ]),
-                            // Хедер для украинской локали
-                            StaticMenuPanel::make('header_uk')
+                            // Header for Polish locale
+                            StaticMenuPanel::make('header_pl')
                                 ->addMany([
-                                    'Головна' => url('/uk'),
-                                    'Каталог' => url('/pl/catalog'),
-                                    'Блог' => url('/pl/blog'),
+                                    'Strona główna' => url('/pl'),
+                                    'Katalog' => url('/pl/catalog'),
+                                    'Blog' => url('/pl/blog'),
                                     'FAQ' => url('/pl/faq'),
-                                    'Відгуки' => url('/pl/reviews'),
-                                    'Про нас' => url('/pl/about-us'),
-                                    'Контакти' => url('/pl/contacts'),
+                                    'Opinie' => url('/pl/reviews'),
+                                    'O nas' => url('/pl/about-us'),
+                                    'Kontakt' => url('/pl/contacts'),
                                 ]),
-                            // Футер для английской локали
+                            // Footer for English locale
                             StaticMenuPanel::make('footer_en')
                                 ->addMany([
                                     'FAQ' => url('/en/faq'),
@@ -92,14 +91,14 @@ class AppServiceProvider extends ServiceProvider
                                     'Contacts' => url('/en/contacts'),
                                     'Reviews' => url('/en/reviews'),
                                 ]),
-                            // Футер для украинской локали
-                            StaticMenuPanel::make('footer_uk')
+                            // Footer for Polish locale
+                            StaticMenuPanel::make('footer_pl')
                                 ->addMany([
                                     'FAQ' => url('/pl/faq'),
-                                    'Політика конфіденційності' => url('/pl/privacy-policy'),
-                                    'Умови використання' => url('/pl/terms'),
-                                    'Контакти' => url('/pl/contacts'),
-                                    'Відгуки' => url('/pl/reviews'),
+                                    'Polityka prywatności' => url('/pl/privacy-policy'),
+                                    'Warunki użytkowania' => url('/pl/terms'),
+                                    'Kontakt' => url('/pl/contacts'),
+                                    'Opinie' => url('/pl/reviews'),
                                 ]),
                         ]),
                     FilamentorPlugin::make(),
@@ -114,17 +113,16 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(ShippingModifiers $shippingModifiers): void
     {
-        
         $shippingModifiers->add(
             ShippingModifier::class
         );
-        
+
         \Lunar\Facades\ModelManifest::replace(
             \Lunar\Models\Contracts\Product::class,
             \App\Models\Product::class,
         );
-        
-        // Регистрируем Observer'ы
+
+        // Register Observers
         \App\Models\Review::observe(\App\Observers\ReviewObserver::class);
         \App\Models\BlogPost::observe(\App\Observers\BlogPostObserver::class);
         \App\Models\Product::observe(\App\Observers\ProductObserver::class);
