@@ -154,7 +154,6 @@
 
             <!-- Desktop Menu -->
             <div class="desktop-menu ">
-                 <div class="flex items-center">
 
                 @if ($headerMenu)
                     <ul class="mobile-menu-items">
