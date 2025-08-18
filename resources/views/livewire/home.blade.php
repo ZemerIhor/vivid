@@ -432,13 +432,23 @@
         </section>
 
         <section class="main-banner container mx-auto" role="banner" aria-label="{{ __('messages.hero.aria_label') }}">
-            @if (!empty($settings->banner_image))
-                <img src="{{ Storage::url($settings->banner_image) }}"
-                    alt="{{ isset($settings->banner_title[app()->getLocale()]) ? $settings->banner_title[app()->getLocale()] : __('messages.hero.title') }}"
-                    class="main-banner__image" />
-            @else
-                <p class="main-banner__no-image">{{ __('messages.hero.no_slides') }}</p>
-            @endif
+            <style>
+                .main-banner:before {
+                    content: "";
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100vw;
+                    margin-left: calc(-50vw + 50%);
+                    @if (!empty($settings->banner_image))
+background: url('{{ Storage::url($settings->banner_image) }}') no-repeat center center/cover;
+                    @else
+background: #333;
+                    @endif
+z-index: -1;
+                    height: 100%;
+                }
+            </style>
             <header class="main-banner__header">
                 <div class="main-banner__content">
                     <h1 class="main-banner__title">
