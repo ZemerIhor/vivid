@@ -5,6 +5,7 @@ namespace App\Filament\Pages;
 use App\Settings\HomeSettings;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Repeater;
+use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
@@ -336,7 +337,7 @@ class Home extends Page implements HasForms
                                 TextInput::make('about_title')
                                     ->label(__('Заголовок'))
                                     ->maxLength(255),
-                                Textarea::make('about_description')
+                                RichEditor::make('about_description')
                                     ->label(__('Опис'))
                                     ->maxLength(1000),
                                 TextInput::make('about_more_link')
