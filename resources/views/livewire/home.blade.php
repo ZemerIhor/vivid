@@ -261,7 +261,9 @@
             </div>
 
             <footer class="container mx-auto flex justify-end mt-5">
-                <a href="{{ route('faq', ['locale' => app()->getLocale()]) }}"
+                <a
+                    href="#"
+{{--                    href="{{ route('faq', ['locale' => app()->getLocale()]) }}"--}}
                     class="flex mt-4 gap-2 justify-center items-center self-center px-6 py-2.5 text-base font-bold leading-snug text-green-600 whitespace-nowrap rounded-2xl border-2 border-green-600 border-solid min-h-11 max-md:px-5 w-fit mx-auto hover:bg-green-50 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-offset-2 transition-colors"
                     aria-label="{{ __('messages.faq.show_more') }}">
                     <span class="self-stretch my-auto text-green-600">
