@@ -7,8 +7,8 @@
             <section
                 class="container mx-auto flex relative flex-col w-full gap-0.5 items-start self-stretch pb-0 max-md:pt-8 max-md:pb-0 max-sm:pt-5 max-sm:pb-0"
                 aria-label="Company Advantages">
-                <div
-                    class="grid grid-cols-[repeat(auto-fit,minmax(160px,1fr))] h-24 max-md:grid-cols-2 max-sm:grid-cols-1 gap-1 w-full">
+                <div style="height: 220px"
+                    class="grid grid-cols-[repeat(auto-fit,minmax(160px,1fr))] max-md:grid-cols-2 max-sm:grid-cols-1 gap-1 w-full">
                     @if (!empty($settings->advantages_cards[app()->getLocale()]))
                         @foreach ($settings->advantages_cards[app()->getLocale()] as $index => $card)
                             <article class="flex flex-col gap-3 items-center p-6 rounded-3xl bg-zinc-800">
