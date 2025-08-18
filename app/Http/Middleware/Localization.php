@@ -21,12 +21,15 @@ class Localization
         // Устанавливаем локаль через сервис
         $languageService->setLocale($detectedLocale);
 
-        \Log::info('Localization Middleware', [
-            'url_locale' => $urlLocale,
-            'detected_locale' => $detectedLocale,
-            'final_locale' => $languageService->getCurrentLocale(),
-            'path' => $request->path(),
-        ]);
+        // Логируем только в debug режиме для избежания спама в production
+        if (config('app.debug')) {
+            \Log::debug('Localization Middleware', [
+                'url_locale' => $urlLocale,
+                'detected_locale' => $detectedLocale,
+                'final_locale' => $languageService->getCurrentLocale(),
+                'path' => $request->path(),
+            ]);
+        }
 
         return $next($request);
     }

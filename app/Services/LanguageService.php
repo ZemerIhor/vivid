@@ -29,11 +29,14 @@ class LanguageService
 
         $path = $this->processRedirectPath($redirectTo, $locale);
         
-        Log::info('Language switch requested', [
-            'locale' => $locale,
-            'redirect_to' => $path,
-            'current_url' => $redirectTo,
-        ]);
+        // Логируем только в debug режиме
+        if (config('app.debug')) {
+            Log::debug('Language switch requested', [
+                'locale' => $locale,
+                'redirect_to' => $path,
+                'current_url' => $redirectTo,
+            ]);
+        }
 
         return $path;
     }

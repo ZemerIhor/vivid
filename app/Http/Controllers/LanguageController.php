@@ -22,12 +22,23 @@ class LanguageController extends Controller
             
             return redirect($path ?: "/{$locale}");
         } catch (\InvalidArgumentException $e) {
+            \Log::warning('Invalid locale attempted in language switch', [
+                'locale' => $locale,
+                'user_ip' => request()->ip(),
+            ]);
             return Redirect::back()->with('error', 'Invalid locale');
-        } catch (\Exception $e) {
-            \Log::error('Language switch error', [
+        } catch (\Illuminate\Database\QueryException $e) {
+            \Log::error('Database error during language switch', [
                 'locale' => $locale,
                 'error' => $e->getMessage(),
-                'trace' => $e->getTraceAsString(),
+            ]);
+            return Redirect::back()->with('error', 'Language switch temporarily unavailable');
+        } catch (\Exception $e) {
+            \Log::error('Unexpected error during language switch', [
+                'locale' => $locale,
+                'error' => $e->getMessage(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
             ]);
             
             return Redirect::back()->with('error', 'Language switch failed');

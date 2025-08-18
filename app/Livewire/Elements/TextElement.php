@@ -15,7 +15,6 @@ class TextElement extends Component
 
     public function render()
     {
-        dd('suka');
         return view('livewire.elements.text-element');
     }
 }
