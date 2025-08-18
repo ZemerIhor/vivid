@@ -200,9 +200,9 @@ z-index: -1;
                                     <img src="{{ Storage::url($settings->about_location_image) }}"
                                         alt="{{ isset($settings->about_location_caption[app()->getLocale()]) ? $settings->about_location_caption[app()->getLocale()] : '' }}"
                                         class="object-cover max-md:rounded-lg h-full" />
-                                    <figcaption class="relative z-10">
+                                    <p class="relative z-10">
                                         {{ isset($settings->about_location_caption[app()->getLocale()]) ? $settings->about_location_caption[app()->getLocale()] : '' }}
-                                    </figcaption>
+                                    </p>
                                 </div>
                             </figure>
                         @else
