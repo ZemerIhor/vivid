@@ -466,12 +466,9 @@ z-index: -1;
                     left: 0;
                     width: 100vw;
                     margin-left: calc(-50vw + 50%);
-                    @if (!empty($settings->banner_image))
-background: url('{{ Storage::url($settings->banner_image) }}') no-repeat center center/cover;
-                    @else
-background: #333;
-                    @endif
-z-index: -1;
+                    background: url('{!! !empty($settings->banner_image) ? Storage::url($settings->banner_image) : '' !!}') no-repeat center center/cover;
+                    background-color: #333;
+                    z-index: -1;
                     height: 100%;
                 }
             </style>
