@@ -7,7 +7,7 @@
             <section
                 class="container mx-auto flex relative flex-col w-full gap-0.5 items-start self-stretch pb-0 max-md:pt-8 max-md:pb-0 max-sm:pt-5 max-sm:pb-0"
                 aria-label="Company Advantages">
-                <div style="height: 220px"
+                <div
                     class="grid grid-cols-[repeat(auto-fit,minmax(160px,1fr))] max-md:grid-cols-2 max-sm:grid-cols-1 gap-1 w-full">
                     @if (!empty($settings->advantages_cards[app()->getLocale()]))
                         @foreach ($settings->advantages_cards[app()->getLocale()] as $index => $card)
@@ -27,10 +27,8 @@
                                 </div>
                             </article>
                             @if ($index < 3 && !empty($settings->{'advantages_image_' . ($index + 1)}))
-                                <figure class="rounded-3xl">
                                     <img src="{{ Storage::url($settings->{'advantages_image_' . ($index + 1)}) }}"
                                         alt="Advantage image" class="object-cover w-full h-full rounded-3xl" />
-                                </figure>
                             @endif
                         @endforeach
                     @else
