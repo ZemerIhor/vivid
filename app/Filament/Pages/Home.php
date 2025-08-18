@@ -351,7 +351,7 @@ class Home extends Page implements HasForms
                                 TextInput::make('about_statistic_title')
                                     ->label(__('Заголовок статистики'))
                                     ->maxLength(255),
-                                Textarea::make('about_statistic_description')
+                                RichEditor::make('about_statistic_description')
                                     ->label(__('Опис статистики'))
                                     ->maxLength(1000),
                                 TextInput::make('about_location_caption')
