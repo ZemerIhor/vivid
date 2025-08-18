@@ -131,11 +131,7 @@
                     left: 0;
                     width: 100vw;
                     margin-left: calc(-50vw + 50%);
-                    @if (!empty($settings->banner_image))
 background: url('{{ asset('images/earth.png') }}') no-repeat center center/cover;
-                    @else
-background: #333;
-                    @endif
 z-index: -1;
                     height: 100%;
                 }
