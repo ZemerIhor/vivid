@@ -123,10 +123,25 @@
 
 
         <section class="home-about-section relative container" role="main" aria-labelledby="about-heading">
+            <style>
+                .home-about-section:before {
+                    content: "";
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100vw;
+                    margin-left: calc(-50vw + 50%);
+                    @if (!empty($settings->banner_image))
+background: url('{{ asset('images/earth.png') }}') no-repeat center center/cover;
+                    @else
+background: #333;
+                    @endif
+z-index: -1;
+                    height: 100%;
+                }
+            </style>
             <div class=" mx-auto px-2 py-20 ">
                 <div class="">
-                    <img src="{{ asset('images/earth.png') }}"
-                         class="object-cover absolute inset-0 size-full bottom-0" />
                     <div class="home-about-us-grid ">
                         <!-- Part 1: Main Content -->
 
