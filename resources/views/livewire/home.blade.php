@@ -125,7 +125,8 @@
         <section class="home-about-section relative container" role="main" aria-labelledby="about-heading">
             <div class=" mx-auto px-2 py-20 ">
                 <div class="">
-
+                    <img src="{{ asset('images/earth.png') }}"
+                         class="object-cover absolute inset-0 size-full bottom-0" />
                     <div class="home-about-us-grid ">
                         <!-- Part 1: Main Content -->
 
