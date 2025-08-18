@@ -120,7 +120,7 @@
         <livewire:components.reviews-section />
 
 
-        <section class="home-about-section relative container" role="main" aria-labelledby="about-heading">
+        <section class="home-about-section relative container  mx-auto px-2 py-20" role="main" aria-labelledby="about-heading">
             <style>
                 .home-about-section:before {
                     content: "";
@@ -146,8 +146,7 @@ z-index: -1;
                     height: 100%;
                 }
             </style>
-            <div class=" mx-auto px-2 py-20 ">
-                <div class="">
+
                     <div class="home-about-us-grid ">
                         <!-- Part 1: Main Content -->
 
@@ -213,8 +212,7 @@ z-index: -1;
                         @endif
 
                     </div>
-                </div>
-            </div>
+
         </section>
 
 
