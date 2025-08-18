@@ -11,7 +11,7 @@
                     class="grid grid-cols-[repeat(auto-fit,minmax(160px,1fr))] max-md:grid-cols-2 max-sm:grid-cols-1 gap-1 w-full">
                     @if (!empty($settings->advantages_cards[app()->getLocale()]))
                         @foreach ($settings->advantages_cards[app()->getLocale()] as $index => $card)
-                            <article class="flex flex-col gap-3 items-center p-6 rounded-3xl bg-zinc-800">
+                            <article style="max-height: 250px" class="flex flex-col gap-3 items-center p-6 rounded-3xl bg-zinc-800">
                                 <div class="flex flex-col gap-2 w-full text-center text-white">
                                     @if (!empty($card['icon']))
                                         <img src="{{ Storage::url($card['icon']) }}"
@@ -27,7 +27,7 @@
                                 </div>
                             </article>
                             @if ($index < 3 && !empty($settings->{'advantages_image_' . ($index + 1)}))
-                                    <img src="{{ Storage::url($settings->{'advantages_image_' . ($index + 1)}) }}"
+                                    <img style="max-height: 250px" src="{{ Storage::url($settings->{'advantages_image_' . ($index + 1)}) }}"
                                         alt="Advantage image" class="object-cover w-full h-full rounded-3xl" />
                             @endif
                         @endforeach
