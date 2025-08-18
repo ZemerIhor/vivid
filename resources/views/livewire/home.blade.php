@@ -135,6 +135,18 @@ background: url('{{ asset('images/earth.png') }}') no-repeat center center/cover
 z-index: -1;
                     height: 100%;
                 }
+
+                .home-about-section:after {
+                    content: "";
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100vw;
+                    margin-left: calc(-50vw + 50%);
+                    background: #333;
+                    z-index: -2;
+                    height: 100%;
+                }
             </style>
             <div class=" mx-auto px-2 py-20 ">
                 <div class="">
