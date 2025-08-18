@@ -156,9 +156,9 @@ z-index: -1;
                                 class="text-4xl leading-none text-white max-md:text-3xl max-md:w-full">
                                 {{ isset($settings->about_title[app()->getLocale()]) ? $settings->about_title[app()->getLocale()] : __('messages.about.title') }}
                             </h1>
-                            <p class="mt-5 text-xl leading-6 text-white max-md:text-base max-md:w-full">
+                            <div class="mt-5 text-xl leading-6 text-white max-md:text-base max-md:w-full">
                                 {!! isset($settings->about_description[app()->getLocale()]) ? $settings->about_description[app()->getLocale()] : '' !!}
-                            </p>
+                            </div>
                         </header>
                         <nav
                             class="grid-buttons flex gap-4 items-center mt-40 text-base leading-snug whitespace-nowrap max-md:mt-10 max-md:flex-wrap max-md:justify-start">
