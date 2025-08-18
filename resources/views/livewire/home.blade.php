@@ -156,7 +156,7 @@ z-index: -1;
                                 class="text-4xl leading-none text-white max-md:text-3xl max-md:w-full">
                                 {{ isset($settings->about_title[app()->getLocale()]) ? $settings->about_title[app()->getLocale()] : __('messages.about.title') }}
                             </h1>
-                            <div class="mt-5 text-xl leading-6 text-white max-md:text-base max-md:w-full">
+                            <div class="mt-5 text-xl leading-6 text-white max-md:text-base max-md:w-full leading-3" style="">
                                 {!! isset($settings->about_description[app()->getLocale()])
                                     ? str($settings->about_description[app()->getLocale()])->sanitizeHtml()
                                     : '' !!}
