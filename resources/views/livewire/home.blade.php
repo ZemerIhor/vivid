@@ -196,7 +196,7 @@ z-index: -1;
 
                         @if (!empty($settings->about_location_image))
                             <figure
-                                class="grid-img overflow-hidden h-full text-xs font-semibold text-right text-white rounded-3xl shadow-[var(--sds-size-depth-0)_var(--sds-size-depth-400)_var(--sds-size-depth-800)_var(--sds-size-depth-negative-200)_var(--sds-color-black-400)] max-md:w-full max-md:rounded-lg"
+                                class="grid-img overflow-hidden h-full text-xs font-semibold text-right text-white rounded-3xl shadow-[var(--sds-size-depth-0)_var(--sds-size-depth-400)_var(--sds-size-depth-800)_var(--sds-size-depth-negative-200)_var(--sds-color-black-400)] max-md:w-full max-md:rounded-lg pb-4"
                                 style="min-width: 15rem;">
                                 <div class="flex relative flex-col h-full">
                                     <img src="{{ Storage::url($settings->about_location_image) }}"
