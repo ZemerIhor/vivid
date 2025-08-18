@@ -3,7 +3,7 @@
     $currentLocale = app()->getLocale(); // Get current locale (e.g., 'en' or 'pl')
 @endphp
 
-<footer class="self-stretch bg-zinc-800 mt-auto container relative " role="contentinfo" id="footer"
+<footer class="self-stretch bg-zinc-800 mt-auto relative " role="contentinfo" id="footer"
     aria-label="Site footer">
     <div class="container mx-auto px-4">
         <section class="header-section">
