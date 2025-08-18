@@ -1,5 +1,5 @@
 <div class="mx-auto container relative reviews">
-    <section class="flex flex-col px-4 md:px-12 py-20" aria-label="{{ __('messages.reviews.section_aria_label') }}" role="main" aria-labelledby="reviews-heading">
+    <section class="flex flex-col px-4 py-20" aria-label="{{ __('messages.reviews.section_aria_label') }}" role="main" aria-labelledby="reviews-heading">
         <h2 id="reviews-heading" class="mb-4 w-full text-2xl font-bold leading-7 text-left text-zinc-800 max-md:text-2xl max-md:text-center max-sm:text-xl">
             {{ __('messages.reviews.title') }}
         </h2>
