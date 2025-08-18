@@ -160,7 +160,7 @@
                     <ul class="mobile-menu-items">
                         @foreach ($headerMenu->menuItems as $item)
                             <li>
-                                <a href="{{ $item->url }}">{{ $item->title }}</a>
+                                <a href="#">{{ $item->title }}</a>
                                 @if ($item->children)
                                     <ul>
                                         @foreach ($item->children as $child)
