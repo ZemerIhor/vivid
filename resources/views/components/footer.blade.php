@@ -29,7 +29,7 @@
         <section class="nav-contacts flex flex-wrap justify-between">
             @php
                 use Datlechin\FilamentMenuBuilder\Models\Menu;
-                $footerLocation = app()->getLocale() === 'en' ? 'header_en' : 'header_uk';
+                $footerLocation = app()->getLocale() === 'en' ? 'header_en' : 'header_pl';
                 $footerMenu = Menu::location($footerLocation);
             @endphp
 
@@ -43,7 +43,7 @@
                                 @if ($item->children)
                                     <ul>
                                         @foreach ($item->children as $child)
-                                            <li><a href="{{ $child->url }}">{{ $child->title }}</a></li>
+                                            <li><a href="#">{{ $child->title }}</a></li>
                                         @endforeach
                                     </ul>
                                 @endif
