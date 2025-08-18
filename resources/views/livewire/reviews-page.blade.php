@@ -54,7 +54,7 @@
 
         </div>
 
-        <!-- Кнопка для отправки отзыва -->
+        <!-- Кнопка для отправки отзыва вфвфв-->
         <a href="{{ route('submit-review') }}"
            class="mt-4 inline-flex gap-2 justify-center items-center px-6 py-2.5 h-11 rounded-2xl border-2 border-green-600 border-solid"
            aria-label="{{ __('messages.reviews.leave') }}">

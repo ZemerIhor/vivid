@@ -319,7 +319,7 @@
                                             <ul class="mobile-menu-items">
                                                 @foreach ($item->children as $child)
                                                     <li>
-                                                        <a href="{{ $child->url }}" class="w-full text-center py-2 text-sm hover:text-green-600">
+                                                        <a href="#" class="w-full text-center py-2 text-sm hover:text-green-600">
                                                             {{ $child->title }}
                                                         </a>
                                                     </li>
