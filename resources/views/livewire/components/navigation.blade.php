@@ -157,11 +157,19 @@
                     <ul class="mobile-menu-items">
                         @foreach ($headerMenu->menuItems as $item)
                             <li>
-                                <a href="{{ $item->url }}" {{ !str_contains($item->url, '#') ? 'wire:navigate' : '' }}>{{ $item->title }}</a>
+                                @if (str_contains($item->url, '#'))
+                                    <a href="{{ $item->url }}" @if(str_starts_with($item->url, '#')) x-on:click.prevent="window.scrollTo({ top: document.querySelector('{{ $item->url }}').offsetTop, behavior: 'smooth' }); console.log('Scrolling to', '{{ $item->url }}')" @endif>{{ $item->title }}</a>
+                                @else
+                                    <a href="{{ $item->url }}" wire:navigate>{{ $item->title }}</a>
+                                @endif
                                 @if ($item->children)
                                     <ul>
                                         @foreach ($item->children as $child)
-                                            <li><a href="{{ $child->url }}" {{ !str_contains($child->url, '#') ? 'wire:navigate' : '' }}>{{ $child->title }}</a></li>
+                                            @if (str_contains($child->url, '#'))
+                                                <li><a href="{{ $child->url }}" @if(str_starts_with($child->url, '#')) x-on:click.prevent="window.scrollTo({ top: document.querySelector('{{ $child->url }}').offsetTop, behavior: 'smooth' }); console.log('Scrolling to', '{{ $child->url }}')" @endif>{{ $child->title }}</a></li>
+                                            @else
+                                                <li><a href="{{ $child->url }}" wire:navigate>{{ $child->title }}</a></li>
+                                            @endif
                                         @endforeach
                                     </ul>
                                 @endif
@@ -306,17 +314,31 @@
                             <ul class="mobile-menu-items">
                                 @foreach ($headerMenu->menuItems as $item)
                                     <li>
-                                        <a href="{{ $item->url }}" class="w-full text-center py-2 hover:text-green-600" {{ !str_contains($item->url, '#') ? 'wire:navigate' : '' }}>
-                                            {{ $item->title }}
-                                        </a>
+                                        @if (str_contains($item->url, '#'))
+                                            <a href="{{ $item->url }}" class="w-full text-center py-2 hover:text-green-600" @if(str_starts_with($item->url, '#')) x-on:click.prevent="window.scrollTo({ top: document.querySelector('{{ $item->url }}').offsetTop, behavior: 'smooth' }); console.log('Scrolling to', '{{ $item->url }}')" @endif>
+                                                {{ $item->title }}
+                                            </a>
+                                        @else
+                                            <a href="{{ $item->url }}" class="w-full text-center py-2 hover:text-green-600" wire:navigate>
+                                                {{ $item->title }}
+                                            </a>
+                                        @endif
                                         @if ($item->children)
                                             <ul class="mobile-menu-items">
                                                 @foreach ($item->children as $child)
-                                                    <li>
-                                                        <a href="{{ $child->url }}" class="w-full text-center py-2 text-sm hover:text-green-600" {{ !str_contains($child->url, '#') ? 'wire:navigate' : '' }}>
-                                                            {{ $child->title }}
-                                                        </a>
-                                                    </li>
+                                                    @if (str_contains($child->url, '#'))
+                                                        <li>
+                                                            <a href="{{ $child->url }}" class="w-full text-center py-2 text-sm hover:text-green-600" @if(str_starts_with($child->url, '#')) x-on:click.prevent="window.scrollTo({ top: document.querySelector('{{ $child->url }}').offsetTop, behavior: 'smooth' }); console.log('Scrolling to', '{{ $child->url }}')" @endif>
+                                                                {{ $child->title }}
+                                                            </a>
+                                                        </li>
+                                                    @else
+                                                        <li>
+                                                            <a href="{{ $child->url }}" class="w-full text-center py-2 text-sm hover:text-green-600" wire:navigate>
+                                                                {{ $child->title }}
+                                                            </a>
+                                                        </li>
+                                                    @endif
                                                 @endforeach
                                             </ul>
                                         @endif
