@@ -152,7 +152,6 @@
             </style>
 
 
-
             <!-- Desktop Menu -->
             <div class="desktop-menu ">
 
@@ -160,11 +159,11 @@
                     <ul class="mobile-menu-items">
                         @foreach ($headerMenu->menuItems as $item)
                             <li>
-                                <a href="#">{{ $item->title }}</a>
+                                <a href="{{ $item->url }}">{{ $item->title }}</a>
                                 @if ($item->children)
                                     <ul>
                                         @foreach ($item->children as $child)
-                                            <li><a href="#">{{ $child->title }}</a></li>
+                                            <li><a href="{{ $child->url }}">{{ $child->title }}</a></li>
                                         @endforeach
                                     </ul>
                                 @endif
@@ -349,6 +348,7 @@
 
                     </nav>
                 </div>
+
             </div>
         </div>
     </header>
