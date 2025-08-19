@@ -38,7 +38,7 @@
             </section>
         </div>
 
-        <div class="container mx-auto px-2 py-4 pt-40 products mx-auto ">
+        <div class="container mx-auto px-2 py-4 pt-40 products" id="catalog">
 
             <section class="flex flex-col self-stretch" aria-label="Каталог">
                 <div class="">
@@ -120,7 +120,7 @@
         <livewire:components.reviews-section />
 
 
-        <section class="home-about-section relative container  mx-auto px-2 py-20" role="main" aria-labelledby="about-heading">
+        <section class="home-about-section relative container  mx-auto px-2 py-20" id="about-us" role="main" aria-labelledby="about-heading">
             <style>
                 .home-about-section:before {
                     content: "";
@@ -216,7 +216,7 @@ z-index: -1;
         </section>
 
 
-        <section class="container mx-auto flex flex-col px-2 py-20 bg-zinc-100 max-md:px-5" role="main"
+        <section class="container mx-auto flex flex-col px-2 py-20 bg-zinc-100 max-md:px-5" id="faq" role="main"
             aria-labelledby="faq-title">
             <header>
                 <h1 id="faq-title" class="text-2xl font-bold leading-tight text-zinc-800 max-md:max-w-full">
@@ -514,7 +514,7 @@ z-index: -1;
         </section>
 
         <livewire:components.blog-section />
-        <div class="px-2 py-4 container mx-auto">
+        <div class="px-2 py-4 container mx-auto" id="contacts">
             <livewire:components.feedback-form-block />
         </div>
     </div>

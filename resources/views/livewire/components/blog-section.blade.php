@@ -1,4 +1,4 @@
-<section class="flex mx-auto flex-col self-stretch px-2 py-12 container relative" role="main" aria-labelledby="blog-heading">
+<section class="flex mx-auto flex-col self-stretch px-2 py-12 container relative" role="main" aria-labelledby="blog-heading" id="blog">
     <h1 id="blog-heading" class="text-2xl font-bold leading-tight text-zinc-800 max-md:max-w-full">
         {{ __('messages.blog.title') }}
     </h1>
