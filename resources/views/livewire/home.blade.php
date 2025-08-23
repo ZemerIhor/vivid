@@ -466,7 +466,6 @@ z-index: -1;
                     width: 100vw;
                     margin-left: calc(-50vw + 50%);
                     background: url('{!! !empty($settings->banner_image) ? Storage::url($settings->banner_image) : '' !!}') no-repeat center center/cover;
-                    background-color: #333;
                     z-index: -1;
                     height: 100%;
                 }
