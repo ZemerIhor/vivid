@@ -127,21 +127,27 @@
             </section>
         </div>
         <style>
-            /* По умолчанию показываем мобилку */
+            /* Мобильная версия */
             .advantages-mobile {
-                display: flex;
-                flex-wrap: wrap;
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
                 gap: 10px;
+                width: 100%;
+            }
 
+            /* Ограничиваем высоту и адаптируем изображения */
+            .advantages-mobile article,
+            .advantages-mobile img {
+                max-height: 187px; /* можно регулировать */
+                width: 100%;
+                object-fit: cover;
             }
-            .advantages-mobile img , .advantages-mobile article {
-                width: 48%;
-            }
+
+            /* Десктопная версия */
             .advantages-pc {
                 display: none;
             }
 
-            /* На ПК (от 1024px и шире) показываем десктопную */
             @media (min-width: 1024px) {
                 .advantages-mobile {
                     display: none;
@@ -149,10 +155,17 @@
                 .advantages-pc {
                     display: grid;
                     grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-                    gap: 0.25rem; /* заменяет gap-1 */
+                    gap: 0.25rem;
                     width: 100%;
                 }
+                .advantages-pc article,
+                .advantages-pc img {
+                    max-height: 250px;
+                    width: 100%;
+                    object-fit: cover;
+                }
             }
+
 
         </style>
         <div class="container mx-auto px-2 py-4 pt-40 products" id="catalog">
