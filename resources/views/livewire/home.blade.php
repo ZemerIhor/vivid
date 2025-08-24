@@ -39,6 +39,7 @@
                     @endif
                 </div>
 
+
                 <div class="advantages-mobile">
 
                     @if (!empty($settings->advantages_cards[app()->getLocale()]))
