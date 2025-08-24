@@ -5,36 +5,68 @@
         <div class=" px-2 mx-auto pt-40">
 
             <section
-                class="container mx-auto flex relative flex-col w-full gap-0.5 items-start self-stretch pb-0 max-md:pt-8 max-md:pb-0 max-sm:pt-5 max-sm:pb-0"
+                class="container mx-auto flex relative flex-col w-full gap-0.5 items-start self-stretch pb-0 max-md:pt-8 max-md:pb-0 max-sm:pt-5 max-sm:pb-0 max-sm:px-4 max-sm:text-center max-sm:rounded-3xl max-sm:max-w-[390px] max-sm:overflow-hidden"
                 aria-label="Company Advantages">
-                <div
-                    class="grid grid-cols-[repeat(auto-fit,minmax(160px,1fr))] max-md:grid-cols-2 max-sm:grid-cols-1 gap-1 w-full">
-                    @if (!empty($settings->advantages_cards[app()->getLocale()]))
-                        @foreach ($settings->advantages_cards[app()->getLocale()] as $index => $card)
-                            <article style="max-height: 250px" class="flex flex-col gap-3 items-center p-6 rounded-3xl bg-zinc-800">
-                                <div class="flex flex-col gap-2 w-full text-center text-white">
-                                    @if (!empty($card['icon']))
-                                        <img src="{{ Storage::url($card['icon']) }}"
-                                            alt="{{ isset($card['title']) ? $card['title'] : 'Advantage icon' }}"
-                                            class="w-12 h-12 mx-auto mb-2" />
+                @if (!empty($settings->advantages_cards[app()->getLocale()]))
+                    <div class="flex flex-col w-full max-sm:flex-row max-sm:gap-2 max-sm:items-center">
+                        <div class="flex-1 shrink self-stretch my-auto basis-0 max-sm:flex max-sm:flex-col">
+                            <div class="grid grid-cols-[repeat(auto-fit,minmax(160px,1fr))] max-md:grid-cols-2 max-sm:grid-cols-1 gap-1 w-full max-sm:grid-cols-none max-sm:gap-2">
+                                @foreach ($settings->advantages_cards[app()->getLocale()] as $index => $card)
+                                    @if ($index < 2) <!-- First two cards in the first column for mobile -->
+                                    <article class="flex flex-col gap-3 items-center p-6 rounded-3xl bg-zinc-800 max-sm:px-4 max-sm:py-5 max-sm:min-h-[187px] max-sm:w-[172px] max-sm:h-[172px] max-sm:min-h-[169px]" style="max-height: 250px">
+                                        <div class="flex flex-col gap-2 w-full text-center text-white">
+                                            @if (!empty($card['icon']))
+                                                <img src="{{ Storage::url($card['icon']) }}"
+                                                     alt="{{ isset($card['title']) ? $card['title'] : 'Advantage icon' }}"
+                                                     class="w-12 h-12 mx-auto mb-2 max-sm:w-10 max-sm:min-h-[40px] max-sm:aspect-square max-sm:object-contain" />
+                                            @endif
+                                            <h2 class="text-base font-bold leading-5 max-sm:text-base max-sm:leading-tight">
+                                                {{ isset($card['title']) ? $card['title'] : '' }}
+                                            </h2>
+                                            <p class="text-xs font-semibold leading-5 max-sm:text-xs max-sm:mt-2">
+                                                {{ isset($card['description']) ? $card['description'] : '' }}
+                                            </p>
+                                        </div>
+                                    </article>
+                                    @if ($index == 0 && !empty($settings->advantages_image_1))
+                                        <img style="max-height: 250px" src="{{ Storage::url($settings->advantages_image_1) }}"
+                                             alt="Advantage image" class="object-cover w-full h-full rounded-3xl max-sm:w-[175px] max-sm:aspect-[1.41] max-sm:mt-2 max-sm:object-contain" />
                                     @endif
-                                    <h2 class="text-base font-bold leading-5 max-sm:text-sm">
-                                        {{ isset($card['title']) ? $card['title'] : '' }}
-                                    </h2>
-                                    <p class="text-xs font-semibold leading-5 max-sm:text-xs">
-                                        {{ isset($card['description']) ? $card['description'] : '' }}
-                                    </p>
-                                </div>
-                            </article>
-                            @if ($index < 3 && !empty($settings->{'advantages_image_' . ($index + 1)}))
-                                    <img style="max-height: 250px" src="{{ Storage::url($settings->{'advantages_image_' . ($index + 1)}) }}"
-                                        alt="Advantage image" class="object-cover w-full h-full rounded-3xl" />
-                            @endif
-                        @endforeach
-                    @else
-                        <p>{{ __('messages.advantages.no_cards') }}</p>
-                    @endif
-                </div>
+                                    @endif
+                                @endforeach
+                            </div>
+                        </div>
+                        <div class="flex-1 shrink self-stretch my-auto basis-0 max-sm:flex max-sm:flex-col">
+                            <div class="grid grid-cols-[repeat(auto-fit,minmax(160px,1fr))] max-md:grid-cols-2 max-sm:grid-cols-1 gap-1 w-full max-sm:grid-cols-none max-sm:gap-2">
+                                @foreach ($settings->advantages_cards[app()->getLocale()] as $index => $card)
+                                    @if ($index >= 2) <!-- Last two cards in the second column for mobile -->
+                                    @if ($index == 2 && !empty($settings->advantages_image_2))
+                                        <img style="max-height: 250px" src="{{ Storage::url($settings->advantages_image_2) }}"
+                                             alt="Advantage image" class="object-cover w-full h-full rounded-3xl max-sm:w-[175px] max-sm:aspect-[1.41] max-sm:mt-2 max-sm:object-contain" />
+                                    @endif
+                                    <article class="flex flex-col gap-3 items-center p-6 rounded-3xl bg-zinc-800 max-sm:px-4 max-sm:py-5 max-sm:min-h-[187px] max-sm:w-[172px] max-sm:h-[172px] max-sm:min-h-[169px]" style="max-height: 250px">
+                                        <div class="flex flex-col gap-2 w-full text-center text-white">
+                                            @if (!empty($card['icon']))
+                                                <img src="{{ Storage::url($card['icon']) }}"
+                                                     alt="{{ isset($card['title']) ? $card['title'] : 'Advantage icon' }}"
+                                                     class="w-12 h-12 mx-auto mb-2 max-sm:w-10 max-sm:min-h-[40px] max-sm:aspect-square max-sm:object-contain" />
+                                            @endif
+                                            <h2 class="text-base font-bold leading-5 max-sm:text-base max-sm:leading-tight">
+                                                {{ isset($card['title']) ? $card['title'] : '' }}
+                                            </h2>
+                                            <p class="text-xs font-semibold leading-5 max-sm:text-xs max-sm:mt-2">
+                                                {{ isset($card['description']) ? $card['description'] : '' }}
+                                            </p>
+                                        </div>
+                                    </article>
+                                    @endif
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                @else
+                    <p class="text-white max-sm:text-center">{{ __('messages.advantages.no_cards') }}</p>
+                @endif
             </section>
         </div>
 
