@@ -26,22 +26,40 @@
                                     </p>
                                 </div>
                             </article>
-
+                            
                             @if ($index == 0 && !empty($settings->{'advantages_image_1'}))
+                                <img style="max-height: 250px" src="{{ Storage::url($settings->{'advantages_image_1'}) }}"
+                                    alt="Advantage image" class="object-cover w-full h-full rounded-3xl max-sm:h-[124px] max-md:hidden" />
+                            @endif
+                            
+                            @if ($index == 1 && !empty($settings->{'advantages_image_2'}))
+                                <img style="max-height: 250px" src="{{ Storage::url($settings->{'advantages_image_2'}) }}"
+                                    alt="Advantage image" class="object-cover w-full h-full rounded-3xl max-sm:h-[124px] max-md:hidden" />
+                            @endif
+                            
+                            @if ($index == 2 && !empty($settings->{'advantages_image_3'}))
+                                <img style="max-height: 250px" src="{{ Storage::url($settings->{'advantages_image_3'}) }}"
+                                    alt="Advantage image" class="object-cover w-full h-full rounded-3xl max-sm:h-[124px] max-md:hidden" />
+                            @endif
+                        @endforeach
+                        
+                        <!-- Отдельные изображения для мобильной версии -->
+                        <div class="hidden max-md:block">
+                            @if (!empty($settings->{'advantages_image_1'}))
                                 <img style="max-height: 250px" src="{{ Storage::url($settings->{'advantages_image_1'}) }}"
                                     alt="Advantage image" class="object-cover w-full h-full rounded-3xl max-sm:h-[124px]" />
                             @endif
-
-                            @if ($index == 3 && !empty($settings->{'advantages_image_2'}))
+                            
+                            @if (!empty($settings->{'advantages_image_2'}))
                                 <img style="max-height: 250px" src="{{ Storage::url($settings->{'advantages_image_2'}) }}"
                                     alt="Advantage image" class="object-cover w-full h-full rounded-3xl max-sm:h-[124px]" />
                             @endif
-                        @endforeach
-
-                        @if (!empty($settings->{'advantages_image_3'}))
-                            <img style="max-height: 250px" src="{{ Storage::url($settings->{'advantages_image_3'}) }}"
-                                alt="Advantage image" class="object-cover w-full h-full rounded-3xl max-sm:h-[124px]" />
-                        @endif
+                            
+                            @if (!empty($settings->{'advantages_image_3'}))
+                                <img style="max-height: 250px" src="{{ Storage::url($settings->{'advantages_image_3'}) }}"
+                                    alt="Advantage image" class="object-cover w-full h-full rounded-3xl max-sm:h-[124px]" />
+                            @endif
+                        </div>
                     @else
                         <p>{{ __('messages.advantages.no_cards') }}</p>
                     @endif
