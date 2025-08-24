@@ -131,16 +131,26 @@
             .advantages-mobile {
                 display: grid;
                 grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+                grid-auto-rows: 1fr; /* все строки одной высоты */
                 gap: 10px;
                 width: 100%;
             }
 
-            /* Ограничиваем высоту и адаптируем изображения */
-            .advantages-mobile article,
+            .advantages-mobile article {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between; /* заполняет всю высоту */
+                padding: 1.5rem;
+                border-radius: 1rem;
+                background-color: #18181b; /* bg-zinc-800 */
+                height: 100%; /* важно для растяжки */
+            }
+
             .advantages-mobile img {
-                max-height: 187px; /* можно регулировать */
                 width: 100%;
                 object-fit: cover;
+                border-radius: 1rem;
+                height: auto; /* высота подстраивается */
             }
 
             /* Десктопная версия */
