@@ -396,3 +396,14 @@
         <livewire:components.blog-section />
     </div>
 </div>
+
+<style>
+    @media (max-width: 767px) {
+        .wrap-advantage {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+    }
+</style>
+@endsection
