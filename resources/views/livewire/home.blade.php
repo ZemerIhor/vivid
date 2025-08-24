@@ -74,26 +74,8 @@
         <style>
             .advantages-mobile {
                 display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-                gap: 10px;
             }
 
-            .advantages-mobile article {
-                display: flex;
-                flex-direction: column;
-                justify-content: center; /* контент по центру по высоте */
-                padding: 1.5rem;
-                border-radius: 1rem;
-                background-color: #18181b; /* bg-zinc-800 */
-                height: 100%;
-            }
-
-            .advantages-mobile img {
-                width: 100%;
-                object-fit: cover;
-                border-radius: 1rem;
-                height: auto;
-            }
 
             /* Десктопная версия */
             .advantages-pc {
