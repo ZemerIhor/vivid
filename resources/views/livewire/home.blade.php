@@ -85,16 +85,7 @@
                 </div>
 
                 <style>
-                    /* Reset CSS */
-                    * {
-                        margin: 0;
-                        padding: 0;
-                        box-sizing: border-box;
-                    }
-                    html, body {
-                        background: linear-gradient(45deg, #190f2c, #200b30);
-                        padding: 15px;
-                    }
+
                     img {
                         max-width: 100%;
                         height: auto;
