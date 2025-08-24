@@ -45,7 +45,7 @@
                     @if (!empty($settings->advantages_cards[app()->getLocale()]))
                         @foreach ($settings->advantages_cards[app()->getLocale()] as $index => $card)
                             <article class="advantage-item flex flex-col gap-3 items-center p-6 rounded-3xl bg-zinc-800 max-sm:h-[187px]">
-                                <div class="flex flex-col gap-2 w-full text-center text-white">
+                                <div class="flex flex-col gap-2 text-center text-white">
                                     @if (!empty($card['icon']))
                                         <img src="{{ Storage::url($card['icon']) }}"
                                              alt="{{ $card['title'] ?? 'Advantage icon' }}"
@@ -63,7 +63,7 @@
                             @if (!empty($settings->{'advantages_image_' . ($index + 1)}))
                                 <img src="{{ Storage::url($settings->{'advantages_image_' . ($index + 1)}) }}"
                                      alt="Advantage image"
-                                     class="object-cover w-full h-full rounded-3xl max-sm:h-[124px] advantage-item" />
+                                     class="object-cover rounded-3xl max-sm:h-[124px] advantage-item" />
                             @endif
                         @endforeach
                     @endif
