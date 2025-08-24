@@ -28,7 +28,7 @@
                             </article>
                             @if ($index < 3 && !empty($settings->{'advantages_image_' . ($index + 1)}))
                                     <img  src="{{ Storage::url($settings->{'advantages_image_' . ($index + 1)}) }}"
-                                        alt="Advantage image" class="object-cover w-full h-full rounded-3xl max-sm:h-[124px]" />
+                                        alt="Advantage image" class="advantages__img object-cover w-full h-full rounded-3xl max-sm:h-[124px]" />
                             @endif
                         @endforeach
                     @else
@@ -37,7 +37,13 @@
                 </div>
             </section>
         </div>
-
+        <style>
+            @media (max-width: 700px) {
+                .advantages__img {
+                    max-height: 124px;
+                }
+            }
+        </style>
         <div class="container mx-auto px-2 py-4 pt-40 products" id="catalog">
 
             <section class="flex flex-col self-stretch" aria-label="Каталог">
