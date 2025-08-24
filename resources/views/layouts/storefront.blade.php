@@ -145,7 +145,7 @@
 <body class="flex flex-col min-h-screen antialiased text-gray-900 relative">
 @livewire('components.navigation')
 
-<div class="pt-14">
+<div >
     {{ $slot }}
 </div>
 
