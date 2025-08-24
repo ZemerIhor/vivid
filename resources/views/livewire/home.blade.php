@@ -86,7 +86,7 @@
                 max-height: 170px;
             }
 
-            .advantages-mobile img {
+            .advantages-mobile > img {
                 object-fit: cover;
                 border-radius: 1rem;
                 height: auto;
