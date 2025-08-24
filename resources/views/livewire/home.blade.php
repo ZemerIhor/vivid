@@ -72,10 +72,20 @@
             </section>
         </div>
         <style>
-            .advantages-mobile {
-                display: grid;
+
+
+            .advantages-mobile article {
+                max-width: 250px;
+                max-height: 170px;
             }
 
+            .advantages-mobile img {
+                object-fit: cover;
+                border-radius: 1rem;
+                height: auto;
+                max-width: 250px;
+                max-height: 120px;
+            }
 
             /* Десктопная версия */
             .advantages-pc {
