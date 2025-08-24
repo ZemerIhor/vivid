@@ -213,7 +213,7 @@
                 </div>
                 <!-- Part 2: Comparison Items and Central Text -->
                 <div class="flex relative flex-col self-center mt-2 w-full text-white max-md:max-w-full">
-                    <div class="flex z-0 gap-2 justify-between items-center w-full min-h-60 max-md:gap-6 main-advantages-container max-md:flex-col">
+                    <div class="flex z-0 gap-2 justify-between items-center w-full min-h-60 max-md:gap-6">
                         @if (!empty($settings->comparison_items[app()->getLocale()]))
                             @foreach ($settings->comparison_items[app()->getLocale()] as $item)
                                 <div class="flex relative flex-col grow items-start self-stretch overflow-hidden
