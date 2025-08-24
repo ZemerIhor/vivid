@@ -11,6 +11,7 @@
 
 
 
+
                 @if (!empty($settings->advantages_cards[app()->getLocale()]))
                         @foreach ($settings->advantages_cards[app()->getLocale()] as $index => $card)
                             <article style="max-height: 250px" class="flex flex-col gap-3 items-center p-6 rounded-3xl bg-zinc-800">
