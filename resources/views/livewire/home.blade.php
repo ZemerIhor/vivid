@@ -68,9 +68,9 @@
                                          alt="Advantage image" class="object-cover w-full h-full rounded-3xl" />
                                 </div>
                             @elseif ($index == 3 && !empty($settings->{'advantages_image_2'}))
-                                <div class="image-container">
+                                <div class="image-container image-container-second">
                                     <img src="{{ Storage::url($settings->{'advantages_image_2'}) }}"
-                                         alt="Advantage image" class="object-cover w-full h-full rounded-3xl" />
+                                         alt="Advantage image" class="object-cover w-full rounded-3xl" />
                                 </div>
                             @elseif ($index == count($settings->advantages_cards[app()->getLocale()]) - 1 && !empty($settings->{'advantages_image_3'}))
                                 <div class="image-container">
@@ -85,16 +85,7 @@
                 </div>
 
                 <style>
-                    /* Reset CSS */
-                    * {
-                        margin: 0;
-                        padding: 0;
-                        box-sizing: border-box;
-                    }
-                    html, body {
-                        background: linear-gradient(45deg, #190f2c, #200b30);
-                        padding: 15px;
-                    }
+
                     img {
                         max-width: 100%;
                         height: auto;
@@ -119,14 +110,18 @@
                     .image-container {
                         display: flex;
                         justify-content: center;
-                        align-items: center;
+                        align-items: flex-start; /* Align images to the top */
                     }
 
                     .advantages-mobile .image-container img {
                         width: 100%;
-                        height: 100px;
+                        height: 120px; /* Default height for images 1 and 3 */
                         object-fit: cover;
                         border-radius: 1rem;
+                    }
+
+                    .advantages-mobile .image-container-second img {
+                        height: 100px; /* Smaller height for the second image */
                     }
 
                     /* Desktop layout (unchanged) */
