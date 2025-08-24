@@ -7,6 +7,7 @@
             <section
                 class="container mx-auto flex relative flex-col w-full gap-0.5 items-start self-stretch pb-0 max-md:pt-8 max-md:pb-0 max-sm:pt-5 max-sm:pb-0"
                 aria-label="Company Advantages">
+                ыыыыы
                 <!-- Версия для ПК: article - фото - article - фото - article и т.д. -->
                 <div class="hidden max-md:hidden grid grid-cols-[repeat(auto-fit,minmax(160px,1fr))] gap-1 w-full">
                     @if (!empty($settings->advantages_cards[app()->getLocale()]))
