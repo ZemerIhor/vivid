@@ -7,7 +7,6 @@
             <section
                 class="container mx-auto flex relative flex-col w-full gap-0.5 items-start self-stretch pb-0 max-md:pt-8 max-md:pb-0 max-sm:pt-5 max-sm:pb-0"
                 aria-label="Company Advantages">
-                ыыыыы
                 <!-- Версия для ПК: article - фото - article - фото - article и т.д. -->
                 <div class="hidden max-md:hidden grid grid-cols-[repeat(auto-fit,minmax(160px,1fr))] gap-1 w-full">
                     @if (!empty($settings->advantages_cards[app()->getLocale()]))
@@ -38,43 +37,11 @@
                     @endif
                 </div>
 
-                <!-- Версия для планшетов: сетка 2 колонки -->
-                <div class="hidden max-md:grid max-sm:hidden grid-cols-2 gap-1 w-full">
-                    @if (!empty($settings->advantages_cards[app()->getLocale()]))
-                        @foreach ($settings->advantages_cards[app()->getLocale()] as $index => $card)
-                            <article style="max-height: 250px" class="flex flex-col gap-3 items-center p-6 rounded-3xl bg-zinc-800">
-                                <div class="flex flex-col gap-2 w-full text-center text-white">
-                                    @if (!empty($card['icon']))
-                                        <img src="{{ Storage::url($card['icon']) }}"
-                                            alt="{{ isset($card['title']) ? $card['title'] : 'Advantage icon' }}"
-                                            class="w-12 h-12 mx-auto mb-2" />
-                                    @endif
-                                    <h2 class="text-base font-bold leading-5 max-sm:text-sm">
-                                        {{ isset($card['title']) ? $card['title'] : '' }}
-                                    </h2>
-                                    <p class="text-xs font-semibold leading-5 max-sm:text-xs">
-                                        {{ isset($card['description']) ? $card['description'] : '' }}
-                                    </p>
-                                </div>
-                            </article>
-                        @endforeach
-
-                        @for ($i = 1; $i <= 3; $i++)
-                            @if (!empty($settings->{'advantages_image_' . $i}))
-                                <img style="max-height: 250px" src="{{ Storage::url($settings->{'advantages_image_' . $i}) }}"
-                                    alt="Advantage image" class="object-cover w-full h-full rounded-3xl" />
-                            @endif
-                        @endfor
-                    @else
-                        <p>{{ __('messages.advantages.no_cards') }}</p>
-                    @endif
-                </div>
-
                 <!-- Версия для мобильных: article - фото - 3 article - фото и т.д. -->
-                <div class="grid grid-cols-1 gap-1 w-full max-sm:grid-cols-1">
+                <div class="grid grid-cols-2 gap-1 w-full max-sm:grid-cols-2">
                     @if (!empty($settings->advantages_cards[app()->getLocale()]))
                         <!-- Первый article -->
-                        <article style="max-height: 250px" class="flex flex-col gap-3 items-center p-6 rounded-3xl bg-zinc-800 max-sm:h-[187px]">
+                        <article style="max-height: 160px" class="flex flex-col gap-3 items-center p-6 rounded-3xl bg-zinc-800 max-sm:h-[187px]">
                             <div class="flex flex-col gap-2 w-full text-center text-white">
                                 @if (!empty($settings->advantages_cards[app()->getLocale()][0]['icon']))
                                     <img src="{{ Storage::url($settings->advantages_cards[app()->getLocale()][0]['icon']) }}"
@@ -92,7 +59,7 @@
 
                         <!-- Первое фото -->
                         @if (!empty($settings->{'advantages_image_1'}))
-                            <img style="max-height: 250px" src="{{ Storage::url($settings->{'advantages_image_1'}) }}"
+                            <img style="max-height: 120px" src="{{ Storage::url($settings->{'advantages_image_1'}) }}"
                                 alt="Advantage image" class="object-cover w-full h-full rounded-3xl max-sm:h-[124px]" />
                         @endif
 
