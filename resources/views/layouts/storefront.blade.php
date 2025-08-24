@@ -152,6 +152,7 @@
 @livewireScripts
 @stack('scripts')
 
+
 <x-footer/>
 <button
     id="scrollToTopBtn"
