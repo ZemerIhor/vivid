@@ -129,7 +129,12 @@
         <style>
             /* По умолчанию показываем мобилку */
             .advantages-mobile {
-                display: block;
+                display: flex;
+                flex-wrap: wrap;
+
+            }
+            .advantages-mobile img , .advantages-mobile article {
+                width: 49%;
             }
             .advantages-pc {
                 display: none;
