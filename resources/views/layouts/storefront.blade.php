@@ -152,6 +152,46 @@
 @livewireScripts
 @stack('scripts')
 
+<script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Masonry для мобильных устройств
+        if (window.innerWidth < 768) {
+            var grid = document.querySelector('.advantages-mobile');
+            if (grid) {
+                var msnry = new Masonry(grid, {
+                    itemSelector: '.advantage-item',
+                    columnWidth: '.advantage-item',
+                    percentPosition: true,
+                    gutter: 10
+                });
+            }
+        }
+    });
+    
+    // Обработка изменения размера окна
+    window.addEventListener('resize', function() {
+        var grid = document.querySelector('.advantages-mobile');
+        if (grid) {
+            if (window.innerWidth < 768) {
+                // Инициализируем Masonry на мобильных устройствах
+                var msnry = new Masonry(grid, {
+                    itemSelector: '.advantage-item',
+                    columnWidth: '.advantage-item',
+                    percentPosition: true,
+                    gutter: 10
+                });
+            } else {
+                // Уничтожаем Masonry на больших экранах
+                var msnry = Masonry.data(grid);
+                if (msnry) {
+                    msnry.destroy();
+                }
+            }
+        }
+    });
+</script>
+
 <x-footer/>
 <button
     id="scrollToTopBtn"

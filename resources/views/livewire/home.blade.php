@@ -7,11 +7,9 @@
             <section
                 class="container mx-auto flex relative flex-col w-full gap-0.5 items-start self-stretch pb-0 max-md:pt-8 max-md:pb-0 max-sm:pt-5 max-sm:pb-0"
                 aria-label="Company Advantages">
-                <div class="advantages-pc">
-
-
-
-                @if (!empty($settings->advantages_cards[app()->getLocale()]))
+                <!-- Версия для ПК: article - фото - article - фото - article и т.д. -->
+                <div class="hidden max-md:hidden grid grid-cols-[repeat(auto-fit,minmax(160px,1fr))] gap-1 w-full">
+                    @if (!empty($settings->advantages_cards[app()->getLocale()]))
                         @foreach ($settings->advantages_cards[app()->getLocale()] as $index => $card)
                             <article style="max-height: 250px" class="flex flex-col gap-3 items-center p-6 rounded-3xl bg-zinc-800">
                                 <div class="flex flex-col gap-2 w-full text-center text-white">
@@ -28,7 +26,7 @@
                                     </p>
                                 </div>
                             </article>
-
+                            
                             @if (!empty($settings->{'advantages_image_' . ($index + 1)}))
                                 <img style="max-height: 250px" src="{{ Storage::url($settings->{'advantages_image_' . ($index + 1)}) }}"
                                     alt="Advantage image" class="object-cover w-full h-full rounded-3xl" />
@@ -38,87 +36,129 @@
                         <p>{{ __('messages.advantages.no_cards') }}</p>
                     @endif
                 </div>
-
-                <div class="advantages-mobile">
-
-
-
-                @if (!empty($settings->advantages_cards[app()->getLocale()]))
+                
+                <!-- Версия для планшетов: сетка 2 колонки -->
+                <div class="hidden max-md:grid max-sm:hidden grid-cols-2 gap-1 w-full">
+                    @if (!empty($settings->advantages_cards[app()->getLocale()]))
+                        @foreach ($settings->advantages_cards[app()->getLocale()] as $index => $card)
+                            <article style="max-height: 250px" class="flex flex-col gap-3 items-center p-6 rounded-3xl bg-zinc-800">
+                                <div class="flex flex-col gap-2 w-full text-center text-white">
+                                    @if (!empty($card['icon']))
+                                        <img src="{{ Storage::url($card['icon']) }}"
+                                            alt="{{ isset($card['title']) ? $card['title'] : 'Advantage icon' }}"
+                                            class="w-12 h-12 mx-auto mb-2" />
+                                    @endif
+                                    <h2 class="text-base font-bold leading-5 max-sm:text-sm">
+                                        {{ isset($card['title']) ? $card['title'] : '' }}
+                                    </h2>
+                                    <p class="text-xs font-semibold leading-5 max-sm:text-xs">
+                                        {{ isset($card['description']) ? $card['description'] : '' }}
+                                    </p>
+                                </div>
+                            </article>
+                        @endforeach
+                        
+                        @for ($i = 1; $i <= 3; $i++)
+                            @if (!empty($settings->{'advantages_image_' . $i}))
+                                <img style="max-height: 250px" src="{{ Storage::url($settings->{'advantages_image_' . $i}) }}"
+                                    alt="Advantage image" class="object-cover w-full h-full rounded-3xl" />
+                            @endif
+                        @endfor
+                    @else
+                        <p>{{ __('messages.advantages.no_cards') }}</p>
+                    @endif
+                </div>
+                
+                <!-- Версия для мобильных: masonry layout -->
+                <div class="advantages-mobile max-sm:grid-cols-1 max-md:hidden">
+                    @if (!empty($settings->advantages_cards[app()->getLocale()]))
                         <!-- Первый article -->
-                        <article  class="flex flex-col gap-3 items-center p-6 rounded-3xl bg-zinc-800 max-sm:h-[187px]">
-                            <div class="flex flex-col gap-2 w-full text-center text-white">
-                                @if (!empty($settings->advantages_cards[app()->getLocale()][0]['icon']))
-                                    <img src="{{ Storage::url($settings->advantages_cards[app()->getLocale()][0]['icon']) }}"
-                                        alt="{{ isset($settings->advantages_cards[app()->getLocale()][0]['title']) ? $settings->advantages_cards[app()->getLocale()][0]['title'] : 'Advantage icon' }}"
-                                        class="w-12 h-12 mx-auto mb-2 max-sm:h-[124px] max-sm:object-cover" />
-                                @endif
-                                <h2 class="text-base font-bold leading-5 max-sm:text-sm">
-                                    {{ isset($settings->advantages_cards[app()->getLocale()][0]['title']) ? $settings->advantages_cards[app()->getLocale()][0]['title'] : '' }}
-                                </h2>
-                                <p class="text-xs font-semibold leading-5 max-sm:text-xs">
-                                    {{ isset($settings->advantages_cards[app()->getLocale()][0]['description']) ? $settings->advantages_cards[app()->getLocale()][0]['description'] : '' }}
-                                </p>
-                            </div>
-                        </article>
-
+                        <div class="advantage-item">
+                            <article class="flex flex-col gap-3 items-center p-6 rounded-3xl bg-zinc-800 max-sm:h-[187px]">
+                                <div class="flex flex-col gap-2 w-full text-center text-white">
+                                    @if (!empty($settings->advantages_cards[app()->getLocale()][0]['icon']))
+                                        <img src="{{ Storage::url($settings->advantages_cards[app()->getLocale()][0]['icon']) }}"
+                                            alt="{{ isset($settings->advantages_cards[app()->getLocale()][0]['title']) ? $settings->advantages_cards[app()->getLocale()][0]['title'] : 'Advantage icon' }}"
+                                            class="w-12 h-12 mx-auto mb-2 max-sm:h-[124px] max-sm:object-cover" />
+                                    @endif
+                                    <h2 class="text-base font-bold leading-5 max-sm:text-sm">
+                                        {{ isset($settings->advantages_cards[app()->getLocale()][0]['title']) ? $settings->advantages_cards[app()->getLocale()][0]['title'] : '' }}
+                                    </h2>
+                                    <p class="text-xs font-semibold leading-5 max-sm:text-xs">
+                                        {{ isset($settings->advantages_cards[app()->getLocale()][0]['description']) ? $settings->advantages_cards[app()->getLocale()][0]['description'] : '' }}
+                                    </p>
+                                </div>
+                            </article>
+                        </div>
+                        
                         <!-- Первое фото -->
                         @if (!empty($settings->{'advantages_image_1'}))
-                            <img style="max-height: 120px" src="{{ Storage::url($settings->{'advantages_image_1'}) }}"
-                                alt="Advantage image" class="object-cover w-full h-full rounded-3xl max-sm:h-[124px]" />
+                            <div class="advantage-item">
+                                <img style="max-height: 124px" src="{{ Storage::url($settings->{'advantages_image_1'}) }}"
+                                    alt="Advantage image" class="object-cover w-full h-full rounded-3xl max-sm:h-[124px]" />
+                            </div>
                         @endif
-
+                        
                         <!-- Три article -->
                         @for ($i = 1; $i <= 3; $i++)
                             @if (isset($settings->advantages_cards[app()->getLocale()][$i]))
-                                <article  class="flex flex-col gap-3 items-center p-6 rounded-3xl bg-zinc-800 max-sm:h-[187px]">
-                                    <div class="flex flex-col gap-2 w-full text-center text-white">
-                                        @if (!empty($settings->advantages_cards[app()->getLocale()][$i]['icon']))
-                                            <img src="{{ Storage::url($settings->advantages_cards[app()->getLocale()][$i]['icon']) }}"
-                                                alt="{{ isset($settings->advantages_cards[app()->getLocale()][$i]['title']) ? $settings->advantages_cards[app()->getLocale()][$i]['title'] : 'Advantage icon' }}"
-                                                class="w-12 h-12 mx-auto mb-2 max-sm:h-[124px] max-sm:object-cover" />
-                                        @endif
-                                        <h2 class="text-base font-bold leading-5 max-sm:text-sm">
-                                            {{ isset($settings->advantages_cards[app()->getLocale()][$i]['title']) ? $settings->advantages_cards[app()->getLocale()][$i]['title'] : '' }}
-                                        </h2>
-                                        <p class="text-xs font-semibold leading-5 max-sm:text-xs">
-                                            {{ isset($settings->advantages_cards[app()->getLocale()][$i]['description']) ? $settings->advantages_cards[app()->getLocale()][$i]['description'] : '' }}
-                                        </p>
-                                    </div>
-                                </article>
+                                <div class="advantage-item">
+                                    <article class="flex flex-col gap-3 items-center p-6 rounded-3xl bg-zinc-800 max-sm:h-[187px]">
+                                        <div class="flex flex-col gap-2 w-full text-center text-white">
+                                            @if (!empty($settings->advantages_cards[app()->getLocale()][$i]['icon']))
+                                                <img src="{{ Storage::url($settings->advantages_cards[app()->getLocale()][$i]['icon']) }}"
+                                                    alt="{{ isset($settings->advantages_cards[app()->getLocale()][$i]['title']) ? $settings->advantages_cards[app()->getLocale()][$i]['title'] : 'Advantage icon' }}"
+                                                    class="w-12 h-12 mx-auto mb-2 max-sm:h-[124px] max-sm:object-cover" />
+                                            @endif
+                                            <h2 class="text-base font-bold leading-5 max-sm:text-sm">
+                                                {{ isset($settings->advantages_cards[app()->getLocale()][$i]['title']) ? $settings->advantages_cards[app()->getLocale()][$i]['title'] : '' }}
+                                            </h2>
+                                            <p class="text-xs font-semibold leading-5 max-sm:text-xs">
+                                                {{ isset($settings->advantages_cards[app()->getLocale()][$i]['description']) ? $settings->advantages_cards[app()->getLocale()][$i]['description'] : '' }}
+                                            </p>
+                                        </div>
+                                    </article>
+                                </div>
                             @endif
                         @endfor
-
+                        
                         <!-- Второе фото -->
                         @if (!empty($settings->{'advantages_image_2'}))
-                            <img style="max-height: 150px" src="{{ Storage::url($settings->{'advantages_image_2'}) }}"
-                                alt="Advantage image" class="object-cover w-full h-full rounded-3xl max-sm:h-[124px]" />
+                            <div class="advantage-item">
+                                <img style="max-height: 124px" src="{{ Storage::url($settings->{'advantages_image_2'}) }}"
+                                    alt="Advantage image" class="object-cover w-full h-full rounded-3xl max-sm:h-[124px]" />
+                            </div>
                         @endif
-
+                        
                         <!-- Оставшиеся article -->
                         @for ($i = 4; $i < count($settings->advantages_cards[app()->getLocale()]); $i++)
                             @if (isset($settings->advantages_cards[app()->getLocale()][$i]))
-                                <article  class="flex flex-col gap-3 items-center p-6 rounded-3xl bg-zinc-800 max-sm:h-[187px]">
-                                    <div class="flex flex-col gap-2 w-full text-center text-white">
-                                        @if (!empty($settings->advantages_cards[app()->getLocale()][$i]['icon']))
-                                            <img src="{{ Storage::url($settings->advantages_cards[app()->getLocale()][$i]['icon']) }}"
-                                                alt="{{ isset($settings->advantages_cards[app()->getLocale()][$i]['title']) ? $settings->advantages_cards[app()->getLocale()][$i]['title'] : 'Advantage icon' }}"
-                                                class="w-12 h-12 mx-auto mb-2 max-sm:h-[124px] max-sm:object-cover" />
-                                        @endif
-                                        <h2 class="text-base font-bold leading-5 max-sm:text-sm">
-                                            {{ isset($settings->advantages_cards[app()->getLocale()][$i]['title']) ? $settings->advantages_cards[app()->getLocale()][$i]['title'] : '' }}
-                                        </h2>
-                                        <p class="text-xs font-semibold leading-5 max-sm:text-xs">
-                                            {{ isset($settings->advantages_cards[app()->getLocale()][$i]['description']) ? $settings->advantages_cards[app()->getLocale()][$i]['description'] : '' }}
-                                        </p>
-                                    </div>
-                                </article>
+                                <div class="advantage-item">
+                                    <article class="flex flex-col gap-3 items-center p-6 rounded-3xl bg-zinc-800 max-sm:h-[187px]">
+                                        <div class="flex flex-col gap-2 w-full text-center text-white">
+                                            @if (!empty($settings->advantages_cards[app()->getLocale()][$i]['icon']))
+                                                <img src="{{ Storage::url($settings->advantages_cards[app()->getLocale()][$i]['icon']) }}"
+                                                    alt="{{ isset($settings->advantages_cards[app()->getLocale()][$i]['title']) ? $settings->advantages_cards[app()->getLocale()][$i]['title'] : 'Advantage icon' }}"
+                                                    class="w-12 h-12 mx-auto mb-2 max-sm:h-[124px] max-sm:object-cover" />
+                                            @endif
+                                            <h2 class="text-base font-bold leading-5 max-sm:text-sm">
+                                                {{ isset($settings->advantages_cards[app()->getLocale()][$i]['title']) ? $settings->advantages_cards[app()->getLocale()][$i]['title'] : '' }}
+                                            </h2>
+                                            <p class="text-xs font-semibold leading-5 max-sm:text-xs">
+                                                {{ isset($settings->advantages_cards[app()->getLocale()][$i]['description']) ? $settings->advantages_cards[app()->getLocale()][$i]['description'] : '' }}
+                                            </p>
+                                        </div>
+                                    </article>
+                                </div>
                             @endif
                         @endfor
-
+                        
                         <!-- Третье фото -->
                         @if (!empty($settings->{'advantages_image_3'}))
-                            <img style="max-height: 150px" src="{{ Storage::url($settings->{'advantages_image_3'}) }}"
-                                alt="Advantage image" class="object-cover w-full h-full rounded-3xl max-sm:h-[124px]" />
+                            <div class="advantage-item">
+                                <img style="max-height: 124px" src="{{ Storage::url($settings->{'advantages_image_3'}) }}"
+                                    alt="Advantage image" class="object-cover w-full h-full rounded-3rl max-sm:h-[124px]" />
+                            </div>
                         @endif
                     @else
                         <p>{{ __('messages.advantages.no_cards') }}</p>
@@ -129,18 +169,21 @@
         <style>
             .advantages-mobile {
                 display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-                grid-template-rows: masonry;
+                grid-template-columns: 1fr 1fr;
                 gap: 10px;
+            }
+
+            .advantages-mobile .advantage-item {
+                margin-bottom: 10px;
             }
 
             .advantages-mobile article {
                 display: flex;
                 flex-direction: column;
-                justify-content: center; /* контент по центру по высоте */
+                justify-content: center;
                 padding: 1.5rem;
                 border-radius: 1rem;
-                background-color: #18181b; /* bg-zinc-800 */
+                background-color: #18181b;
                 height: 100%;
             }
 
@@ -173,8 +216,28 @@
                     object-fit: cover;
                 }
             }
-
-
+            
+            @media (max-width: 767px) {
+                .advantages-mobile {
+                    display: block;
+                }
+                
+                .advantages-mobile .advantage-item {
+                    width: calc(50% - 5px);
+                    float: left;
+                    margin-bottom: 10px;
+                }
+                
+                .advantages-mobile .advantage-item:nth-child(2n+1) {
+                    margin-right: 10px;
+                }
+                
+                .advantages-mobile::after {
+                    content: "";
+                    display: table;
+                    clear: both;
+                }
+            }
         </style>
         <div class="container mx-auto px-2 py-4 pt-40 products" id="catalog">
 
