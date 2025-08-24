@@ -90,7 +90,7 @@
 
                         <!-- Второе фото -->
                         @if (!empty($settings->{'advantages_image_2'}))
-                            <img style="max-height: 250px" src="{{ Storage::url($settings->{'advantages_image_2'}) }}"
+                            <img style="max-height: 150px" src="{{ Storage::url($settings->{'advantages_image_2'}) }}"
                                 alt="Advantage image" class="object-cover w-full h-full rounded-3xl max-sm:h-[124px]" />
                         @endif
 
@@ -131,10 +131,11 @@
             .advantages-mobile {
                 display: flex;
                 flex-wrap: wrap;
+                gap: 10px;
 
             }
             .advantages-mobile img , .advantages-mobile article {
-                width: 49%;
+                width: 48%;
             }
             .advantages-pc {
                 display: none;
