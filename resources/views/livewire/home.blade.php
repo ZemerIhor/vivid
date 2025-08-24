@@ -8,8 +8,9 @@
                 class="container mx-auto flex relative flex-col w-full gap-0.5 items-start self-stretch pb-0 max-md:pt-8 max-md:pb-0 max-sm:pt-5 max-sm:pb-0"
                 aria-label="Company Advantages">
                 <!-- Версия для ПК: article - фото - article - фото - article и т.д. -->
-                <div class="hidden max-md:hidden grid grid-cols-[repeat(auto-fit,minmax(160px,1fr))] gap-1 w-full">
-                    @if (!empty($settings->advantages_cards[app()->getLocale()]))
+                <div class="hidden md:grid grid-cols-[repeat(auto-fit,minmax(160px,1fr))] gap-1 w-full">
+
+                @if (!empty($settings->advantages_cards[app()->getLocale()]))
                         @foreach ($settings->advantages_cards[app()->getLocale()] as $index => $card)
                             <article style="max-height: 250px" class="flex flex-col gap-3 items-center p-6 rounded-3xl bg-zinc-800">
                                 <div class="flex flex-col gap-2 w-full text-center text-white">
@@ -38,7 +39,7 @@
                 </div>
 
                 <!-- Версия для мобильных: article - фото - 3 article - фото и т.д. -->
-                <div class="grid grid-cols-2 gap-1 w-full max-sm:grid-cols-2">
+                <div class="grid grid-cols-2 gap-1 w-full md:hidden">
                     @if (!empty($settings->advantages_cards[app()->getLocale()]))
                         <!-- Первый article -->
                         <article style="max-height: 160px" class="flex flex-col gap-3 items-center p-6 rounded-3xl bg-zinc-800 max-sm:h-[187px]">
