@@ -237,23 +237,8 @@
                 </div>
             </section>
         </div>
-        <style>
-            @media (max-width: 768px) {
-                .adv .advantages__img {
-                    max-height: 124px;
-                }
 
-                .main-advantages-container {
-                    display: flex !important;
-                    flex-wrap: wrap;
-                }
 
-                .main-advantages-container > div {
-                    width: 49%;
-                    margin-bottom: 10px;
-                }
-            }
-        </style>
 
         <livewire:components.reviews-section/>
 
