@@ -190,7 +190,7 @@
         </div>
 
         <div class="container mx-auto px-2 pt-40">
-            <section class="flex overflow-hidden flex-col font-bold" aria-labelledby="advantages-title">
+            <section class="adv flex overflow-hidden flex-col font-bold" aria-labelledby="advantages-title">
                 <div class="flex flex-col items-center">
                     <h1 id="advantages-title" class="text-4xl leading-none text-center text-zinc-800 max-md:max-w-full">
                         {{ isset($settings->comparison_title[app()->getLocale()]) ? $settings->comparison_title[app()->getLocale()] : __('messages.advantages.title') }}
@@ -239,7 +239,7 @@
         </div>
         <style>
             @media (max-width: 768px) {
-                .advantages__img {
+                .adv .advantages__img {
                     max-height: 124px;
                 }
 
