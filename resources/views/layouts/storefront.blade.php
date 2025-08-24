@@ -152,6 +152,35 @@
 @livewireScripts
 @stack('scripts')
 
+<script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var grid = document.querySelector('.advantages-mobile');
+        if (!grid) return;
+
+        var msnry;
+
+        function initMasonry() {
+            if (window.innerWidth < 768 && !msnry) {
+                msnry = new Masonry(grid, {
+                    itemSelector: '.advantage-item',
+                    columnWidth: '.advantage-item',
+                    percentPosition: true,
+                    gutter: 10
+                });
+            } else if (window.innerWidth >= 768 && msnry) {
+                msnry.destroy();
+                msnry = null;
+            }
+        }
+
+        initMasonry();
+
+        window.addEventListener('resize', initMasonry);
+    });
+
+</script>
+
 <x-footer/>
 <button
     id="scrollToTopBtn"
