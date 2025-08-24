@@ -7,8 +7,7 @@
             <section
                 class="container mx-auto flex relative flex-col w-full gap-0.5 items-start self-stretch pb-0 max-md:pt-8 max-md:pb-0 max-sm:pt-5 max-sm:pb-0"
                 aria-label="Company Advantages">
-                <!-- Версия для ПК: article - фото - article - фото - article и т.д. -->
-                <div class="hidden md:grid grid-cols-[repeat(auto-fit,minmax(160px,1fr))] gap-1 w-full">
+                <div class="advantages-pc">
 
 
 
@@ -40,8 +39,8 @@
                     @endif
                 </div>
 
-                <!-- Версия для мобильных: article - фото - 3 article - фото и т.д. -->
-                <div class="grid grid-cols-2 gap-1 w-full md:hidden">
+                <div class="advantages-mobile">
+
 
 
                 @if (!empty($settings->advantages_cards[app()->getLocale()]))
@@ -127,7 +126,29 @@
                 </div>
             </section>
         </div>
+        <style>
+            /* По умолчанию показываем мобилку */
+            .advantages-mobile {
+                display: block;
+            }
+            .advantages-pc {
+                display: none;
+            }
 
+            /* На ПК (от 1024px и шире) показываем десктопную */
+            @media (min-width: 1024px) {
+                .advantages-mobile {
+                    display: none;
+                }
+                .advantages-pc {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+                    gap: 0.25rem; /* заменяет gap-1 */
+                    width: 100%;
+                }
+            }
+
+        </style>
         <div class="container mx-auto px-2 py-4 pt-40 products" id="catalog">
 
             <section class="flex flex-col self-stretch" aria-label="Каталог">
