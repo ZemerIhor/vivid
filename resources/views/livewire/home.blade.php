@@ -45,7 +45,7 @@
                     @if (!empty($settings->advantages_cards[app()->getLocale()]))
                         <!-- Articles and images interspersed -->
                         @foreach ($settings->advantages_cards[app()->getLocale()] as $index => $card)
-                            <article class="flex flex-col gap-3 items-center p-6 rounded-3xl bg-zinc-800 max-sm:h-[187px]">
+                            <article class="flex flex-col gap-3 items-center p-6 rounded-3xl bg-zinc-800 max-sm:h-[187px] {{ $index == 4 && !empty($settings->{'advantages_image_2'}) ? 'article-wide' : '' }}">
                                 <div class="flex flex-col gap-2 w-full text-center text-white">
                                     @if (!empty($card['icon']))
                                         <img src="{{ Storage::url($card['icon']) }}"
@@ -85,7 +85,16 @@
                 </div>
 
                 <style>
-
+                    /* Reset CSS */
+                    * {
+                        margin: 0;
+                        padding: 0;
+                        box-sizing: border-box;
+                    }
+                    html, body {
+                        background: linear-gradient(45deg, #190f2c, #200b30);
+                        padding: 15px;
+                    }
                     img {
                         max-width: 100%;
                         height: auto;
@@ -120,8 +129,16 @@
                         border-radius: 1rem;
                     }
 
+                    .advantages-mobile .image-container-second {
+                        grid-row: span 2; /* Second image spans two rows */
+                    }
+
                     .advantages-mobile .image-container-second img {
                         height: 100px; /* Smaller height for the second image */
+                    }
+
+                    .advantages-mobile .article-wide {
+                        grid-column: span 2; /* Article below second image spans both columns */
                     }
 
                     /* Desktop layout (unchanged) */
