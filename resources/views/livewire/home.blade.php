@@ -85,7 +85,16 @@
                 </div>
 
                 <style>
-
+                    /* Reset CSS */
+                    * {
+                        margin: 0;
+                        padding: 0;
+                        box-sizing: border-box;
+                    }
+                    html, body {
+                        background: linear-gradient(45deg, #190f2c, #200b30);
+                        padding: 15px;
+                    }
                     img {
                         max-width: 100%;
                         height: auto;
@@ -95,10 +104,10 @@
 
                     /* Mobile layout */
                     .advantages-mobile {
-                        display: flex;
-                        flex-direction: column;
+                        display: grid;
+                        grid-template-columns: repeat(2, 1fr);
                         gap: 10px;
-                        max-width: 250px;
+                        max-width: 550px;
                         margin: 0 auto;
                     }
 
