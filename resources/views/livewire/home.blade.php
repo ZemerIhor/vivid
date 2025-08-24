@@ -43,6 +43,7 @@
                 <!-- Версия для мобильных: article - фото - 3 article - фото и т.д. -->
                 <div class="grid grid-cols-2 gap-1 w-full md:hidden">
 
+
                 @if (!empty($settings->advantages_cards[app()->getLocale()]))
                         <!-- Первый article -->
                         <article style="max-height: 160px" class="flex flex-col gap-3 items-center p-6 rounded-3xl bg-zinc-800 max-sm:h-[187px]">
