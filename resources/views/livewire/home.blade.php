@@ -117,7 +117,7 @@
 
                         <!-- Третье фото -->
                         @if (!empty($settings->{'advantages_image_3'}))
-                            <img style="max-height: 250px" src="{{ Storage::url($settings->{'advantages_image_3'}) }}"
+                            <img style="" src="{{ Storage::url($settings->{'advantages_image_3'}) }}"
                                 alt="Advantage image" class="object-cover w-full h-full rounded-3xl max-sm:h-[124px]" />
                         @endif
                     @else
