@@ -130,7 +130,7 @@
             .advantages-mobile {
                 display: grid;
                 grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-                grid-auto-rows: 1fr; /* каждая строка одинаковой высоты */
+                grid-template-rows: masonry;
                 gap: 10px;
             }
 
