@@ -26,7 +26,7 @@
                                     </p>
                                 </div>
                             </article>
-                            
+
                             @if (!empty($settings->{'advantages_image_' . ($index + 1)}))
                                 <img style="max-height: 250px" src="{{ Storage::url($settings->{'advantages_image_' . ($index + 1)}) }}"
                                     alt="Advantage image" class="object-cover w-full h-full rounded-3xl" />
@@ -36,7 +36,7 @@
                         <p>{{ __('messages.advantages.no_cards') }}</p>
                     @endif
                 </div>
-                
+
                 <!-- Версия для планшетов: сетка 2 колонки -->
                 <div class="hidden max-md:grid max-sm:hidden grid-cols-2 gap-1 w-full">
                     @if (!empty($settings->advantages_cards[app()->getLocale()]))
@@ -57,7 +57,7 @@
                                 </div>
                             </article>
                         @endforeach
-                        
+
                         @for ($i = 1; $i <= 3; $i++)
                             @if (!empty($settings->{'advantages_image_' . $i}))
                                 <img style="max-height: 250px" src="{{ Storage::url($settings->{'advantages_image_' . $i}) }}"
@@ -68,7 +68,7 @@
                         <p>{{ __('messages.advantages.no_cards') }}</p>
                     @endif
                 </div>
-                
+
                 <!-- Версия для мобильных: article - фото - 3 article - фото и т.д. -->
                 <div class="grid grid-cols-1 gap-1 w-full max-sm:grid-cols-1">
                     @if (!empty($settings->advantages_cards[app()->getLocale()]))
@@ -88,13 +88,13 @@
                                 </p>
                             </div>
                         </article>
-                        
+
                         <!-- Первое фото -->
                         @if (!empty($settings->{'advantages_image_1'}))
                             <img style="max-height: 250px" src="{{ Storage::url($settings->{'advantages_image_1'}) }}"
                                 alt="Advantage image" class="object-cover w-full h-full rounded-3xl max-sm:h-[124px]" />
                         @endif
-                        
+
                         <!-- Три article -->
                         @for ($i = 1; $i <= 3; $i++)
                             @if (isset($settings->advantages_cards[app()->getLocale()][$i]))
@@ -115,13 +115,13 @@
                                 </article>
                             @endif
                         @endfor
-                        
+
                         <!-- Второе фото -->
                         @if (!empty($settings->{'advantages_image_2'}))
                             <img style="max-height: 250px" src="{{ Storage::url($settings->{'advantages_image_2'}) }}"
                                 alt="Advantage image" class="object-cover w-full h-full rounded-3xl max-sm:h-[124px]" />
                         @endif
-                        
+
                         <!-- Оставшиеся article -->
                         @for ($i = 4; $i < count($settings->advantages_cards[app()->getLocale()]); $i++)
                             @if (isset($settings->advantages_cards[app()->getLocale()][$i]))
@@ -142,7 +142,7 @@
                                 </article>
                             @endif
                         @endfor
-                        
+
                         <!-- Третье фото -->
                         @if (!empty($settings->{'advantages_image_3'}))
                             <img style="max-height: 250px" src="{{ Storage::url($settings->{'advantages_image_3'}) }}"
@@ -154,22 +154,7 @@
                 </div>
             </section>
         </div>
-        <style>
-            @media (max-width: 700px) {
-                .advantages__img {
-                    max-height: 124px;
-                }
 
-                .main-advantages-container {
-                    display: flex !important;
-                    flex-wrap: wrap;
-                }
-
-                .main-advantages-container > img, .main-advantages-container article {
-                    width: 49%;
-                }
-            }
-        </style>
         <div class="container mx-auto px-2 py-4 pt-40 products" id="catalog">
 
             <section class="flex flex-col self-stretch" aria-label="Каталог">
