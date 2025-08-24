@@ -26,18 +26,18 @@
                                     </p>
                                 </div>
                             </article>
-                            
+
                             @if ($index == 0 && !empty($settings->{'advantages_image_1'}))
                                 <img style="max-height: 250px" src="{{ Storage::url($settings->{'advantages_image_1'}) }}"
                                     alt="Advantage image" class="object-cover w-full h-full rounded-3xl max-sm:h-[124px]" />
                             @endif
-                            
+
                             @if ($index == 3 && !empty($settings->{'advantages_image_2'}))
                                 <img style="max-height: 250px" src="{{ Storage::url($settings->{'advantages_image_2'}) }}"
                                     alt="Advantage image" class="object-cover w-full h-full rounded-3xl max-sm:h-[124px]" />
                             @endif
                         @endforeach
-                        
+
                         @if (!empty($settings->{'advantages_image_3'}))
                             <img style="max-height: 250px" src="{{ Storage::url($settings->{'advantages_image_3'}) }}"
                                 alt="Advantage image" class="object-cover w-full h-full rounded-3xl max-sm:h-[124px]" />
@@ -119,7 +119,7 @@
                 </div>
                 <!-- Part 2: Comparison Items and Central Text -->
                 <div class="flex relative flex-col self-center mt-2 w-full text-white max-md:max-w-full">
-                    <div class="flex z-0 gap-2 justify-between items-center w-full min-h-60 max-md:gap-6">
+                    <div class="flex z-0 gap-2 justify-between items-center w-full min-h-60 max-md:gap-6 main-advantages-container">
                         @if (!empty($settings->comparison_items[app()->getLocale()]))
                             @foreach ($settings->comparison_items[app()->getLocale()] as $item)
                                 <div class="flex relative flex-col grow items-start self-stretch overflow-hidden
@@ -127,7 +127,7 @@
                                     @if (!empty($item['image']) && is_string($item['image']))
                                         <img src="{{ Storage::url($item['image']) }}"
                                              alt="{{ isset($item['alt']) ? $item['alt'] : '' }}"
-                                             class="object-cover absolute inset-0 size-full"/>
+                                             class="advantages__img object-cover absolute inset-0 size-full"/>
                                     @endif
                                     <div
                                         class="flex relative gap-2 items-end p-4 max-md:flex-col items-center w-full mt-auto">
@@ -143,7 +143,22 @@
                 </div>
             </section>
         </div>
+        <style>
+            @media (max-width: 700px) {
+                .advantages__img {
+                    max-height: 124px;
+                }
 
+                .main-advantages-container {
+                    display: flex !important;
+                    flex-wrap: wrap;
+                }
+
+                .main-advantages-container > img, .main-advantages-container article {
+                    width: 49%;
+                }
+            }
+        </style>
 
         <livewire:components.reviews-section/>
 
