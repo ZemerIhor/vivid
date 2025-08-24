@@ -127,30 +127,28 @@
             </section>
         </div>
         <style>
-            /* Мобильная версия */
             .advantages-mobile {
                 display: grid;
                 grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-                grid-auto-rows: 1fr; /* все строки одной высоты */
+                grid-auto-rows: 1fr; /* каждая строка одинаковой высоты */
                 gap: 10px;
-                width: 100%;
             }
 
             .advantages-mobile article {
                 display: flex;
                 flex-direction: column;
-                justify-content: space-between; /* заполняет всю высоту */
+                justify-content: center; /* контент по центру по высоте */
                 padding: 1.5rem;
                 border-radius: 1rem;
                 background-color: #18181b; /* bg-zinc-800 */
-                height: 100%; /* важно для растяжки */
+                height: 100%;
             }
 
             .advantages-mobile img {
                 width: 100%;
                 object-fit: cover;
                 border-radius: 1rem;
-                height: auto; /* высота подстраивается */
+                height: auto;
             }
 
             /* Десктопная версия */
