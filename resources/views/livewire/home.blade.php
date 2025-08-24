@@ -45,7 +45,7 @@
 
                 @if (!empty($settings->advantages_cards[app()->getLocale()]))
                         <!-- Первый article -->
-                        <article style="max-height: 160px" class="flex flex-col gap-3 items-center p-6 rounded-3xl bg-zinc-800 max-sm:h-[187px]">
+                        <article  class="flex flex-col gap-3 items-center p-6 rounded-3xl bg-zinc-800 max-sm:h-[187px]">
                             <div class="flex flex-col gap-2 w-full text-center text-white">
                                 @if (!empty($settings->advantages_cards[app()->getLocale()][0]['icon']))
                                     <img src="{{ Storage::url($settings->advantages_cards[app()->getLocale()][0]['icon']) }}"
@@ -70,7 +70,7 @@
                         <!-- Три article -->
                         @for ($i = 1; $i <= 3; $i++)
                             @if (isset($settings->advantages_cards[app()->getLocale()][$i]))
-                                <article style="max-height: 250px" class="flex flex-col gap-3 items-center p-6 rounded-3xl bg-zinc-800 max-sm:h-[187px]">
+                                <article  class="flex flex-col gap-3 items-center p-6 rounded-3xl bg-zinc-800 max-sm:h-[187px]">
                                     <div class="flex flex-col gap-2 w-full text-center text-white">
                                         @if (!empty($settings->advantages_cards[app()->getLocale()][$i]['icon']))
                                             <img src="{{ Storage::url($settings->advantages_cards[app()->getLocale()][$i]['icon']) }}"
@@ -97,7 +97,7 @@
                         <!-- Оставшиеся article -->
                         @for ($i = 4; $i < count($settings->advantages_cards[app()->getLocale()]); $i++)
                             @if (isset($settings->advantages_cards[app()->getLocale()][$i]))
-                                <article style="max-height: 250px" class="flex flex-col gap-3 items-center p-6 rounded-3xl bg-zinc-800 max-sm:h-[187px]">
+                                <article  class="flex flex-col gap-3 items-center p-6 rounded-3xl bg-zinc-800 max-sm:h-[187px]">
                                     <div class="flex flex-col gap-2 w-full text-center text-white">
                                         @if (!empty($settings->advantages_cards[app()->getLocale()][$i]['icon']))
                                             <img src="{{ Storage::url($settings->advantages_cards[app()->getLocale()][$i]['icon']) }}"
@@ -117,7 +117,7 @@
 
                         <!-- Третье фото -->
                         @if (!empty($settings->{'advantages_image_3'}))
-                            <img style="" src="{{ Storage::url($settings->{'advantages_image_3'}) }}"
+                            <img style="max-height: 150px" src="{{ Storage::url($settings->{'advantages_image_3'}) }}"
                                 alt="Advantage image" class="object-cover w-full h-full rounded-3xl max-sm:h-[124px]" />
                         @endif
                     @else
