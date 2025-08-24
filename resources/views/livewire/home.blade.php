@@ -42,140 +42,136 @@
 
 
                 <div class="advantages-mobile">
-
-
-
                     @if (!empty($settings->advantages_cards[app()->getLocale()]))
-                        <!-- Первый article -->
-                        <article  class="flex flex-col gap-3 items-center p-6 rounded-3xl bg-zinc-800 max-sm:h-[187px]">
-                            <div class="flex flex-col gap-2 w-full text-center text-white">
-                                @if (!empty($settings->advantages_cards[app()->getLocale()][0]['icon']))
-                                    <img src="{{ Storage::url($settings->advantages_cards[app()->getLocale()][0]['icon']) }}"
-                                         alt="{{ isset($settings->advantages_cards[app()->getLocale()][0]['title']) ? $settings->advantages_cards[app()->getLocale()][0]['title'] : 'Advantage icon' }}"
-                                         class="w-12 h-12 mx-auto mb-2 max-sm:h-[124px] max-sm:object-cover" />
-                                @endif
-                                <h2 class="text-base font-bold leading-5 max-sm:text-sm">
-                                    {{ isset($settings->advantages_cards[app()->getLocale()][0]['title']) ? $settings->advantages_cards[app()->getLocale()][0]['title'] : '' }}
-                                </h2>
-                                <p class="text-xs font-semibold leading-5 max-sm:text-xs">
-                                    {{ isset($settings->advantages_cards[app()->getLocale()][0]['description']) ? $settings->advantages_cards[app()->getLocale()][0]['description'] : '' }}
-                                </p>
-                            </div>
-                        </article>
-
-                        <!-- Первое фото -->
-                        @if (!empty($settings->{'advantages_image_1'}))
-                            <img style="max-height: 120px" src="{{ Storage::url($settings->{'advantages_image_1'}) }}"
-                                 alt="Advantage image" class="object-cover w-full h-full rounded-3xl max-sm:h-[124px]" />
-                        @endif
-
-                        <!-- Три article -->
-                        @for ($i = 1; $i <= 3; $i++)
-                            @if (isset($settings->advantages_cards[app()->getLocale()][$i]))
-                                <article  class="flex flex-col gap-3 items-center p-6 rounded-3xl bg-zinc-800 max-sm:h-[187px]">
+                        <!-- Text blocks (articles) -->
+                        <div class="text-grid">
+                            @foreach ($settings->advantages_cards[app()->getLocale()] as $index => $card)
+                                <article class="flex flex-col gap-3 items-center p-6 rounded-3xl bg-zinc-800">
                                     <div class="flex flex-col gap-2 w-full text-center text-white">
-                                        @if (!empty($settings->advantages_cards[app()->getLocale()][$i]['icon']))
-                                            <img src="{{ Storage::url($settings->advantages_cards[app()->getLocale()][$i]['icon']) }}"
-                                                 alt="{{ isset($settings->advantages_cards[app()->getLocale()][$i]['title']) ? $settings->advantages_cards[app()->getLocale()][$i]['title'] : 'Advantage icon' }}"
+                                        @if (!empty($card['icon']))
+                                            <img src="{{ Storage::url($card['icon']) }}"
+                                                 alt="{{ isset($card['title']) ? $card['title'] : 'Advantage icon' }}"
                                                  class="w-12 h-12 mx-auto mb-2 max-sm:h-[124px] max-sm:object-cover" />
                                         @endif
                                         <h2 class="text-base font-bold leading-5 max-sm:text-sm">
-                                            {{ isset($settings->advantages_cards[app()->getLocale()][$i]['title']) ? $settings->advantages_cards[app()->getLocale()][$i]['title'] : '' }}
+                                            {{ isset($card['title']) ? $card['title'] : '' }}
                                         </h2>
                                         <p class="text-xs font-semibold leading-5 max-sm:text-xs">
-                                            {{ isset($settings->advantages_cards[app()->getLocale()][$i]['description']) ? $settings->advantages_cards[app()->getLocale()][$i]['description'] : '' }}
+                                            {{ isset($card['description']) ? $card['description'] : '' }}
                                         </p>
                                     </div>
                                 </article>
+                            @endforeach
+                        </div>
+
+                        <!-- Image block -->
+                        <div class="image-grid">
+                            @if (!empty($settings->{'advantages_image_1'}))
+                                <div>
+                                    <img src="{{ Storage::url($settings->{'advantages_image_1'}) }}"
+                                         alt="Advantage image" class="object-cover w-full h-full rounded-3xl" />
+                                </div>
                             @endif
-                        @endfor
-
-                        <!-- Второе фото -->
-                        @if (!empty($settings->{'advantages_image_2'}))
-                            <img style="max-height: 150px" src="{{ Storage::url($settings->{'advantages_image_2'}) }}"
-                                 alt="Advantage image" class="object-cover w-full h-full rounded-3xl max-sm:h-[124px]" />
-                        @endif
-
-                        <!-- Оставшиеся article -->
-                        @for ($i = 4; $i < count($settings->advantages_cards[app()->getLocale()]); $i++)
-                            @if (isset($settings->advantages_cards[app()->getLocale()][$i]))
-                                <article  class="flex flex-col gap-3 items-center p-6 rounded-3xl bg-zinc-800 max-sm:h-[187px]">
-                                    <div class="flex flex-col gap-2 w-full text-center text-white">
-                                        @if (!empty($settings->advantages_cards[app()->getLocale()][$i]['icon']))
-                                            <img src="{{ Storage::url($settings->advantages_cards[app()->getLocale()][$i]['icon']) }}"
-                                                 alt="{{ isset($settings->advantages_cards[app()->getLocale()][$i]['title']) ? $settings->advantages_cards[app()->getLocale()][$i]['title'] : 'Advantage icon' }}"
-                                                 class="w-12 h-12 mx-auto mb-2 max-sm:h-[124px] max-sm:object-cover" />
-                                        @endif
-                                        <h2 class="text-base font-bold leading-5 max-sm:text-sm">
-                                            {{ isset($settings->advantages_cards[app()->getLocale()][$i]['title']) ? $settings->advantages_cards[app()->getLocale()][$i]['title'] : '' }}
-                                        </h2>
-                                        <p class="text-xs font-semibold leading-5 max-sm:text-xs">
-                                            {{ isset($settings->advantages_cards[app()->getLocale()][$i]['description']) ? $settings->advantages_cards[app()->getLocale()][$i]['description'] : '' }}
-                                        </p>
-                                    </div>
-                                </article>
+                            @if (!empty($settings->{'advantages_image_2'}))
+                                <div>
+                                    <img src="{{ Storage::url($settings->{'advantages_image_2'}) }}"
+                                         alt="Advantage image" class="object-cover w-full h-full rounded-3xl" />
+                                </div>
                             @endif
-                        @endfor
-
-                        <!-- Третье фото -->
-                        @if (!empty($settings->{'advantages_image_3'}))
-                            <img style="max-height: 150px" src="{{ Storage::url($settings->{'advantages_image_3'}) }}"
-                                 alt="Advantage image" class="object-cover w-full h-full rounded-3xl max-sm:h-[124px]" />
-                        @endif
+                            @if (!empty($settings->{'advantages_image_3'}))
+                                <div>
+                                    <img src="{{ Storage::url($settings->{'advantages_image_3'}) }}"
+                                         alt="Advantage image" class="object-cover w-full h-full rounded-3xl" />
+                                </div>
+                            @endif
+                        </div>
                     @else
                         <p>{{ __('messages.advantages.no_cards') }}</p>
                     @endif
                 </div>
 
+                <style>
+
+                    /* Mobile layout */
+                    .advantages-mobile {
+                        display: flex;
+                        flex-direction: column;
+                        gap: 10px;
+                    }
+
+                    .text-grid {
+                        display: grid;
+                        grid-template-columns: repeat(2, 1fr);
+                        gap: 10px;
+                    }
+
+                    .text-grid article {
+                        max-width: 250px;
+                        max-height: 170px;
+                        border-radius: 1rem;
+                    }
+
+                    .image-grid {
+                        display: grid;
+                        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+                        gap: 10px;
+                        grid-auto-rows: 100px;
+                    }
+
+                    .image-grid > div {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                    }
+
+                    .image-grid img {
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                        border-radius: 1rem;
+                    }
+
+                    /* Desktop layout */
+                    .advantages-pc {
+                        display: none;
+                    }
+
+                    @media (min-width: 1024px) {
+                        .advantages-mobile {
+                            display: none;
+                        }
+                        .advantages-pc {
+                            display: flex;
+                            flex-direction: column;
+                            gap: 10px;
+                            width: 100%;
+                        }
+                        .advantages-pc .text-grid {
+                            display: grid;
+                            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+                            gap: 0.25rem;
+                        }
+                        .advantages-pc .text-grid article {
+                            max-height: 250px;
+                            width: 100%;
+                        }
+                        .advantages-pc .image-grid {
+                            display: grid;
+                            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+                            gap: 0.25rem;
+                            grid-auto-rows: 120px;
+                        }
+                        .advantages-pc .image-grid img {
+                            width: 100%;
+                            height: 100%;
+                            object-fit: cover;
+                            border-radius: 1rem;
+                        }
+                    }
+                </style>
             </section>
         </div>
-        <style>
 
-
-            .advantages-mobile {
-                display: grid;
-                grid-template-columns: repeat(2, 1fr);
-                gap: 10px;
-            }
-
-            .advantages-mobile article {
-                max-width: 250px;
-                max-height: 170px;
-            }
-
-            .advantages-mobile > img {
-                object-fit: cover;
-                border-radius: 1rem;
-                height: auto;
-                max-width: 250px;
-                max-height: 120px;
-            }
-
-            /* Десктопная версия */
-            .advantages-pc {
-                display: none;
-            }
-
-            @media (min-width: 1024px) {
-                .advantages-mobile {
-                    display: none;
-                }
-                .advantages-pc {
-                    display: grid;
-                    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-                    gap: 0.25rem;
-                    width: 100%;
-                }
-                .advantages-pc article,
-                .advantages-pc > img {
-                    max-height: 250px;
-                    width: 100%;
-                    object-fit: cover;
-                }
-            }
-
-
-        </style>
         <div class="container mx-auto px-2 py-4 pt-40 products" id="catalog">
 
             <section class="flex flex-col self-stretch" aria-label="Каталог">
