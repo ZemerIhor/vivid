@@ -110,7 +110,7 @@
                     width: 100%;
                 }
                 .advantages-pc article,
-                .advantages-pc img {
+                .advantages-pc > img {
                     max-height: 250px;
                     width: 100%;
                     object-fit: cover;
