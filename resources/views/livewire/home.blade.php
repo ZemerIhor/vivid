@@ -74,6 +74,12 @@
         <style>
 
 
+            .advantages-mobile {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+
             .advantages-mobile article {
                 max-width: 250px;
                 max-height: 170px;

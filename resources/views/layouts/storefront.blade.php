@@ -164,7 +164,7 @@
             if (window.innerWidth < 768 && !msnry) {
                 msnry = new Masonry(grid, {
                     itemSelector: '.advantage-item',
-                    columnWidth: '.advantage-item',
+                    columnWidth: window.innerWidth < 768 ? Math.floor(grid.offsetWidth / 2) : '.advantage-item',
                     percentPosition: true,
                     gutter: 10
                 });
