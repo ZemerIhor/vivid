@@ -40,7 +40,6 @@
                     @endif
                 </div>
 
-
                 <div class="advantages-mobile">
                     @if (!empty($settings->advantages_cards[app()->getLocale()]))
                         @foreach ($settings->advantages_cards[app()->getLocale()] as $index => $card)
@@ -59,7 +58,8 @@
 
                                 {{-- Первая картинка --}}
                                 @if (!empty($settings->{'advantages_image_1'}))
-                                    <div class="image" style="background-image:url('{{ Storage::url($settings->{'advantages_image_1'}) }}')"></div>
+                                    <div class="image"
+                                         style="background-image:url('{{ Storage::url($settings->{'advantages_image_1'}) }}')"></div>
                                 @endif
                             @endif
 
@@ -76,7 +76,7 @@
                                 </article>
                             @endif
 
-                            {{-- Третья карточка + Вторая картинка (растянутая) --}}
+                            {{-- Третья карточка + Вторая картинка (высокая) --}}
                             @if ($index == 2)
                                 <article class="card">
                                     @if (!empty($card['icon']))
@@ -89,7 +89,8 @@
                                 </article>
 
                                 @if (!empty($settings->{'advantages_image_2'}))
-                                    <div class="image tall" style="background-image:url('{{ Storage::url($settings->{'advantages_image_2'}) }}')"></div>
+                                    <div class="image tall"
+                                         style="background-image:url('{{ Storage::url($settings->{'advantages_image_2'}) }}')"></div>
                                 @endif
                             @endif
 
@@ -109,7 +110,8 @@
                             {{-- Пятая карточка + третья картинка --}}
                             @if ($index == 4)
                                 @if (!empty($settings->{'advantages_image_3'}))
-                                    <div class="image" style="background-image:url('{{ Storage::url($settings->{'advantages_image_3'}) }}')"></div>
+                                    <div class="image"
+                                         style="background-image:url('{{ Storage::url($settings->{'advantages_image_3'}) }}')"></div>
                                 @endif
 
                                 <article class="card">
@@ -128,48 +130,89 @@
                 </div>
 
                 <style>
+                    img {
+                        max-width: 100%;
+                        height: auto;
+                        vertical-align: middle;
+                        display: inline-block;
+                    }
+
+                    /* Mobile masonry layout */
                     .advantages-mobile {
                         display: grid;
                         grid-template-columns: repeat(2, 1fr);
                         gap: 10px;
                         max-width: 600px;
                         margin: auto;
+
+                        /* задаём базовую высоту строки */
+                        grid-auto-rows: 150px;
                     }
 
-                    .card {
-                        background: #27272a;
+                    /* Общий стиль для карточек и картинок */
+                    .advantages-mobile article,
+                    .advantages-mobile .image {
+                        border-radius: 1rem;
+                        overflow: hidden;
+                    }
+
+                    /* Карточки */
+                    .advantages-mobile article {
+                        padding: 15px;
+                        background: #222;
                         color: #fff;
-                        padding: 20px;
-                        border-radius: 20px;
-                        text-align: center;
                         display: flex;
                         flex-direction: column;
                         justify-content: center;
-                        gap: 8px;
+                        grid-row: span 1; /* каждая по 1 строке */
                     }
 
-                    .title {
-                        font-size: 1rem;
-                        font-weight: 700;
+                    .advantages-mobile .card h2 {
+                        font-size: 1.1rem;
+                        font-weight: bold;
+                        margin-bottom: 0.5rem;
                     }
 
-                    .desc {
-                        font-size: 0.875rem;
-                        font-weight: 500;
+                    .advantages-mobile .card p {
+                        font-size: 0.9rem;
                         line-height: 1.4;
                     }
 
-                    .image {
-                        border-radius: 20px;
+                    /* Картинки */
+                    .advantages-mobile .image {
                         background-size: cover;
                         background-position: center;
-                        min-height: 150px;
+                        grid-row: span 1;
                     }
 
-                    /* Вторая картинка — тянется на 2 ряда */
-                    .image.tall {
+                    /* Вторая картинка — высокая */
+                    .advantages-mobile .image.tall {
                         grid-row: span 2;
-                        min-height: 100%;
+                    }
+
+                    /* Desktop layout */
+                    .advantages-pc {
+                        display: none;
+                    }
+
+                    @media (min-width: 1024px) {
+                        .advantages-mobile {
+                            display: none;
+                        }
+
+                        .advantages-pc {
+                            display: grid;
+                            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+                            gap: 0.25rem;
+                            width: 100%;
+                        }
+
+                        .advantages-pc article,
+                        .advantages-pc > img {
+                            max-height: 250px;
+                            width: 100%;
+                            object-fit: cover;
+                        }
                     }
                 </style>
 
