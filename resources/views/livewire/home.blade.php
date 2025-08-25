@@ -201,7 +201,7 @@
                                  alt="{{ isset($settings->main_comparison_alt[app()->getLocale()]) ? $settings->main_comparison_alt[app()->getLocale()] : 'Comparison of peat briquettes' }}"
                                  class="object-fill w-full min-h-60  aspect-[4.13] rounded-[32px] max-md:max-w-full"/>
                             <span
-                                class="absolute top-0 left-0 right-0 bottom-0 z-10 flex flex-col justify-center items-center px-4 py-12 leading-none text-center whitespace-nowrap h-full"
+                                class="absolute top-0 left-0 right-0 bottom-0 z-10 flex flex-col justify-center items-center leading-none text-center whitespace-nowrap h-full"
                                 aria-label="Quantity of peat briquettes for comparison">
     <span
         class="text-8xl tracking-tighter text-white max-md:text-4xl">{{ isset($settings->central_text_value[app()->getLocale()]) ? $settings->central_text_value[app()->getLocale()] : '1t' }}</span>
