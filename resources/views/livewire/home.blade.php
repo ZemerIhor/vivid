@@ -145,7 +145,7 @@
                         max-width: 600px;
                         margin: auto;
 
-                        grid-template-rows: repeat(5,1fr);
+                        grid-template-rows: repeat(4, 1fr);
                     }
 
                     /* Общий стиль для карточек и картинок */
@@ -163,7 +163,7 @@
                         display: flex;
                         flex-direction: column;
                         justify-content: center;
-                        grid-row: span 1; /* каждая по 1 строке */
+                        grid-row: span 2; /* каждая по 1 строке */
                     }
 
                     .advantages-mobile .card h2 {
