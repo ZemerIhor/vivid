@@ -63,7 +63,7 @@
 
                             {{-- Вторая картинка (высокая) после 3-й карточки --}}
                             @if ($index == 2 && !empty($settings->advantages_image_2))
-                                <div class="image tall"
+                                <div class="image"
                                      style="background-image:url('{{ Storage::url($settings->advantages_image_2) }}')"></div>
                             @endif
 
