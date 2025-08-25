@@ -43,118 +43,136 @@
 
                 <div class="advantages-mobile">
                     @if (!empty($settings->advantages_cards[app()->getLocale()]))
-                        <!-- Articles and images interspersed -->
                         @foreach ($settings->advantages_cards[app()->getLocale()] as $index => $card)
-                            <article class="flex flex-col gap-3 items-center p-6 rounded-3xl bg-zinc-800 max-sm:h-[187px] {{ $index == 4 && !empty($settings->{'advantages_image_2'}) ? 'article-wide' : '' }}">
-                                <div class="flex flex-col gap-2 w-full text-center text-white">
+
+                            {{-- Первая карточка --}}
+                            @if ($index == 0)
+                                <article class="card">
                                     @if (!empty($card['icon']))
                                         <img src="{{ Storage::url($card['icon']) }}"
-                                             alt="{{ isset($card['title']) ? $card['title'] : 'Advantage icon' }}"
-                                             class="w-12 h-12 mx-auto mb-2 max-sm:h-[124px] max-sm:object-cover" />
+                                             alt="{{ $card['title'] ?? 'Advantage icon' }}"
+                                             class="w-12 h-12 mx-auto mb-2" />
                                     @endif
-                                    <h2 class="text-base font-bold leading-5 max-sm:text-sm">
-                                        {{ isset($card['title']) ? $card['title'] : '' }}
-                                    </h2>
-                                    <p class="text-xs font-semibold leading-5 max-sm:text-xs">
-                                        {{ isset($card['description']) ? $card['description'] : '' }}
-                                    </p>
-                                </div>
-                            </article>
+                                    <h2 class="title">{{ $card['title'] ?? '' }}</h2>
+                                    <p class="desc">{{ $card['description'] ?? '' }}</p>
+                                </article>
 
-                            <!-- Insert images at specific indices -->
-                            @if ($index == 0 && !empty($settings->{'advantages_image_1'}))
-                                <div class="image-container">
-                                    <img src="{{ Storage::url($settings->{'advantages_image_1'}) }}"
-                                         alt="Advantage image" class="object-cover w-full h-full rounded-3xl" />
-                                </div>
-                            @elseif ($index == 3 && !empty($settings->{'advantages_image_2'}))
-                                <div class="image-container image-container-second">
-                                    <img src="{{ Storage::url($settings->{'advantages_image_2'}) }}"
-                                         alt="Advantage image" class="object-cover w-full rounded-3xl" />
-                                </div>
-                            @elseif ($index == count($settings->advantages_cards[app()->getLocale()]) - 1 && !empty($settings->{'advantages_image_3'}))
-                                <div class="image-container">
-                                    <img src="{{ Storage::url($settings->{'advantages_image_3'}) }}"
-                                         alt="Advantage image" class="object-cover w-full h-full rounded-3xl" />
-                                </div>
+                                {{-- Первая картинка --}}
+                                @if (!empty($settings->{'advantages_image_1'}))
+                                    <div class="image" style="background-image:url('{{ Storage::url($settings->{'advantages_image_1'}) }}')"></div>
+                                @endif
                             @endif
+
+                            {{-- Вторая карточка --}}
+                            @if ($index == 1)
+                                <article class="card">
+                                    @if (!empty($card['icon']))
+                                        <img src="{{ Storage::url($card['icon']) }}"
+                                             alt="{{ $card['title'] ?? 'Advantage icon' }}"
+                                             class="w-12 h-12 mx-auto mb-2" />
+                                    @endif
+                                    <h2 class="title">{{ $card['title'] ?? '' }}</h2>
+                                    <p class="desc">{{ $card['description'] ?? '' }}</p>
+                                </article>
+                            @endif
+
+                            {{-- Третья карточка + Вторая картинка (растянутая) --}}
+                            @if ($index == 2)
+                                <article class="card">
+                                    @if (!empty($card['icon']))
+                                        <img src="{{ Storage::url($card['icon']) }}"
+                                             alt="{{ $card['title'] ?? 'Advantage icon' }}"
+                                             class="w-12 h-12 mx-auto mb-2" />
+                                    @endif
+                                    <h2 class="title">{{ $card['title'] ?? '' }}</h2>
+                                    <p class="desc">{{ $card['description'] ?? '' }}</p>
+                                </article>
+
+                                @if (!empty($settings->{'advantages_image_2'}))
+                                    <div class="image tall" style="background-image:url('{{ Storage::url($settings->{'advantages_image_2'}) }}')"></div>
+                                @endif
+                            @endif
+
+                            {{-- Четвертая карточка --}}
+                            @if ($index == 3)
+                                <article class="card">
+                                    @if (!empty($card['icon']))
+                                        <img src="{{ Storage::url($card['icon']) }}"
+                                             alt="{{ $card['title'] ?? 'Advantage icon' }}"
+                                             class="w-12 h-12 mx-auto mb-2" />
+                                    @endif
+                                    <h2 class="title">{{ $card['title'] ?? '' }}</h2>
+                                    <p class="desc">{{ $card['description'] ?? '' }}</p>
+                                </article>
+                            @endif
+
+                            {{-- Пятая карточка + третья картинка --}}
+                            @if ($index == 4)
+                                @if (!empty($settings->{'advantages_image_3'}))
+                                    <div class="image" style="background-image:url('{{ Storage::url($settings->{'advantages_image_3'}) }}')"></div>
+                                @endif
+
+                                <article class="card">
+                                    @if (!empty($card['icon']))
+                                        <img src="{{ Storage::url($card['icon']) }}"
+                                             alt="{{ $card['title'] ?? 'Advantage icon' }}"
+                                             class="w-12 h-12 mx-auto mb-2" />
+                                    @endif
+                                    <h2 class="title">{{ $card['title'] ?? '' }}</h2>
+                                    <p class="desc">{{ $card['description'] ?? '' }}</p>
+                                </article>
+                            @endif
+
                         @endforeach
-                    @else
-                        <p>{{ __('messages.advantages.no_cards') }}</p>
                     @endif
                 </div>
 
                 <style>
-
-                    img {
-                        max-width: 100%;
-                        height: auto;
-                        vertical-align: middle;
-                        display: inline-block;
-                    }
-
-                    /* Mobile layout */
                     .advantages-mobile {
                         display: grid;
                         grid-template-columns: repeat(2, 1fr);
                         gap: 10px;
-                        max-width: 550px;
-                        margin: 0 auto;
+                        max-width: 600px;
+                        margin: auto;
                     }
 
-                    .advantages-mobile article {
-                        max-height: 187px;
-                        border-radius: 1rem;
-                    }
-
-                    .image-container {
+                    .card {
+                        background: #27272a;
+                        color: #fff;
+                        padding: 20px;
+                        border-radius: 20px;
+                        text-align: center;
                         display: flex;
+                        flex-direction: column;
                         justify-content: center;
-                        align-items: flex-start; /* Align images to the top */
+                        gap: 8px;
                     }
 
-                    .advantages-mobile .image-container img {
-                        width: 100%;
-                        height: 120px; /* Default height for images 1 and 3 */
-                        object-fit: cover;
-                        border-radius: 1rem;
+                    .title {
+                        font-size: 1rem;
+                        font-weight: 700;
                     }
 
-                    .advantages-mobile .image-container-second {
-                        grid-row: span 2; /* Second image spans two rows */
+                    .desc {
+                        font-size: 0.875rem;
+                        font-weight: 500;
+                        line-height: 1.4;
                     }
 
-                    .advantages-mobile .image-container-second img {
-                        height: 100px; /* Smaller height for the second image */
+                    .image {
+                        border-radius: 20px;
+                        background-size: cover;
+                        background-position: center;
+                        min-height: 150px;
                     }
 
-                    .advantages-mobile .article-wide {
-                        grid-column: span 2; /* Article below second image spans both columns */
-                    }
-
-                    /* Desktop layout (unchanged) */
-                    .advantages-pc {
-                        display: none;
-                    }
-
-                    @media (min-width: 1024px) {
-                        .advantages-mobile {
-                            display: none;
-                        }
-                        .advantages-pc {
-                            display: grid;
-                            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-                            gap: 0.25rem;
-                            width: 100%;
-                        }
-                        .advantages-pc article,
-                        .advantages-pc > img {
-                            max-height: 250px;
-                            width: 100%;
-                            object-fit: cover;
-                        }
+                    /* Вторая картинка — тянется на 2 ряда */
+                    .image.tall {
+                        grid-row: span 2;
+                        min-height: 100%;
                     }
                 </style>
+
             </section>
         </div>
 
