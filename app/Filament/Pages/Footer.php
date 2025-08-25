@@ -43,7 +43,6 @@ class Footer extends Page implements HasForms
             'address' => $settings->address ?? ['en' => '', 'pl' => ''],
             'copyright_text' => $settings->copyright_text ?? ['en' => '', 'pl' => ''],
             'social_links' => $settings->social_links ?? [],
-            'sections' => $settings->sections ?? ['en' => [], 'pl' => []],
         ];
 
         $this->form->fill($this->data);
@@ -72,34 +71,6 @@ class Footer extends Page implements HasForms
                             ->label(__('Текст копірайту'))
                             ->required()
                             ->maxLength(255),
-                        Repeater::make('sections')
-                            ->label(__('Секції меню'))
-                            ->schema([
-                                TextInput::make('title')
-                                    ->label(__('Заголовок секції'))
-                                    ->required()
-                                    ->maxLength(255),
-                                Repeater::make('links')
-                                    ->label(__('Посилання'))
-                                    ->schema([
-                                        TextInput::make('label')
-                                            ->label(__('Назва'))
-                                            ->required()
-                                            ->maxLength(255),
-                                        TextInput::make('url')
-                                            ->label(__('URL'))
-                                            ->required()
-                                            ->maxLength(255),
-                                    ])
-                                    ->default([])
-                                    ->collapsible()
-                                    ->reorderable()
-                                    ->cloneable(),
-                            ])
-                            ->default([])
-                            ->collapsible()
-                            ->reorderable()
-                            ->cloneable(),
                     ]),
                 Repeater::make('social_links')
                     ->label(__('Соцмережі'))
