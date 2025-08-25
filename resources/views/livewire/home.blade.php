@@ -68,7 +68,7 @@
                             @endif
 
                             {{-- Третья картинка после 4-й карточки --}}
-                            @if ($index == 3 && !empty($settings->advantages_image_3))
+                            @if ($index == 4 && !empty($settings->advantages_image_3))
                                 <div class="image"
                                      style="background-image:url('{{ Storage::url($settings->advantages_image_3) }}')"></div>
                             @endif
