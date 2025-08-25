@@ -145,8 +145,7 @@
                         max-width: 600px;
                         margin: auto;
 
-                        /* задаём базовую высоту строки */
-                        grid-auto-rows: 150px;
+                        grid-template-rows: repeat(5,1fr);
                     }
 
                     /* Общий стиль для карточек и картинок */
