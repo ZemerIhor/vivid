@@ -55,7 +55,6 @@ class Footer extends Page implements HasForms
             ->schema([
                 TextInput::make('phone')
                     ->label(__('Телефон'))
-                    ->required()
                     ->maxLength(255),
                 Translate::make()
                     ->locales(['en', 'pl'])

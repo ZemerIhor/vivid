@@ -243,7 +243,7 @@
         <livewire:components.reviews-section/>
 
 
-        <section class="home-about-section relative container  mx-auto px-2 py-20" id="about-us" role="main"
+        <section class="home-about-section relative container  mx-auto px-2 py-10" id="about-us" role="main"
                  aria-labelledby="about-heading">
             <style>
                 .home-about-section:before {
@@ -340,7 +340,7 @@
         </section>
 
 
-        <section class="container mx-auto flex flex-col px-2 py-20 bg-zinc-100 max-md:px-5" id="faq" role="main"
+        <section class="container mx-auto flex flex-col px-2 py-10 bg-zinc-100 max-md:px-5" id="faq" role="main"
                  aria-labelledby="faq-title">
             <header>
                 <h1 id="faq-title" class="text-2xl font-bold leading-tight text-zinc-800 max-md:max-w-full">
@@ -480,7 +480,7 @@
             }
         </style>
 
-        <section class="flex flex-col justify-center self-stretch px-2 py-20 text-base bg-zinc-100 max-md:px-5"
+        <section class="flex flex-col justify-center self-stretch px-2 py-10 text-base bg-zinc-100 max-md:px-5"
                  aria-labelledby="tenders-heading">
             <h2 id="tenders-heading" class="text-2xl font-bold leading-tight text-zinc-800 max-md:max-w-full">
                 {{ __('messages.tenders.title') }}
