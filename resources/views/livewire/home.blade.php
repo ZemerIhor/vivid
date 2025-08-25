@@ -44,85 +44,33 @@
                     @if (!empty($settings->advantages_cards[app()->getLocale()]))
                         @foreach ($settings->advantages_cards[app()->getLocale()] as $index => $card)
 
-                            {{-- Первая карточка --}}
-                            @if ($index == 0)
-                                <article class="card">
-                                    @if (!empty($card['icon']))
-                                        <img src="{{ Storage::url($card['icon']) }}"
-                                             alt="{{ $card['title'] ?? 'Advantage icon' }}"
-                                             class="w-12 h-12 mx-auto mb-2" />
-                                    @endif
-                                    <h2 class="title">{{ $card['title'] ?? '' }}</h2>
-                                    <p class="desc">{{ $card['description'] ?? '' }}</p>
-                                </article>
-
-                                {{-- Первая картинка --}}
-                                @if (!empty($settings->{'advantages_image_1'}))
-                                    <div class="image"
-                                         style="background-image:url('{{ Storage::url($settings->{'advantages_image_1'}) }}')"></div>
+                            {{-- Карточка --}}
+                            <article class="card">
+                                @if (!empty($card['icon']))
+                                    <img src="{{ Storage::url($card['icon']) }}"
+                                         alt="{{ $card['title'] ?? 'Advantage icon' }}"
+                                         class="w-12 h-12 mx-auto mb-2" />
                                 @endif
+                                <h2 class="title">{{ $card['title'] ?? '' }}</h2>
+                                <p class="desc">{{ $card['description'] ?? '' }}</p>
+                            </article>
+
+                            {{-- Первая картинка после 1-й карточки --}}
+                            @if ($index == 0 && !empty($settings->advantages_image_1))
+                                <div class="image"
+                                     style="background-image:url('{{ Storage::url($settings->advantages_image_1) }}')"></div>
                             @endif
 
-                            {{-- Вторая карточка --}}
-                            @if ($index == 1)
-                                <article class="card">
-                                    @if (!empty($card['icon']))
-                                        <img src="{{ Storage::url($card['icon']) }}"
-                                             alt="{{ $card['title'] ?? 'Advantage icon' }}"
-                                             class="w-12 h-12 mx-auto mb-2" />
-                                    @endif
-                                    <h2 class="title">{{ $card['title'] ?? '' }}</h2>
-                                    <p class="desc">{{ $card['description'] ?? '' }}</p>
-                                </article>
+                            {{-- Вторая картинка (высокая) после 3-й карточки --}}
+                            @if ($index == 2 && !empty($settings->advantages_image_2))
+                                <div class="image tall"
+                                     style="background-image:url('{{ Storage::url($settings->advantages_image_2) }}')"></div>
                             @endif
 
-                            {{-- Третья карточка + Вторая картинка (высокая) --}}
-                            @if ($index == 2)
-                                <article class="card">
-                                    @if (!empty($card['icon']))
-                                        <img src="{{ Storage::url($card['icon']) }}"
-                                             alt="{{ $card['title'] ?? 'Advantage icon' }}"
-                                             class="w-12 h-12 mx-auto mb-2" />
-                                    @endif
-                                    <h2 class="title">{{ $card['title'] ?? '' }}</h2>
-                                    <p class="desc">{{ $card['description'] ?? '' }}</p>
-                                </article>
-
-                                @if (!empty($settings->{'advantages_image_2'}))
-                                    <div class="image tall"
-                                         style="background-image:url('{{ Storage::url($settings->{'advantages_image_2'}) }}')"></div>
-                                @endif
-                            @endif
-
-                            {{-- Четвертая карточка --}}
-                            @if ($index == 3)
-                                <article class="card">
-                                    @if (!empty($card['icon']))
-                                        <img src="{{ Storage::url($card['icon']) }}"
-                                             alt="{{ $card['title'] ?? 'Advantage icon' }}"
-                                             class="w-12 h-12 mx-auto mb-2" />
-                                    @endif
-                                    <h2 class="title">{{ $card['title'] ?? '' }}</h2>
-                                    <p class="desc">{{ $card['description'] ?? '' }}</p>
-                                </article>
-                            @endif
-
-                            {{-- Пятая карточка + третья картинка --}}
-                            @if ($index == 4)
-                                @if (!empty($settings->{'advantages_image_3'}))
-                                    <div class="image"
-                                         style="background-image:url('{{ Storage::url($settings->{'advantages_image_3'}) }}')"></div>
-                                @endif
-
-                                <article class="card">
-                                    @if (!empty($card['icon']))
-                                        <img src="{{ Storage::url($card['icon']) }}"
-                                             alt="{{ $card['title'] ?? 'Advantage icon' }}"
-                                             class="w-12 h-12 mx-auto mb-2" />
-                                    @endif
-                                    <h2 class="title">{{ $card['title'] ?? '' }}</h2>
-                                    <p class="desc">{{ $card['description'] ?? '' }}</p>
-                                </article>
+                            {{-- Третья картинка после 4-й карточки --}}
+                            @if ($index == 3 && !empty($settings->advantages_image_3))
+                                <div class="image"
+                                     style="background-image:url('{{ Storage::url($settings->advantages_image_3) }}')"></div>
                             @endif
 
                         @endforeach
