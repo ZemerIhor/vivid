@@ -7,6 +7,7 @@ use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Section;
+use Filament\Forms\Components\Tabs;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Concerns\InteractsWithForms;
@@ -82,292 +83,400 @@ class Home extends Page implements HasForms
     {
         return $form
             ->schema([
-                Section::make(__('Главный баннер'))
-                    ->schema([
-                        FileUpload::make('banner_image')
-                            ->label(__('Изображение баннера'))
-                            ->directory('home/main_banner')
-                            ->disk('public')
-                            ->preserveFilenames()
-                            ->maxSize(5120)
-                            ->image()
-                            ->nullable(),
-                        Translate::make()
-                            ->locales(['en', 'pl'])
+                Tabs::make('Tabs')
+                    ->tabs([
+                        Tabs\Tab::make(__('Главный баннер'))
                             ->schema([
-                                TextInput::make('banner_title')
-                                    ->label(__('Заголовок баннера'))
-                                    ->maxLength(255),
-                                Textarea::make('banner_description')
-                                    ->label(__('Описание баннера'))
-                                    ->maxLength(500),
-                            ]),
-                    ])
-                    ->collapsible(),
-
-                Section::make(__('Баннер'))
-                    ->schema([
-                        Translate::make()
-                            ->locales(['en', 'pl'])
-                            ->schema([
-                                Repeater::make('hero_slides')
-                                    ->label(__('Слайды баннера'))
+                                Section::make()
                                     ->schema([
-                                        TextInput::make('heading')
-                                            ->label(__('Заголовок'))
-                                            ->maxLength(255),
-                                        Textarea::make('subheading')
-                                            ->label(__('Подзаголовок'))
-                                            ->maxLength(500),
-                                        TextInput::make('extra_text')
-                                            ->label(__('Дополнительный текст'))
-                                            ->maxLength(255),
-                                        FileUpload::make('background_image')
-                                            ->label(__('Фоновое изображение'))
-                                            ->directory('home/banners')
+                                        FileUpload::make('banner_image')
+                                            ->label(__('Изображение баннера'))
+                                            ->directory('home/main_banner')
                                             ->disk('public')
                                             ->preserveFilenames()
                                             ->maxSize(5120)
                                             ->image()
                                             ->nullable(),
-                                    ])
-                                    ->maxItems(5)
-                                    ->collapsible()
-                                    ->reorderable()
-                                    ->cloneable(),
+                                        Translate::make()
+                                            ->locales(['en', 'pl'])
+                                            ->schema([
+                                                TextInput::make('banner_title')
+                                                    ->label(__('Заголовок баннера'))
+                                                    ->maxLength(255),
+                                                Textarea::make('banner_description')
+                                                    ->label(__('Описание баннера'))
+                                                    ->maxLength(500),
+                                            ]),
+                                    ]),
                             ]),
-                    ])
-                    ->collapsible(),
 
-                Section::make(__('Преимущества'))
-                    ->schema([
-                        Translate::make()
-                            ->locales(['en', 'pl'])
+                        Tabs\Tab::make(__('Баннер'))
                             ->schema([
-                                Repeater::make('advantages_cards')
-                                    ->label(__('Карточки преимуществ'))
+                                Section::make()
                                     ->schema([
-                                        FileUpload::make('icon')
-                                            ->label(__('Иконка'))
-                                            ->directory('home/advantages/icons')
+                                        Translate::make()
+                                            ->locales(['en', 'pl'])
+                                            ->schema([
+                                                Repeater::make('hero_slides')
+                                                    ->label(__('Слайды баннера'))
+                                                    ->schema([
+                                                        TextInput::make('heading')
+                                                            ->label(__('Заголовок'))
+                                                            ->maxLength(255),
+                                                        Textarea::make('subheading')
+                                                            ->label(__('Подзаголовок'))
+                                                            ->maxLength(500),
+                                                        TextInput::make('extra_text')
+                                                            ->label(__('Дополнительный текст'))
+                                                            ->maxLength(255),
+                                                        FileUpload::make('background_image')
+                                                            ->label(__('Фоновое изображение'))
+                                                            ->directory('home/banners')
+                                                            ->disk('public')
+                                                            ->preserveFilenames()
+                                                            ->maxSize(5120)
+                                                            ->image()
+                                                            ->nullable(),
+                                                    ])
+                                                    ->maxItems(5)
+                                                    ->collapsible()
+                                                    ->reorderable()
+                                                    ->cloneable(),
+                                            ]),
+                                    ]),
+                            ]),
+
+                        Tabs\Tab::make(__('Преимущества'))
+                            ->schema([
+                                Section::make()
+                                    ->schema([
+                                        Translate::make()
+                                            ->locales(['en', 'pl'])
+                                            ->schema([
+                                                Repeater::make('advantages_cards')
+                                                    ->label(__('Карточки преимуществ'))
+                                                    ->schema([
+                                                        FileUpload::make('icon')
+                                                            ->label(__('Иконка'))
+                                                            ->directory('home/advantages')
+                                                            ->disk('public')
+                                                            ->preserveFilenames()
+                                                            ->maxSize(5120)
+                                                            ->image()
+                                                            ->nullable(),
+                                                        TextInput::make('title')
+                                                            ->label(__('Заголовок'))
+                                                            ->maxLength(255),
+                                                        Textarea::make('description')
+                                                            ->label(__('Описание'))
+                                                            ->maxLength(500),
+                                                    ])
+                                                    ->collapsible()
+                                                    ->reorderable()
+                                                    ->cloneable(),
+                                            ]),
+
+                                        FileUpload::make('advantages_image_1')
+                                            ->label(__('Изображение преимуществ 1'))
+                                            ->directory('home/advantages')
                                             ->disk('public')
                                             ->preserveFilenames()
                                             ->maxSize(5120)
                                             ->image()
                                             ->nullable(),
-                                        TextInput::make('title')
-                                            ->label(__('Заголовок'))
-                                            ->maxLength(100),
-                                        Textarea::make('description')
-                                            ->label(__('Описание'))
-                                            ->maxLength(500),
-                                    ])
-                                    ->maxItems(4)
-                                    ->collapsible()
-                                    ->reorderable()
-                                    ->cloneable(),
-                            ]),
-                        FileUpload::make('advantages_image_1')
-                            ->label(__('Изображение 1'))
-                            ->directory('home/advantages')
-                            ->disk('public')
-                            ->preserveFilenames()
-                            ->maxSize(5120)
-                            ->image()
-                            ->nullable(),
-                        FileUpload::make('advantages_image_2')
-                            ->label(__('Изображение 2'))
-                            ->directory('home/advantages')
-                            ->disk('public')
-                            ->preserveFilenames()
-                            ->maxSize(5120)
-                            ->image()
-                            ->nullable(),
-                        FileUpload::make('advantages_image_3')
-                            ->label(__('Изображение 3'))
-                            ->directory('home/advantages')
-                            ->disk('public')
-                            ->preserveFilenames()
-                            ->maxSize(5120)
-                            ->image()
-                            ->nullable(),
-                    ])
-                    ->collapsible(),
 
-                Section::make(__('Сравнение'))
-                    ->schema([
-                        Translate::make()
-                            ->locales(['en', 'pl'])
-                            ->schema([
-                                TextInput::make('comparison_title')
-                                    ->label(__('Заголовок'))
-                                    ->maxLength(255),
-                                TextInput::make('main_comparison_alt')
-                                    ->label(__('Альтернативный текст основного изображения'))
-                                    ->maxLength(255),
-                                Repeater::make('comparison_items')
-                                    ->label(__('Пункты сравнения'))
-                                    ->schema([
-                                        TextInput::make('value')
-                                            ->label(__('Значение'))
-                                            ->maxLength(50),
-                                        TextInput::make('unit')
-                                            ->label(__('Единица измерения'))
-                                            ->maxLength(100),
-                                        TextInput::make('alt')
-                                            ->label(__('Альтернативный текст изображения'))
-                                            ->maxLength(255),
-                                        FileUpload::make('image')
-                                            ->label(__('Изображение'))
-                                            ->directory('home/comparison/items')
+                                        FileUpload::make('advantages_image_2')
+                                            ->label(__('Изображение преимуществ 2'))
+                                            ->directory('home/advantages')
                                             ->disk('public')
                                             ->preserveFilenames()
                                             ->maxSize(5120)
                                             ->image()
                                             ->nullable(),
-                                    ])
-                                    ->maxItems(3)
-                                    ->collapsible()
-                                    ->reorderable()
-                                    ->cloneable(),
-                                TextInput::make('central_text_value')
-                                    ->label(__('Центральное значение'))
-                                    ->maxLength(50),
-                                TextInput::make('central_text_unit')
-                                    ->label(__('Центральная единица'))
-                                    ->maxLength(100),
-                            ]),
-                        FileUpload::make('main_comparison_image')
-                            ->label(__('Основное изображение'))
-                            ->directory('home/comparison')
-                            ->disk('public')
-                            ->preserveFilenames()
-                            ->maxSize(5120)
-                            ->image()
-                            ->nullable(),
-                    ])
-                    ->collapsible(),
 
-                Section::make(__('Поширені запитання'))
-                    ->schema([
-                        Translate::make()
-                            ->locales(['en', 'pl'])
-                            ->schema([
-                                Repeater::make('faq_items')
-                                    ->label(__('Пункти FAQ'))
-                                    ->schema([
-                                        TextInput::make('question')
-                                            ->label(__('Питання'))
-                                            ->maxLength(255),
-                                        Textarea::make('answer')
-                                            ->label(__('Відповідь'))
-                                            ->maxLength(500),
-                                        FileUpload::make('icon')
-                                            ->label(__('Иконка'))
-                                            ->directory('home/faq/icons')
+                                        FileUpload::make('advantages_image_3')
+                                            ->label(__('Изображение преимуществ 3'))
+                                            ->directory('home/advantages')
                                             ->disk('public')
                                             ->preserveFilenames()
                                             ->maxSize(5120)
                                             ->image()
                                             ->nullable(),
-                                    ])
-                                    ->maxItems(10)
-                                    ->collapsible()
-                                    ->reorderable()
-                                    ->cloneable(),
-                                TextInput::make('faq_main_image_alt')
-                                    ->label(__('Альтернативный текст основного изображения FAQ'))
-                                    ->maxLength(255),
+                                    ]),
                             ]),
-                        FileUpload::make('faq_main_image')
-                            ->label(__('Основное изображение FAQ'))
-                            ->directory('home/faq')
-                            ->disk('public')
-                            ->preserveFilenames()
-                            ->maxSize(5120)
-                            ->image()
-                            ->nullable(),
-                    ])
-                    ->collapsible(),
 
-                Section::make(__('Тендери'))
-                    ->schema([
-                        Translate::make()
-                            ->locales(['en', 'pl'])
+                        Tabs\Tab::make(__('Сравнение'))
                             ->schema([
-                                TextInput::make('tenders_title')
-                                    ->label(__('Заголовок'))
-                                    ->maxLength(255),
-                                Repeater::make('tender_items')
-                                    ->label(__('Пункти тендерів'))
+                                Section::make()
                                     ->schema([
-                                        TextInput::make('title')
-                                            ->label(__('Назва'))
-                                            ->maxLength(255), // Removed required()
-                                        FileUpload::make('icon')
-                                            ->label(__('Иконка категории'))
-                                            ->directory('home/tenders/icons')
+                                        Translate::make()
+                                            ->locales(['en', 'pl'])
+                                            ->schema([
+                                                TextInput::make('comparison_title')
+                                                    ->label(__('Заголовок сравнения'))
+                                                    ->maxLength(255),
+                                            ]),
+
+                                        FileUpload::make('main_comparison_image')
+                                            ->label(__('Главное изображение сравнения'))
+                                            ->directory('home/comparison')
                                             ->disk('public')
                                             ->preserveFilenames()
                                             ->maxSize(5120)
                                             ->image()
                                             ->nullable(),
-                                        TextInput::make('background_color')
-                                            ->label(__('Колір фону (HEX, наприклад #34C759)'))
-                                            ->maxLength(7)
-                                            ->default('#34C759')
-                                            ->regex('/^#[0-9A-F]{6}$/i'),
-                                    ])
-                                    ->maxItems(5)
-                                    ->collapsible()
-                                    ->reorderable()
-                                    ->cloneable(),
-                                TextInput::make('tenders_phone')
-                                    ->label(__('Телефон відділу тендерів'))
-                                    ->maxLength(20),
-                            ]),
-                    ])
-                    ->collapsible(),
 
-                Section::make(__('Про нас'))
-                    ->schema([
-                        Translate::make()
-                            ->locales(['en', 'pl'])
-                            ->schema([
-                                TextInput::make('about_title')
-                                    ->label(__('Заголовок'))
-                                    ->maxLength(255),
-                                RichEditor::make('about_description')
-                                    ->label(__('Опис'))
-                                    ->maxLength(1000),
-                                TextInput::make('about_more_link')
-                                    ->label(__('Посилання "Більше"'))
-                                    ->url()
-                                    ->maxLength(255),
-                                TextInput::make('about_certificates_link')
-                                    ->label(__('Посилання "Сертифікати"'))
-                                    ->url()
-                                    ->maxLength(255),
-                                TextInput::make('about_statistic_title')
-                                    ->label(__('Заголовок статистики'))
-                                    ->maxLength(255),
-                                RichEditor::make('about_statistic_description')
-                                    ->label(__('Опис статистики'))
-                                    ->maxLength(1000),
-                                TextInput::make('about_location_caption')
-                                    ->label(__('Підпис до зображення локації'))
-                                    ->maxLength(255),
+                                        Translate::make()
+                                            ->locales(['en', 'pl'])
+                                            ->schema([
+                                                TextInput::make('main_comparison_alt')
+                                                    ->label(__('Альтернативный текст'))
+                                                    ->maxLength(255),
+                                            ]),
+
+                                        Repeater::make('comparison_items')
+                                            ->label(__('Элементы сравнения'))
+                                            ->schema([
+                                                TextInput::make('label')
+                                                    ->label(__('Метка'))
+                                                    ->maxLength(255),
+                                                TextInput::make('value')
+                                                    ->label(__('Значение'))
+                                                    ->maxLength(255),
+                                            ])
+                                            ->collapsible()
+                                            ->reorderable()
+                                            ->cloneable(),
+                                    ]),
                             ]),
-                        FileUpload::make('about_location_image')
-                            ->label(__('Зображення локації'))
-                            ->directory('home/about')
-                            ->disk('public')
-                            ->preserveFilenames()
-                            ->maxSize(5120)
-                            ->image()
-                            ->nullable(),
+
+                        Tabs\Tab::make(__('Центральный текст'))
+                            ->schema([
+                                Section::make()
+                                    ->schema([
+                                        Translate::make()
+                                            ->locales(['en', 'pl'])
+                                            ->schema([
+                                                TextInput::make('central_text_value')
+                                                    ->label(__('Значение'))
+                                                    ->maxLength(50),
+                                                TextInput::make('central_text_unit')
+                                                    ->label(__('Единица измерения'))
+                                                    ->maxLength(50),
+                                            ]),
+                                    ]),
+                            ]),
+
+                        Tabs\Tab::make(__('Вопрос-ответ'))
+                            ->schema([
+                                Section::make()
+                                    ->schema([
+                                        Repeater::make('faq_items')
+                                            ->label(__('Вопросы и ответы'))
+                                            ->schema([
+                                                TextInput::make('question')
+                                                    ->label(__('Вопрос'))
+                                                    ->maxLength(255),
+                                                RichEditor::make('answer')
+                                                    ->label(__('Ответ'))
+                                                    ->maxLength(1000)
+                                                    ->disableToolbarButtons([
+                                                        'attachFiles',
+                                                    ]),
+                                            ])
+                                            ->collapsible()
+                                            ->reorderable()
+                                            ->cloneable(),
+
+                                        FileUpload::make('faq_main_image')
+                                            ->label(__('Главное изображение'))
+                                            ->directory('home/faq')
+                                            ->disk('public')
+                                            ->preserveFilenames()
+                                            ->maxSize(5120)
+                                            ->image()
+                                            ->nullable(),
+
+                                        Translate::make()
+                                            ->locales(['en', 'pl'])
+                                            ->schema([
+                                                TextInput::make('faq_main_image_alt')
+                                                    ->label(__('Альтернативный текст'))
+                                                    ->maxLength(255),
+                                            ]),
+                                    ]),
+                            ]),
+
+                        Tabs\Tab::make(__('Форма обратной связи'))
+                            ->schema([
+                                Section::make()
+                                    ->schema([
+                                        Translate::make()
+                                            ->locales(['en', 'pl'])
+                                            ->schema([
+                                                TextInput::make('feedback_form_title')
+                                                    ->label(__('Заголовок формы'))
+                                                    ->maxLength(255),
+                                                Textarea::make('feedback_form_description')
+                                                    ->label(__('Описание формы'))
+                                                    ->maxLength(500),
+                                            ]),
+
+                                        FileUpload::make('feedback_form_image')
+                                            ->label(__('Изображение формы'))
+                                            ->directory('home/feedback')
+                                            ->disk('public')
+                                            ->preserveFilenames()
+                                            ->maxSize(5120)
+                                            ->image()
+                                            ->nullable(),
+
+                                        Translate::make()
+                                            ->locales(['en', 'pl'])
+                                            ->schema([
+                                                TextInput::make('feedback_form_image_alt')
+                                                    ->label(__('Альтернативный текст'))
+                                                    ->maxLength(255),
+                                            ]),
+                                    ]),
+                            ]),
+
+                        Tabs\Tab::make(__('Тендеры'))
+                            ->schema([
+                                Section::make()
+                                    ->schema([
+                                        Translate::make()
+                                            ->locales(['en', 'pl'])
+                                            ->schema([
+                                                TextInput::make('tenders_title')
+                                                    ->label(__('Заголовок тендеров'))
+                                                    ->maxLength(255),
+                                            ]),
+
+                                        Repeater::make('tender_items')
+                                            ->label(__('Элементы тендеров'))
+                                            ->schema([
+                                                TextInput::make('title')
+                                                    ->label(__('Заголовок'))
+                                                    ->maxLength(255),
+                                                TextInput::make('number')
+                                                    ->label(__('Номер'))
+                                                    ->maxLength(50),
+                                                TextInput::make('date')
+                                                    ->label(__('Дата'))
+                                                    ->maxLength(50),
+                                                TextInput::make('status')
+                                                    ->label(__('Статус'))
+                                                    ->maxLength(50),
+                                                FileUpload::make('file')
+                                                    ->label(__('Файл'))
+                                                    ->directory('home/tenders')
+                                                    ->disk('public')
+                                                    ->preserveFilenames()
+                                                    ->maxSize(5120)
+                                                    ->acceptedFileTypes(['application/pdf'])
+                                                    ->nullable(),
+                                            ])
+                                            ->collapsible()
+                                            ->reorderable()
+                                            ->cloneable(),
+
+                                        Translate::make()
+                                            ->locales(['en', 'pl'])
+                                            ->schema([
+                                                TextInput::make('tenders_phone')
+                                                    ->label(__('Телефон'))
+                                                    ->maxLength(50),
+                                            ]),
+                                    ]),
+                            ]),
+
+                        Tabs\Tab::make(__('О нас'))
+                            ->schema([
+                                Section::make()
+                                    ->schema([
+                                        Translate::make()
+                                            ->locales(['en', 'pl'])
+                                            ->schema([
+                                                TextInput::make('about_title')
+                                                    ->label(__('Заголовок о нас'))
+                                                    ->maxLength(255),
+                                                Textarea::make('about_description')
+                                                    ->label(__('Описание о нас'))
+                                                    ->maxLength(1000),
+                                                TextInput::make('about_more_link')
+                                                    ->label(__('Ссылка "Подробнее"'))
+                                                    ->maxLength(255),
+                                                TextInput::make('about_certificates_link')
+                                                    ->label(__('Ссылка на сертификаты'))
+                                                    ->maxLength(255),
+                                                TextInput::make('about_statistic_title')
+                                                    ->label(__('Заголовок статистики'))
+                                                    ->maxLength(255),
+                                                Textarea::make('about_statistic_description')
+                                                    ->label(__('Описание статистики'))
+                                                    ->maxLength(500),
+                                            ]),
+
+                                        FileUpload::make('about_location_image')
+                                            ->label(__('Изображение местоположения'))
+                                            ->directory('home/about')
+                                            ->disk('public')
+                                            ->preserveFilenames()
+                                            ->maxSize(5120)
+                                            ->image()
+                                            ->nullable(),
+
+                                        Translate::make()
+                                            ->locales(['en', 'pl'])
+                                            ->schema([
+                                                TextInput::make('about_location_caption')
+                                                    ->label(__('Подпись к изображению'))
+                                                    ->maxLength(255),
+                                            ]),
+                                    ]),
+                            ]),
+
+                        Tabs\Tab::make(__('Отзывы'))
+                            ->schema([
+                                Section::make()
+                                    ->schema([
+                                        Translate::make()
+                                            ->locales(['en', 'pl'])
+                                            ->schema([
+                                                TextInput::make('reviews_title')
+                                                    ->label(__('Заголовок отзывов'))
+                                                    ->maxLength(255),
+                                            ]),
+
+                                        Repeater::make('review_items')
+                                            ->label(__('Отзывы'))
+                                            ->schema([
+                                                TextInput::make('author')
+                                                    ->label(__('Автор'))
+                                                    ->maxLength(255),
+                                                TextInput::make('position')
+                                                    ->label(__('Должность'))
+                                                    ->maxLength(255),
+                                                Textarea::make('text')
+                                                    ->label(__('Текст'))
+                                                    ->maxLength(500),
+                                                FileUpload::make('avatar')
+                                                    ->label(__('Аватар'))
+                                                    ->directory('home/reviews')
+                                                    ->disk('public')
+                                                    ->preserveFilenames()
+                                                    ->maxSize(5120)
+                                                    ->image()
+                                                    ->nullable(),
+                                            ])
+                                            ->collapsible()
+                                            ->reorderable()
+                                            ->cloneable(),
+                                    ]),
+                            ]),
                     ])
-                    ->collapsible(),
+                    ->persistTabInQueryString(),
             ])
             ->statePath('data');
     }

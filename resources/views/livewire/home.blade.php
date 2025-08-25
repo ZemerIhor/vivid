@@ -189,19 +189,19 @@
             </section>
         </div>
 
-        <div class="container mx-auto px-2 pt-40">
+        <div class="container mx-auto px-2 py-10">
             <section class="adv flex overflow-hidden flex-col font-bold" aria-labelledby="advantages-title">
                 <div class="flex flex-col items-center">
                     <h1 id="advantages-title" class="text-4xl leading-none text-center text-zinc-800 max-md:max-w-full">
                         {{ isset($settings->comparison_title[app()->getLocale()]) ? $settings->comparison_title[app()->getLocale()] : __('messages.advantages.title') }}
                     </h1>
                     @if (!empty($settings->main_comparison_image) && is_string($settings->main_comparison_image))
-                        <div class="relative w-full">
+                        <div class="relative w-full mt-6">
                             <img src="{{ Storage::url($settings->main_comparison_image) }}"
                                  alt="{{ isset($settings->main_comparison_alt[app()->getLocale()]) ? $settings->main_comparison_alt[app()->getLocale()] : 'Comparison of peat briquettes' }}"
-                                 class="object-fill w-full min-h-60 mt-6 aspect-[4.13] rounded-[32px] max-md:max-w-full"/>
+                                 class="object-fill w-full min-h-60  aspect-[4.13] rounded-[32px] max-md:max-w-full"/>
                             <span
-                                class="w-full flex absolute top-0 z-10 flex-col justify-center items-center self-center px-4 py-12 leading-none text-center whitespace-nowrap max-md:top-10"
+                                class="w-full flex absolute top-0 z-10 flex-col justify-center items-center self-center px-4 py-12 leading-none text-center whitespace-nowrap max-md:top-10 h-full"
                                 aria-label="Quantity of peat briquettes for comparison">
                                 <span
                                     class="text-8xl tracking-tighter text-white max-md:text-4xl">{{ isset($settings->central_text_value[app()->getLocale()]) ? $settings->central_text_value[app()->getLocale()] : '1t' }}</span>

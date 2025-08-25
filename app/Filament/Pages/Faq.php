@@ -6,6 +6,7 @@ use App\Settings\FaqSettings;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Repeater;
+use Filament\Forms\Components\Tabs;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Concerns\InteractsWithForms;
@@ -49,58 +50,64 @@ class Faq extends Page implements HasForms
     {
         return $form
             ->schema([
-                Section::make(__('Часто задаваемые вопросы'))
-                    ->schema([
-                        Translate::make()
-                            ->locales(['en', 'pl'])
+                Tabs::make('Tabs')
+                    ->tabs([
+                        Tabs\Tab::make(__('Часто задаваемые вопросы'))
                             ->schema([
-                                Repeater::make('faq_blocks')
-                                    ->label(__('Блоки FAQ'))
+                                Section::make()
                                     ->schema([
-                                        FileUpload::make('main_image')
-                                            ->label(__('Основное изображение'))
-                                            ->image()
-                                            ->disk('public')
-                                            ->directory('faq-images/main')
-                                            ->required(),
-                                        TextInput::make('main_image_alt')
-                                            ->label(__('Alt-текст основного изображения'))
-                                            ->required()
-                                            ->maxLength(255),
-                                        Repeater::make('items')
-                                            ->label(__('Вопросы и ответы'))
+                                        Translate::make()
+                                            ->locales(['en', 'pl'])
                                             ->schema([
-                                                FileUpload::make('thumbnail')
-                                                    ->label(__('Миниатюра'))
-                                                    ->image()
-                                                    ->disk('public')
-                                                    ->directory('faq-images/thumbnails')
-                                                    ->required(),
-                                                TextInput::make('thumbnail_alt')
-                                                    ->label(__('Alt-текст миниатюры'))
-                                                    ->required()
-                                                    ->maxLength(255),
-                                                TextInput::make('question')
-                                                    ->label(__('Вопрос'))
-                                                    ->required()
-                                                    ->maxLength(255),
-                                                Textarea::make('answer')
-                                                    ->label(__('Ответ'))
-                                                    ->required()
-                                                    ->maxLength(1000),
-                                            ])
-                                            ->columns(2)
-                                            ->itemLabel(fn (array $state): ?string => $state['question'] ?? null)
-                                            ->collapsible()
-                                            ->cloneable(),
-                                    ])
-                                    ->columns(2)
-                                    ->itemLabel(fn (array $state): ?string => $state['main_image_alt'] ?? null)
-                                    ->collapsible()
-                                    ->cloneable(),
+                                                Repeater::make('faq_blocks')
+                                                    ->label(__('Блоки FAQ'))
+                                                    ->schema([
+                                                        FileUpload::make('main_image')
+                                                            ->label(__('Основное изображение'))
+                                                            ->image()
+                                                            ->disk('public')
+                                                            ->directory('faq-images/main')
+                                                            ->required(),
+                                                        TextInput::make('main_image_alt')
+                                                            ->label(__('Alt-текст основного изображения'))
+                                                            ->required()
+                                                            ->maxLength(255),
+                                                        Repeater::make('items')
+                                                            ->label(__('Вопросы и ответы'))
+                                                            ->schema([
+                                                                FileUpload::make('thumbnail')
+                                                                    ->label(__('Миниатюра'))
+                                                                    ->image()
+                                                                    ->disk('public')
+                                                                    ->directory('faq-images/thumbnails')
+                                                                    ->required(),
+                                                                TextInput::make('thumbnail_alt')
+                                                                    ->label(__('Alt-текст миниатюры'))
+                                                                    ->required()
+                                                                    ->maxLength(255),
+                                                                TextInput::make('question')
+                                                                    ->label(__('Вопрос'))
+                                                                    ->required()
+                                                                    ->maxLength(255),
+                                                                Textarea::make('answer')
+                                                                    ->label(__('Ответ'))
+                                                                    ->required()
+                                                                    ->maxLength(1000),
+                                                            ])
+                                                            ->columns(2)
+                                                            ->itemLabel(fn (array $state): ?string => $state['question'] ?? null)
+                                                            ->collapsible()
+                                                            ->cloneable(),
+                                                    ])
+                                                    ->columns(2)
+                                                    ->itemLabel(fn (array $state): ?string => $state['main_image_alt'] ?? null)
+                                                    ->collapsible()
+                                                    ->cloneable(),
+                                            ]),
+                                    ]),
                             ]),
                     ])
-                    ->collapsible(),
+                    ->persistTabInQueryString(),
             ])
             ->statePath('data');
     }

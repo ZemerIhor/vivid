@@ -6,6 +6,7 @@ use App\Settings\AboutUsSettings;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Repeater;
+use Filament\Forms\Components\Tabs;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Concerns\InteractsWithForms;
@@ -111,183 +112,193 @@ class AboutUs extends Page implements HasForms
     {
         return $form
             ->schema([
-                Section::make(__('messages.about_us.title'))
-                    ->schema([
-                        // Hero Section (Images and Text)
-                        Section::make(__('messages.about_us.hero_section'))
+                Tabs::make('Tabs')
+                    ->tabs([
+                        Tabs\Tab::make(__('messages.about_us.hero_section'))
                             ->schema([
-                                FileUpload::make('hero_background_image')
-                                    ->label(__('messages.about_us.hero_background_image'))
-                                    ->image()
-                                    ->disk('public')
-                                    ->directory('about-us/hero'),
-                                TextInput::make('hero_background_image_alt')
-                                    ->label(__('messages.about_us.hero_background_image_alt'))
-                                    ->rules(['nullable', 'string', 'max:255']),
-                                FileUpload::make('hero_logo')
-                                    ->label(__('messages.about_us.hero_logo'))
-                                    ->image()
-                                    ->disk('public')
-                                    ->directory('about-us/logo'),
-                                TextInput::make('hero_logo_alt')
-                                    ->label(__('messages.about_us.hero_logo_alt'))
-                                    ->rules(['nullable', 'string', 'max:255']),
-                                Translate::make()
-                                    ->locales(['en', 'pl'])
+                                // Hero Section (Images and Text)
+                                Section::make()
                                     ->schema([
-                                        TextInput::make('hero_title')
-                                            ->label(__('messages.about_us.hero_title'))
-                                            ->rules(['nullable', 'max:255']),
-                                        TextInput::make('hero_subtitle')
-                                            ->label(__('messages.about_us.hero_subtitle'))
-                                            ->rules(['nullable', 'max:255']),
-                                        TextInput::make('hero_subtitle_highlight')
-                                            ->label(__('messages.about_us.hero_subtitle_highlight'))
-                                            ->rules(['nullable', 'max:100']),
-                                        TextInput::make('hero_slogan')
-                                            ->label(__('messages.about_us.hero_slogan'))
-                                            ->rules(['nullable', 'max:100']),
-                                        Textarea::make('hero_description')
-                                            ->label(__('messages.about_us.hero_description'))
-                                            ->rules(['nullable']),
-                                    ]),
-                            ])
-                            ->collapsible(),
-
-                        // Advantages Section
-                        Section::make(__('messages.about_us.advantages_title'))
-                            ->schema([
-                                Repeater::make('advantage_images')
-                                    ->label(__('messages.about_us.advantage_images'))
-                                    ->schema([
-                                        FileUpload::make('image')
-                                            ->label(__('messages.about_us.image'))
+                                        FileUpload::make('hero_background_image')
+                                            ->label(__('messages.about_us.hero_background_image'))
                                             ->image()
                                             ->disk('public')
-                                            ->directory('about-us/advantages'),
-                                        TextInput::make('alt')
-                                            ->label(__('messages.about_us.alt_text'))
+                                            ->directory('about-us/hero'),
+                                        TextInput::make('hero_background_image_alt')
+                                            ->label(__('messages.about_us.hero_background_image_alt'))
                                             ->rules(['nullable', 'string', 'max:255']),
-                                    ])
-                                    ->columns(2)
-                                    ->itemLabel(fn (array $state): ?string => is_string($state['alt']) ? $state['alt'] : null)
-                                    ->collapsible()
-                                    ->cloneable()
-                                    ->defaultItems(3)
-                                    ->maxItems(3),
-                                Translate::make()
-                                    ->locales(['en', 'pl'])
-                                    ->schema([
-                                        Repeater::make('advantages')
-                                            ->label(__('messages.about_us.advantages'))
+                                        FileUpload::make('hero_logo')
+                                            ->label(__('messages.about_us.hero_logo'))
+                                            ->image()
+                                            ->disk('public')
+                                            ->directory('about-us/logo'),
+                                        TextInput::make('hero_logo_alt')
+                                            ->label(__('messages.about_us.hero_logo_alt'))
+                                            ->rules(['nullable', 'string', 'max:255']),
+                                        Translate::make()
+                                            ->locales(['en', 'pl'])
                                             ->schema([
-                                                TextInput::make('value')
-                                                    ->label(__('messages.about_us.value'))
-                                                    ->numeric()
+                                                TextInput::make('hero_title')
+                                                    ->label(__('messages.about_us.hero_title'))
+                                                    ->rules(['nullable', 'max:255']),
+                                                TextInput::make('hero_subtitle')
+                                                    ->label(__('messages.about_us.hero_subtitle'))
+                                                    ->rules(['nullable', 'max:255']),
+                                                TextInput::make('hero_subtitle_highlight')
+                                                    ->label(__('messages.about_us.hero_subtitle_highlight'))
+                                                    ->rules(['nullable', 'max:100']),
+                                                TextInput::make('hero_slogan')
+                                                    ->label(__('messages.about_us.hero_slogan'))
+                                                    ->rules(['nullable', 'max:100']),
+                                                Textarea::make('hero_description')
+                                                    ->label(__('messages.about_us.hero_description'))
                                                     ->rules(['nullable']),
-                                                TextInput::make('title')
-                                                    ->label(__('messages.about_us.title'))
-                                                    ->rules(['nullable', 'max:255']),
-                                                TextInput::make('description')
-                                                    ->label(__('messages.about_us.description'))
-                                                    ->rules(['nullable', 'max:255']),
+                                            ]),
+                                    ]),
+                            ]),
+
+                        Tabs\Tab::make(__('messages.about_us.advantages_title'))
+                            ->schema([
+                                // Advantages Section
+                                Section::make()
+                                    ->schema([
+                                        Repeater::make('advantage_images')
+                                            ->label(__('messages.about_us.advantage_images'))
+                                            ->schema([
+                                                FileUpload::make('image')
+                                                    ->label(__('messages.about_us.image'))
+                                                    ->image()
+                                                    ->disk('public')
+                                                    ->directory('about-us/advantages'),
+                                                TextInput::make('alt')
+                                                    ->label(__('messages.about_us.alt_text'))
+                                                    ->rules(['nullable', 'string', 'max:255']),
                                             ])
-                                            ->columns(3)
-                                            ->itemLabel(fn (array $state): ?string => is_array($state['title']) ? ($state['title'][app()->getLocale()] ?? null) : ($state['title'] ?? null))
+                                            ->columns(2)
+                                            ->itemLabel(fn (array $state): ?string => is_string($state['alt']) ? $state['alt'] : null)
                                             ->collapsible()
                                             ->cloneable()
                                             ->defaultItems(3)
                                             ->maxItems(3),
-                                    ]),
-                            ])
-                            ->collapsible(),
-
-                        // About Section
-                        Section::make(__('messages.about_us.about_section'))
-                            ->schema([
-                                Translate::make()
-                                    ->locales(['en', 'pl'])
-                                    ->schema([
-                                        TextInput::make('about_title')
-                                            ->label(__('messages.about_us.about_title'))
-                                            ->rules(['nullable', 'max:255']),
-                                        Repeater::make('about_description')
-                                            ->label(__('messages.about_us.about_description'))
+                                        Translate::make()
+                                            ->locales(['en', 'pl'])
                                             ->schema([
-                                                Textarea::make('text')
-                                                    ->label(__('messages.about_us.paragraph'))
-                                                    ->rules(['nullable']),
+                                                Repeater::make('advantages')
+                                                    ->label(__('messages.about_us.advantages'))
+                                                    ->schema([
+                                                        TextInput::make('value')
+                                                            ->label(__('messages.about_us.value'))
+                                                            ->numeric()
+                                                            ->rules(['nullable']),
+                                                        TextInput::make('title')
+                                                            ->label(__('messages.about_us.title'))
+                                                            ->rules(['nullable', 'max:255']),
+                                                        TextInput::make('description')
+                                                            ->label(__('messages.about_us.description'))
+                                                            ->rules(['nullable', 'max:255']),
+                                                    ])
+                                                    ->columns(3)
+                                                    ->itemLabel(fn (array $state): ?string => is_array($state['title']) ? ($state['title'][app()->getLocale()] ?? null) : ($state['title'] ?? null))
+                                                    ->collapsible()
+                                                    ->cloneable()
+                                                    ->defaultItems(3)
+                                                    ->maxItems(3),
+                                            ]),
+                                    ]),
+                            ]),
+
+                        Tabs\Tab::make(__('messages.about_us.about_section'))
+                            ->schema([
+                                // About Section
+                                Section::make()
+                                    ->schema([
+                                        Translate::make()
+                                            ->locales(['en', 'pl'])
+                                            ->schema([
+                                                TextInput::make('about_title')
+                                                    ->label(__('messages.about_us.about_title'))
+                                                    ->rules(['nullable', 'max:255']),
+                                                Repeater::make('about_description')
+                                                    ->label(__('messages.about_us.about_description'))
+                                                    ->schema([
+                                                        Textarea::make('text')
+                                                            ->label(__('messages.about_us.paragraph'))
+                                                            ->rules(['nullable']),
+                                                    ])
+                                                    ->itemLabel(fn (array $state): ?string => is_array($state['text']) ? (substr($state['text'][app()->getLocale()] ?? '', 0, 50) . '...' ?? null) : (substr($state['text'] ?? '', 0, 50) . '...' ?? null))
+                                                    ->collapsible()
+                                                    ->cloneable()
+                                                    ->defaultItems(1)
+                                                    ->maxItems(5),
+                                            ]),
+                                    ]),
+                            ]),
+
+                        Tabs\Tab::make(__('messages.about_us.gallery_section'))
+                            ->schema([
+                                // Gallery Section
+                                Section::make()
+                                    ->schema([
+                                        Repeater::make('gallery_images')
+                                            ->label(__('messages.about_us.gallery_images'))
+                                            ->schema([
+                                                FileUpload::make('image')
+                                                    ->label(__('messages.about_us.image'))
+                                                    ->image()
+                                                    ->disk('public')
+                                                    ->directory('about-us/gallery'),
+                                                TextInput::make('alt')
+                                                    ->label(__('messages.about_us.alt_text'))
+                                                    ->rules(['nullable', 'string', 'max:255']),
                                             ])
-                                            ->itemLabel(fn (array $state): ?string => is_array($state['text']) ? (substr($state['text'][app()->getLocale()] ?? '', 0, 50) . '...' ?? null) : (substr($state['text'] ?? '', 0, 50) . '...' ?? null))
+                                            ->columns(2)
+                                            ->itemLabel(fn (array $state): ?string => is_string($state['alt']) ? $state['alt'] : null)
                                             ->collapsible()
                                             ->cloneable()
-                                            ->defaultItems(1)
-                                            ->maxItems(5),
+                                            ->defaultItems(5),
+                                        Translate::make()
+                                            ->locales(['en', 'pl'])
+                                            ->schema([
+                                                TextInput::make('gallery_title')
+                                                    ->label(__('messages.about_us.gallery_title'))
+                                                    ->rules(['nullable', 'max:255']),
+                                            ]),
                                     ]),
-                            ])
-                            ->collapsible(),
+                            ]),
 
-                        // Gallery Section
-                        Section::make(__('messages.about_us.gallery_section'))
+                        Tabs\Tab::make(__('messages.about_us.certificates_section'))
                             ->schema([
-                                Repeater::make('gallery_images')
-                                    ->label(__('messages.about_us.gallery_images'))
+                                // Certificates Section
+                                Section::make()
                                     ->schema([
-                                        FileUpload::make('image')
-                                            ->label(__('messages.about_us.image'))
-                                            ->image()
-                                            ->disk('public')
-                                            ->directory('about-us/gallery'),
-                                        TextInput::make('alt')
-                                            ->label(__('messages.about_us.alt_text'))
-                                            ->rules(['nullable', 'string', 'max:255']),
-                                    ])
-                                    ->columns(2)
-                                    ->itemLabel(fn (array $state): ?string => is_string($state['alt']) ? $state['alt'] : null)
-                                    ->collapsible()
-                                    ->cloneable()
-                                    ->defaultItems(5),
-                                Translate::make()
-                                    ->locales(['en', 'pl'])
-                                    ->schema([
-                                        TextInput::make('gallery_title')
-                                            ->label(__('messages.about_us.gallery_title'))
-                                            ->rules(['nullable', 'max:255']),
+                                        Repeater::make('certificates_images')
+                                            ->label(__('messages.about_us.certificates_images'))
+                                            ->schema([
+                                                FileUpload::make('image')
+                                                    ->label(__('messages.about_us.image'))
+                                                    ->image()
+                                                    ->disk('public')
+                                                    ->directory('about-us/certificates'),
+                                                TextInput::make('alt')
+                                                    ->label(__('messages.about_us.alt_text'))
+                                                    ->rules(['nullable', 'string', 'max:255']),
+                                            ])
+                                            ->columns(2)
+                                            ->itemLabel(fn (array $state): ?string => is_string($state['alt']) ? $state['alt'] : null)
+                                            ->collapsible()
+                                            ->cloneable()
+                                            ->defaultItems(5),
+                                        Translate::make()
+                                            ->locales(['en', 'pl'])
+                                            ->schema([
+                                                TextInput::make('certificates_title')
+                                                    ->label(__('messages.about_us.certificates_title'))
+                                                    ->rules(['nullable', 'max:255']),
+                                            ]),
                                     ]),
-                            ])
-                            ->collapsible(),
-
-                        // Certificates Section
-                        Section::make(__('messages.about_us.certificates_section'))
-                            ->schema([
-                                Repeater::make('certificates_images')
-                                    ->label(__('messages.about_us.certificates_images'))
-                                    ->schema([
-                                        FileUpload::make('image')
-                                            ->label(__('messages.about_us.image'))
-                                            ->image()
-                                            ->disk('public')
-                                            ->directory('about-us/certificates'),
-                                        TextInput::make('alt')
-                                            ->label(__('messages.about_us.alt_text'))
-                                            ->rules(['nullable', 'string', 'max:255']),
-                                    ])
-                                    ->columns(2)
-                                    ->itemLabel(fn (array $state): ?string => is_string($state['alt']) ? $state['alt'] : null)
-                                    ->collapsible()
-                                    ->cloneable()
-                                    ->defaultItems(5),
-                                Translate::make()
-                                    ->locales(['en', 'pl'])
-                                    ->schema([
-                                        TextInput::make('certificates_title')
-                                            ->label(__('messages.about_us.certificates_title'))
-                                            ->rules(['nullable', 'max:255']),
-                                    ]),
-                            ])
-                            ->collapsible(),
+                            ]),
                     ])
-                    ->collapsible(),
+                    ->persistTabInQueryString(),
             ])
             ->statePath('data');
     }

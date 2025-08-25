@@ -5,6 +5,7 @@ namespace App\Filament\Pages;
 use App\Settings\FooterSettings;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Tabs;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Concerns\InteractsWithForms;
@@ -52,48 +53,59 @@ class Footer extends Page implements HasForms
     {
         return $form
             ->schema([
-                TextInput::make('phone')
-                    ->label(__('Телефон'))
-                    ->maxLength(255),
-                Translate::make()
-                    ->locales(['en', 'pl'])
-                    ->schema([
-                        TextInput::make('email')
-                            ->label(__('Email'))
-                            ->email()
-                            ->required()
-                            ->maxLength(255),
-                        Textarea::make('address')
-                            ->label(__('Адреса'))
-                            ->required()
-                            ->maxLength(1000),
-                        TextInput::make('copyright_text')
-                            ->label(__('Текст копірайту'))
-                            ->required()
-                            ->maxLength(255),
-                    ]),
-                Repeater::make('social_links')
-                    ->label(__('Соцмережі'))
-                    ->schema([
-                        TextInput::make('url')
-                            ->label(__('Посилання'))
-                            ->url()
-                            ->required()
-                            ->maxLength(255),
-                        Select::make('icon')
-                            ->label(__('Іконка'))
-                            ->options([
-                                'facebook' => 'Facebook',
-                                'instagram' => 'Instagram',
-                                'telegram' => 'Telegram',
-                            ])
-                            ->required()
-                            ->selectablePlaceholder(false),
+                Tabs::make('Tabs')
+                    ->tabs([
+                        Tabs\Tab::make('Основная информация')
+                            ->schema([
+                                TextInput::make('phone')
+                                    ->label(__('Телефон'))
+                                    ->maxLength(255),
+                                Translate::make()
+                                    ->locales(['en', 'pl'])
+                                    ->schema([
+                                        TextInput::make('email')
+                                            ->label(__('Email'))
+                                            ->email()
+                                            ->required()
+                                            ->maxLength(255),
+                                        Textarea::make('address')
+                                            ->label(__('Адреса'))
+                                            ->required()
+                                            ->maxLength(1000),
+                                        TextInput::make('copyright_text')
+                                            ->label(__('Текст копірайту'))
+                                            ->required()
+                                            ->maxLength(255),
+                                    ]),
+                            ]),
+
+                        Tabs\Tab::make('Социальные сети')
+                            ->schema([
+                                Repeater::make('social_links')
+                                    ->label(__('Соцмережі'))
+                                    ->schema([
+                                        TextInput::make('url')
+                                            ->label(__('Посилання'))
+                                            ->url()
+                                            ->required()
+                                            ->maxLength(255),
+                                        Select::make('icon')
+                                            ->label(__('Іконка'))
+                                            ->options([
+                                                'facebook' => 'Facebook',
+                                                'instagram' => 'Instagram',
+                                                'telegram' => 'Telegram',
+                                            ])
+                                            ->required()
+                                            ->selectablePlaceholder(false),
+                                    ])
+                                    ->default([])
+                                    ->collapsible()
+                                    ->reorderable()
+                                    ->cloneable(),
+                            ]),
                     ])
-                    ->default([])
-                    ->collapsible()
-                    ->reorderable()
-                    ->cloneable(),
+                    ->persistTabInQueryString(),
             ])
             ->statePath('data');
     }

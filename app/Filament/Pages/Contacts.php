@@ -7,6 +7,7 @@ use Filament\Forms\Components\Section;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Tabs;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Forms\Form;
@@ -58,85 +59,110 @@ class Contacts extends Page implements HasForms
     {
         return $form
             ->schema([
-                Section::make(__('messages.contacts.title'))
-                    ->schema([
-                        TextInput::make('main_email')
-                            ->label(__('messages.contacts.main_email'))
-                            ->email()
-                            ->required()
-                            ->maxLength(255),
-                        TextInput::make('sales_email')
-                            ->label(__('messages.contacts.sales_email'))
-                            ->email()
-                            ->required()
-                            ->maxLength(255),
-                        TextInput::make('export_email')
-                            ->label(__('messages.contacts.export_email'))
-                            ->email()
-                            ->required()
-                            ->maxLength(255),
-                        TextInput::make('export_phone')
-                            ->label(__('messages.contacts.export_phone'))
-                            ->tel()
-                            ->required()
-                            ->maxLength(20),
-                        Translate::make()
-                            ->locales(['en', 'pl'])
+                Tabs::make('Tabs')
+                    ->tabs([
+                        Tabs\Tab::make(__('messages.contacts.main_info'))
                             ->schema([
-                                TextInput::make('main_address')
-                                    ->label(__('messages.contacts.address'))
-                                    ->required()
-                                    ->maxLength(500),
-                                TextInput::make('export_contact')
-                                    ->label(__('messages.contacts.export_contact'))
-                                    ->required()
-                                    ->maxLength(255),
-                                TextInput::make('map_image_alt')
-                                    ->label(__('messages.contacts.map_alt'))
-                                    ->required()
-                                    ->maxLength(255),
+                                Section::make()
+                                    ->schema([
+                                        Translate::make()
+                                            ->locales(['en', 'pl'])
+                                            ->schema([
+                                                TextInput::make('main_address')
+                                                    ->label(__('messages.contacts.address'))
+                                                    ->maxLength(255),
+                                            ]),
+                                        TextInput::make('main_email')
+                                            ->label(__('messages.contacts.main_email'))
+                                            ->email()
+                                            ->maxLength(255),
+                                    ]),
                             ]),
-                        Repeater::make('sales_phones')
-                            ->label(__('messages.contacts.sales_phones'))
+
+                        Tabs\Tab::make(__('messages.contacts.sales_department'))
                             ->schema([
-                                TextInput::make('phone')
-                                    ->label(__('messages.contacts.phone'))
-                                    ->required()
-                                    ->tel()
-                                    ->maxLength(20),
-                            ])
-                            ->collapsible()
-                            ->cloneable(),
-                        Repeater::make('additional_emails')
-                            ->label(__('messages.contacts.additional_emails'))
+                                Section::make()
+                                    ->schema([
+                                        Repeater::make('sales_phones')
+                                            ->label(__('messages.contacts.sales_phones'))
+                                            ->schema([
+                                                TextInput::make('number')
+                                                    ->label(__('messages.contacts.phone'))
+                                                    ->tel()
+                                                    ->maxLength(20),
+                                            ])
+                                            ->collapsible()
+                                            ->cloneable(),
+                                        TextInput::make('sales_email')
+                                            ->label(__('messages.contacts.sales_email'))
+                                            ->email()
+                                            ->maxLength(255),
+                                    ]),
+                            ]),
+
+                        Tabs\Tab::make(__('messages.contacts.export_department'))
                             ->schema([
-                                TextInput::make('key')
-                                    ->label(__('messages.contacts.email_key'))
-                                    ->required()
-                                    ->maxLength(50),
-                                TextInput::make('value')
-                                    ->label(__('messages.contacts.email_value'))
-                                    ->email()
-                                    ->required()
-                                    ->maxLength(255),
-                            ])
-                            ->itemLabel(fn (array $state): ?string => $state['key'] ?? null)
-                            ->collapsible()
-                            ->cloneable(),
-                        TextInput::make('map_latitude')
-                            ->label(__('messages.contacts.map_latitude'))
-                            ->numeric()
-                            ->required()
-                            ->minValue(-90)
-                            ->maxValue(90),
-                        TextInput::make('map_longitude')
-                            ->label(__('messages.contacts.map_longitude'))
-                            ->numeric()
-                            ->required()
-                            ->minValue(-180)
-                            ->maxValue(180),
+                                Section::make()
+                                    ->schema([
+                                        TextInput::make('export_phone')
+                                            ->label(__('messages.contacts.export_phone'))
+                                            ->tel()
+                                            ->maxLength(20),
+                                        Translate::make()
+                                            ->locales(['en', 'pl'])
+                                            ->schema([
+                                                TextInput::make('export_contact')
+                                                    ->label(__('messages.contacts.export_contact'))
+                                                    ->maxLength(255),
+                                            ]),
+                                        TextInput::make('export_email')
+                                            ->label(__('messages.contacts.export_email'))
+                                            ->email()
+                                            ->maxLength(255),
+                                    ]),
+                            ]),
+
+                        Tabs\Tab::make(__('messages.contacts.additional_emails'))
+                            ->schema([
+                                Section::make()
+                                    ->schema([
+                                        Repeater::make('additional_emails')
+                                            ->label(__('messages.contacts.additional_emails'))
+                                            ->schema([
+                                                TextInput::make('key')
+                                                    ->label(__('messages.contacts.email_key'))
+                                                    ->maxLength(50),
+                                                TextInput::make('value')
+                                                    ->label(__('messages.contacts.email_value'))
+                                                    ->email()
+                                                    ->maxLength(255),
+                                            ])
+                                            ->collapsible()
+                                            ->cloneable(),
+                                    ]),
+                            ]),
+
+                        Tabs\Tab::make(__('messages.contacts.map_settings'))
+                            ->schema([
+                                Section::make()
+                                    ->schema([
+                                        Translate::make()
+                                            ->locales(['en', 'pl'])
+                                            ->schema([
+                                                TextInput::make('map_image_alt')
+                                                    ->label(__('messages.contacts.map_alt'))
+                                                    ->maxLength(255),
+                                            ]),
+                                        TextInput::make('map_latitude')
+                                            ->label(__('messages.contacts.map_latitude'))
+                                            ->numeric(),
+                                        TextInput::make('map_longitude')
+                                            ->label(__('messages.contacts.map_longitude'))
+                                            ->numeric(),
+                                    ]),
+                            ]),
                     ])
-                    ->collapsible(),
+                    ->persistTabInQueryString(),
             ])
             ->statePath('data');
     }

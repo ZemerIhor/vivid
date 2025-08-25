@@ -4,6 +4,7 @@ namespace App\Filament\Pages;
 
 use App\Settings\HeaderSettings;
 use Filament\Forms\Components\Section;
+use Filament\Forms\Components\Tabs;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
@@ -48,29 +49,35 @@ class Header extends Page implements HasForms
     {
         return $form
             ->schema([
-                Section::make(__('Социальные сети'))
-                    ->schema([
-                        Translate::make()
-                            ->locales(['en', 'pl'])
+                Tabs::make('Tabs')
+                    ->tabs([
+                        Tabs\Tab::make(__('Социальные сети'))
                             ->schema([
-                                TextInput::make('instagram_url')
-                                    ->label(__('Instagram URL'))
-                                    ->url()
-                                    ->required()
-                                    ->maxLength(255),
-                                TextInput::make('facebook_url')
-                                    ->label(__('Facebook URL'))
-                                    ->url()
-                                    ->required()
-                                    ->maxLength(255),
-                                TextInput::make('telegram_url')
-                                    ->label(__('Telegram URL'))
-                                    ->url()
-                                    ->required()
-                                    ->maxLength(255),
+                                Section::make()
+                                    ->schema([
+                                        Translate::make()
+                                            ->locales(['en', 'pl'])
+                                            ->schema([
+                                                TextInput::make('instagram_url')
+                                                    ->label(__('Instagram URL'))
+                                                    ->url()
+                                                    ->required()
+                                                    ->maxLength(255),
+                                                TextInput::make('facebook_url')
+                                                    ->label(__('Facebook URL'))
+                                                    ->url()
+                                                    ->required()
+                                                    ->maxLength(255),
+                                                TextInput::make('telegram_url')
+                                                    ->label(__('Telegram URL'))
+                                                    ->url()
+                                                    ->required()
+                                                    ->maxLength(255),
+                                            ]),
+                                    ]),
                             ]),
                     ])
-                    ->collapsible(),
+                    ->persistTabInQueryString(),
             ])
             ->statePath('data');
     }
