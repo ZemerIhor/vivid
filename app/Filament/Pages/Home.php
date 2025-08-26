@@ -69,7 +69,7 @@ class Home extends Page implements HasForms
             'about_certificates_link' => $settings->about_certificates_link ?? ['en' => '', 'pl' => ''],
             'about_statistic_title' => $settings->about_statistic_title ?? ['en' => '', 'pl' => ''],
             'about_statistic_description' => $settings->about_statistic_description ?? ['en' => '', 'pl' => ''],
-            'about_location_image' => $settings->about_location_image,
+            'about_location_image' => $settings->about_location_image ?? null,
             'about_location_caption' => $settings->about_location_caption ?? ['en' => '', 'pl' => ''],
             'reviews_title' => $settings->reviews_title ?? ['en' => '', 'pl' => ''],
             'review_items' => $settings->review_items ?? ['en' => [], 'pl' => []],
@@ -488,18 +488,6 @@ class Home extends Page implements HasForms
 
             Log::info('Home Settings Form Data', ['data' => $data]);
 
-            // Handle file fields (allow null values)
-            $fileFields = [
-                'banner_image',
-                'advantages_image_1', 'advantages_image_2', 'advantages_image_3',
-                'main_comparison_image', 'feedback_form_image', 'about_location_image',
-                'faq_main_image',
-            ];
-
-            foreach ($fileFields as $field) {
-                $data[$field] = isset($data[$field]) && is_array($data[$field]) ? ($data[$field][0] ?? null) : ($data[$field] ?? null);
-            }
-
             // Handle translatable arrays (ensure they are arrays, even if empty)
             $translatableArrays = [
                 'hero_slides', 'advantages_cards', 'comparison_items', 'faq_items',
@@ -521,7 +509,9 @@ class Home extends Page implements HasForms
                 foreach ($data['hero_slides'] as $locale => &$slides) {
                     if (is_array($slides)) {
                         foreach ($slides as &$slide) {
-                            $slide['background_image'] = isset($slide['background_image']) && is_array($slide['background_image']) ? ($slide['background_image'][0] ?? null) : ($slide['background_image'] ?? null);
+                            if (isset($slide['background_image'])) {
+                                $slide['background_image'] = is_array($slide['background_image']) ? ($slide['background_image'][0] ?? null) : ($slide['background_image'] ?? null);
+                            }
                         }
                         unset($slide);
                     }
@@ -534,7 +524,9 @@ class Home extends Page implements HasForms
                 foreach ($data['advantages_cards'] as $locale => &$cards) {
                     if (is_array($cards)) {
                         foreach ($cards as &$card) {
-                            $card['icon'] = isset($card['icon']) && is_array($card['icon']) ? ($card['icon'][0] ?? null) : ($card['icon'] ?? null);
+                            if (isset($card['icon'])) {
+                                $card['icon'] = is_array($card['icon']) ? ($card['icon'][0] ?? null) : ($card['icon'] ?? null);
+                            }
                         }
                         unset($card);
                     }
@@ -547,7 +539,9 @@ class Home extends Page implements HasForms
                 foreach ($data['comparison_items'] as $locale => &$items) {
                     if (is_array($items)) {
                         foreach ($items as &$item) {
-                            $item['image'] = isset($item['image']) && is_array($item['image']) ? ($item['image'][0] ?? null) : ($item['image'] ?? null);
+                            if (isset($item['image'])) {
+                                $item['image'] = is_array($item['image']) ? ($item['image'][0] ?? null) : ($item['image'] ?? null);
+                            }
                         }
                         unset($item);
                     }
@@ -560,7 +554,9 @@ class Home extends Page implements HasForms
                 foreach ($data['tender_items'] as $locale => &$items) {
                     if (is_array($items)) {
                         foreach ($items as &$item) {
-                            $item['icon'] = isset($item['icon']) && is_array($item['icon']) ? ($item['icon'][0] ?? null) : ($item['icon'] ?? null);
+                            if (isset($item['icon'])) {
+                                $item['icon'] = is_array($item['icon']) ? ($item['icon'][0] ?? null) : ($item['icon'] ?? null);
+                            }
                         }
                         unset($item);
                     }
@@ -573,12 +569,19 @@ class Home extends Page implements HasForms
                 foreach ($data['faq_items'] as $locale => &$items) {
                     if (is_array($items)) {
                         foreach ($items as &$item) {
-                            $item['icon'] = isset($item['icon']) && is_array($item['icon']) ? ($item['icon'][0] ?? null) : ($item['icon'] ?? null);
+                            if (isset($item['icon'])) {
+                                $item['icon'] = is_array($item['icon']) ? ($item['icon'][0] ?? null) : ($item['icon'] ?? null);
+                            }
                         }
                         unset($item);
                     }
                 }
                 unset($items);
+            }
+
+            // Process about_location_image
+            if (isset($data['about_location_image'])) {
+                $data['about_location_image'] = is_array($data['about_location_image']) ? ($data['about_location_image'][0] ?? null) : $data['about_location_image'];
             }
 
             $settings = app(HomeSettings::class);
