@@ -14,12 +14,10 @@ class FooterSettings extends Settings
     public $address;
     public $copyright_text; // Уберите тип string или укажите array
     //    public array $social_links;
-    public array $sections;
 
     protected array $translatable = [
         'address',
         'copyright_text',
-        'sections',
     ];
 
     public static function group(): string
