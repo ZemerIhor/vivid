@@ -181,7 +181,7 @@
             </div>
 
             <div class="nav-right">
-                <a class="mr-2 text-xs font-semibold leading-5 text-zinc-800" href="tel:+48791229325">+48791229325</a>
+                <a class="mr-2 text-base font-semibold leading-5 text-zinc-800" href="tel:+48791229325">+48791229325</a>
                 <button
                     wire:click="$dispatch('openContactForm')"
                     class="contact-button"
