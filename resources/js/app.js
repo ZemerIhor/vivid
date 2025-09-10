@@ -8,7 +8,7 @@ function initApp() {
     // Инициализация hero-слайдера
     function initializeHeroSlider() {
         console.log('Инициализация hero-slider');
-        let currentSlide = 1; // Начинаем со второго слайда (индекс 1)
+        let currentSlide = 0; // Начинаем с первого слайда (индекс 0)
         const slider = document.getElementById('hero-slider');
         const slides = document.querySelectorAll('#hero-slider > div');
         const indicators = document.querySelectorAll('.hero-indicator');
@@ -27,6 +27,19 @@ function initApp() {
         }
 
         function updateSlider(applyTransition = true) {
+            // Если только один слайд, центрируем его без смещения
+            if (slides.length === 1) {
+                slider.style.transition = 'none';
+                slider.style.transform = 'translateX(0)';
+                indicators.forEach((indicator, index) => {
+                    indicator.classList.toggle('bg-green-500', index === 0);
+                    indicator.classList.toggle('bg-white/50', index !== 0);
+                });
+                console.log('Один слайд, центрирование без смещения');
+                return;
+            }
+
+            // Логика для нескольких слайдов
             const slideWidth = getSlideWidth();
             slider.style.transition = applyTransition ? 'transform 0.5s ease-in-out' : 'none';
             slider.style.transform = `translateX(-${currentSlide * (slideWidth + gap)}px)`;
@@ -45,20 +58,20 @@ function initApp() {
         requestAnimationFrame(() => {
             slider.classList.remove('opacity-0', 'invisible');
             sliderWrap.classList.remove('opacity-0', 'invisible');
-            slider.style.transition = 'transform 0.5s ease-in-out';
+            slider.style.transition = slides.length > 1 ? 'transform 0.5s ease-in-out' : 'none';
             updateSlider(true);
         });
 
         // Функции навигации
         function moveSlide(direction) {
-            if (slides.length === 0) return;
+            if (slides.length <= 1) return; // Не переключаем, если только один слайд
             currentSlide = (currentSlide + direction + slides.length) % slides.length;
             updateSlider();
             console.log(`Переключение слайда, направление: ${direction}, текущий слайд: ${currentSlide}`);
         }
 
         function goToSlide(index) {
-            if (slides.length === 0) return;
+            if (slides.length <= 1) return; // Не переключаем, если только один слайд
             currentSlide = parseInt(index, 10);
             updateSlider();
             console.log(`Переход к слайду: ${currentSlide}`);
@@ -69,6 +82,7 @@ function initApp() {
             if (prevButton) {
                 prevButton.removeEventListener('click', () => moveSlide(-1));
                 prevButton.addEventListener('click', () => moveSlide(-1));
+                prevButton.style.display = slides.length > 1 ? 'block' : 'none'; // Скрываем кнопку, если один слайд
                 console.log('Обработчик для prevButton привязан');
             } else {
                 console.warn('Кнопка prevButton не найдена');
@@ -76,6 +90,7 @@ function initApp() {
             if (nextButton) {
                 nextButton.removeEventListener('click', () => moveSlide(1));
                 nextButton.addEventListener('click', () => moveSlide(1));
+                nextButton.style.display = slides.length > 1 ? 'block' : 'none'; // Скрываем кнопку, если один слайд
                 console.log('Обработчик для nextButton привязан');
             } else {
                 console.warn('Кнопка nextButton не найдена');
@@ -83,6 +98,7 @@ function initApp() {
             indicators.forEach((indicator, index) => {
                 indicator.removeEventListener('click', () => goToSlide(index));
                 indicator.addEventListener('click', () => goToSlide(indicator.getAttribute('data-slide')));
+                indicator.style.display = slides.length > 1 ? 'block' : 'none'; // Скрываем индикаторы, если один слайд
                 console.log(`Обработчик для индикатора ${index} привязан`);
             });
         }
