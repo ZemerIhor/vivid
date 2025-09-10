@@ -51,8 +51,8 @@
             <div class="flex relative flex-col flex-1">
                 <div class="flex overflow-hidden flex-col max-w-full w-full">
                     @if ($product->thumbnail)
-                        <a href="#">
-                            <img src="https://cdn.builder.io/api/v1/image/assets/bdb2240bae064d82b869b3fcebf2733a/d7f2f96fb365d97b578a2cfa0ccb76eaba272ebd?placeholderIfAbsent=true"
+                        <a href="{{ $productUrl }}">
+                            <img src="{{ $product->thumbnail->getUrl() }}"
                                  alt="{{ $nameValue }}"
                                  class="object-cover w-full aspect-[1.77] transition-transform duration-300 group-hover:scale-105"/>
                         </a>
