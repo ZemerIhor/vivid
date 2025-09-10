@@ -69,7 +69,7 @@
                     <h2 class="text-base font-bold leading-5 text-zinc-800">{{ $nameValue }}</h2>
                     <p class="mt-3 text-xs font-semibold leading-5 text-zinc-800">{!! strip_tags($descriptionValue) !!}</p>
                 </div>
-                <div class="w-full p-4 flex justify-end">
+                <div class="w-full p-4 flex justify-center">
                     <button
                         wire:click="$dispatch('openContactForm')"
                         class="px-4 py-2 text-sm font-bold text-green-600 rounded-2xl border-2 border-green-600 hover:bg-green-600 hover:text-white focus:outline-none focus:ring-2 focus:ring-green-600 w-full max-w-xs"
