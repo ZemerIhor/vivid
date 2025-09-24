@@ -13,6 +13,7 @@
                aria-label="{{ __('messages.banner.catalog_button_aria_label') }}" wire:navigate>
                 <div>
                     <x-brand.logo class="w-auto h-8 text-indigo-600" />
+                    вфцвфв
                 </div>
             </a>
 
