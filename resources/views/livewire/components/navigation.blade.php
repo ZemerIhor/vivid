@@ -385,35 +385,3 @@
     </div>
     @livewire('components.contact-form')
 </div>
-
-
-<div class="grid__item" style="width: 100%;">
-    <div class="feature feature_v1" style="min-height: 350px">
-        <div class="feature__body">
-            <div class="feature__body-start mobile-styled">
-                <div class="feature-title">Maximum cell temperature</div>
-                <div class="feature-val js-mnt">0 ℃</div>
-            </div>
-        </div>
-        <div class="feature__img">
-            <div class="chart-container">
-                <canvas id="maxTemperature" style="min-height: 250px"></canvas>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="grid__item" style="width: 100%;">
-    <div class="feature feature_v1" style="min-height: 350px">
-        <div class="feature__body">
-            <div class="feature__body-start mobile-styled">
-                <div class="feature-title">Minimum cell temperature</div>
-                <div class="feature-val js-mt">0 ℃</div>
-            </div>
-        </div>
-        <div class="feature__img">
-            <div class="chart-container">
-                <canvas id="minTemperature" style="min-height: 250px"></canvas>
-            </div>
-        </div>
-    </div>
-</div>
