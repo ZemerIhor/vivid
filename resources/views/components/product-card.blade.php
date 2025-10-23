@@ -51,7 +51,7 @@
             <div class="flex relative flex-col flex-1">
                 <div class="flex overflow-hidden flex-col max-w-full w-full">
                     @if ($product->thumbnail)
-                        <a href="#">
+                        <a href="{{ $productUrl }}">
                             <img src="{{ $product->thumbnail->getUrl() }}"
                                  alt="{{ $nameValue }}"
                                  class="object-cover w-full aspect-[1.77] transition-transform duration-300 group-hover:scale-105"/>
