@@ -360,7 +360,7 @@
                 @if (!empty($settings->faq_main_image))
                     <img src="{{ Storage::url($settings->faq_main_image) }}"
                          alt="{{ is_string($settings->faq_main_image_alt[app()->getLocale()] ?? '') ? $settings->faq_main_image_alt[app()->getLocale()] : '' }}"
-                         class="rounded-3xl min-w-60 w-[380px]"/>
+                         class="rounded-3xl min-w-60 w-[380px] sticky top-0 object-cover"/>
                 @else
                     <p>{{ __('messages.faq.no_image') }}</p>
                 @endif
