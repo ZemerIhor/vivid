@@ -364,11 +364,13 @@
                 @else
                     <p>{{ __('messages.faq.no_image') }}</p>
                 @endif
-
+                    @php
+                        $faqItems = $settings->faq_items[app()->getLocale()] ?? [];
+                    @endphp
                 <div class="flex-1 shrink self-start basis-0 min-w-60 max-md:max-w-full">
-                    @foreach ($settings->faq_items[app()->getLocale()] ?? [] as $index => $item)
-                        <article
-                            class="flex flex-wrap items-start px-4 py-2 mt-1 w-full rounded-3xl bg-neutral-200 max-md:max-w-full">
+                    @foreach ($faqItems as $index => $item)
+                        <article class="flex flex-wrap items-start px-4 py-2 mt-1 w-full rounded-3xl bg-neutral-200 max-md:max-w-full
+                        @if($index >= 3) hidden extra-faq @endif">
                             <div class="flex gap-2.5 items-start self-stretch py-2 h-full w-[70px]">
                                 @if (!empty($item['icon']))
                                     <img src="{{ Storage::url($item['icon']) }}"
@@ -379,10 +381,9 @@
                                 @endif
                             </div>
                             <div class="flex-1 shrink pt-4 pb-2 pl-4 basis-0 min-w-60 text-zinc-800 max-md:max-w-full">
-                                <!-- Скрытый чекбокс для переключения -->
                                 <input type="checkbox" id="faq-toggle-{{ $index }}" class="hidden faq-toggle-checkbox">
                                 <label for="faq-toggle-{{ $index }}"
-                                       class="faq-toggle flex gap-2.5 justify-center items-center pb-2 w-full text-xl font-bold leading-6 max-md:max-w-full text-left cursor-pointer">
+                                       class="faq-toggle flex gap-2.5 justify-center items-center pb-2 w-full text-xl font-bold text-left cursor-pointer">
                                     <h2 class="flex-1 shrink self-stretch my-auto basis-0 text-zinc-800 max-md:max-w-full">
                                         {{ $item['question'] }}
                                     </h2>
@@ -401,10 +402,8 @@
                                 </label>
                                 <div class="flex w-full bg-zinc-300 min-h-px max-md:max-w-full" role="separator"></div>
                                 <div id="answer-{{ $index }}" class="faq-answer max-h-0 overflow-hidden">
-                                    <div
-                                        class="flex gap-2.5 items-center py-2 w-full text-base font-semibold leading-none rounded-2xl max-md:max-w-full">
-                                        <p
-                                            class="flex-1 shrink self-stretch my-auto basis-0 text-zinc-800 max-md:max-w-full">
+                                    <div class="flex gap-2.5 items-center py-2 w-full text-base font-semibold leading-none rounded-2xl max-md:max-w-full">
+                                        <p class="flex-1 shrink self-stretch my-auto basis-0 text-zinc-800 max-md:max-w-full">
                                             {{ $item['answer'] }}
                                         </p>
                                     </div>
@@ -412,6 +411,23 @@
                             </div>
                         </article>
                     @endforeach
+                        @if(count($faqItems) > 3)
+                            <button id="faq-show-more" class="flex mt-4 gap-2 justify-center items-center self-center px-6 py-2.5 text-sm font-bold leading-snug text-green-600 whitespace-nowrap rounded-2xl border-2 border-green-600 border-solid min-h-11 max-md:px-5 w-fit mx-auto hover:bg-green-50 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-offset-2 transition-colors">
+                                {{ __('messages.faq.show_more') }}
+
+                            </button>
+                        @endif
+                        <script>
+                            document.addEventListener('DOMContentLoaded', () => {
+                                const showMoreBtn = document.getElementById('faq-show-more');
+                                if(showMoreBtn){
+                                    showMoreBtn.addEventListener('click', () => {
+                                        document.querySelectorAll('.extra-faq').forEach(item => item.classList.remove('hidden'));
+                                        showMoreBtn.style.display = 'none';
+                                    });
+                                }
+                            });
+                        </script>
                 </div>
             </div>
 
