@@ -27,7 +27,7 @@
             </div>
         @endif
 
-        <section class="prose prose-neutral max-w-none whitespace-normal">
+        <section class="prose prose-neutral max-w-none " style="white-space: break-spaces">
             {!! $post->getTranslation('content', app()->getLocale()) !!}
         </section>
     </article>
