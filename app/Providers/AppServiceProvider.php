@@ -25,9 +25,13 @@ use Illuminate\Support\ServiceProvider;
 use Kenepa\TranslationManager\TranslationManagerPlugin;
 use Lunar\Admin\Filament\Resources\ProductResource;
 use Lunar\Admin\Support\Facades\LunarPanel;
+use Lunar\Admin\Support\Facades\AttributeData as LunarAttributeData;
 use Lunar\Base\ShippingModifiers;
 use Lunar\Shipping\ShippingPlugin;
 use SolutionForest\FilamentTranslateField\FilamentTranslateFieldPlugin;
+use Filament\Forms\Components\RichEditor;
+use Filament\Support\Facades\FilamentView;
+use Illuminate\Support\Facades\Blade as BladeFacade;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -127,5 +131,37 @@ class AppServiceProvider extends ServiceProvider
         \App\Models\Review::observe(\App\Observers\ReviewObserver::class);
         \App\Models\BlogPost::observe(\App\Observers\BlogPostObserver::class);
         \App\Models\Product::observe(\App\Observers\ProductObserver::class);
+
+        // Use CKEditor-based rich text for Lunar Text attributes in the panel
+        LunarAttributeData::registerFieldType(
+            \Lunar\FieldTypes\Text::class,
+            \App\Support\FieldTypes\TextField::class,
+        );
+
+        // Replace Lunar TranslatedText field with extended toolbar & attachments
+        LunarAttributeData::registerFieldType(
+            \Lunar\FieldTypes\TranslatedText::class,
+            \App\Support\FieldTypes\TranslatedTextField::class,
+        );
+
+        // Configure Filament RichEditor globally (for places where it is used)
+        RichEditor::configureUsing(function (RichEditor $editor) {
+            $editor
+                ->columnSpanFull()
+                ->toolbarButtons([
+                    'undo', 'redo', '|',
+                    'h2', 'h3', '|',
+                    'bold', 'italic', 'underline', 'strike', '|',
+                    'link', 'blockquote', 'codeBlock', '|',
+                    'bulletList', 'orderedList', '|',
+                    'attachFiles',
+                ]);
+        });
+
+        // Add font size selector to Trix editor
+        FilamentView::registerRenderHook(
+            'panels::body.end',
+            fn (): string => BladeFacade::render('filament.trix-font-size-script')
+        );
     }
 }

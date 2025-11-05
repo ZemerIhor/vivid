@@ -43,7 +43,7 @@
                                 @if ($item->children)
                                     <ul>
                                         @foreach ($item->children as $child)
-                                            <li><a href="#">{{ $child->title }}</a></li>
+                                            <li><a href="{{ $child->url }}">{{ $child->title }}</a></li>
                                         @endforeach
                                     </ul>
                                 @endif
