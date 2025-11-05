@@ -1,6 +1,3 @@
-@php
-    \Log::info('Current Locale', ['locale' => app()->getLocale()]);
-@endphp
 
 <div class="max-w-full ">
     <div class="top-section relative mx-auto">
@@ -394,16 +391,16 @@
 
 
         <livewire:components.blog-section />
-    </div>
-</div>
-
-<style>
-    @media (max-width: 767px) {
-        .wrap-advantage {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
+    <style>
+        @media (max-width: 767px) {
+            .wrap-advantage {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
         }
-    }
-</style>
-@endsection
+    </style>
+    </div>
+
+
+

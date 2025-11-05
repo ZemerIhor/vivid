@@ -36,7 +36,7 @@ class Localization
         $detectedLocale = $languageService->detectLocale($urlLocale);
         
         // Если в URL нет локали или она не валидна, добавляем префикс с текущей локалью
-        if (!$languageService->isValidLocale($urlLocale) && $request->path() !== '/') {
+        if ((!$urlLocale || !$languageService->isValidLocale($urlLocale)) && $request->path() !== '/') {
             $currentPath = $request->path();
             // Проверяем, не является ли это уже локализованным путем
             if (!preg_match('#^(en|pl)/#', $currentPath)) {
