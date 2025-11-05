@@ -12,8 +12,19 @@
     $slug = $product->urls()->where('language_id', $languageId)->first()?->slug;
 
     // Fallback to default URL slug, product slug, or generate a default slug
-    if (!$slug) {
-        $slug = $product->defaultUrl?->slug ?? $product->slug ?? \Illuminate\Support\Str::slug($product->translateAttribute('name') ?? 'product-' . $product->id);
+    if (!$slug || trim($slug) === '') {
+        // Try default language URL
+        $slug = $product->defaultUrl?->slug;
+        
+        // If still empty, try any URL
+        if (!$slug || trim($slug) === '') {
+            $slug = $product->urls()->whereNotNull('slug')->where('slug', '!=', '')->first()?->slug;
+        }
+        
+        // Last resort: generate from product name or ID
+        if (!$slug || trim($slug) === '') {
+            $slug = \Illuminate\Support\Str::slug($product->translateAttribute('name') ?? 'product-' . $product->id);
+        }
     }
 
     // Check if the slug is valid

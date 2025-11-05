@@ -116,8 +116,8 @@
                 break;
             case 'blog.post':
                 $post = \App\Models\BlogPost::where('slug', request()->route()->parameter('slug'))->first();
-                $pageTitle = $post ? ($post->translateAttribute('title') ?? __('messages.blog.post_default_title', [], $locale)) : __('messages.blog.post_default_title', [], $locale);
-                $pageDescription = $post ? (strip_tags($post->translateAttribute('excerpt')) ?? __('messages.blog.post_default_meta_description', [], $locale)) : __('messages.blog.post_default_meta_description', [], $locale);
+                $pageTitle = $post ? ($post->getTranslation('title', $locale) ?? __('messages.blog.post_default_title', [], $locale)) : __('messages.blog.post_default_title', [], $locale);
+                $pageDescription = $post ? (strip_tags($post->getTranslation('excerpt', $locale)) ?? __('messages.blog.post_default_meta_description', [], $locale)) : __('messages.blog.post_default_meta_description', [], $locale);
                 break;
             case 'privacy-policy':
                 $pageTitle = __('messages.privacy-policy.title', [], $locale);
