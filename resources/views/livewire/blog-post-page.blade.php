@@ -30,5 +30,11 @@
         <section class="prose prose-neutral max-w-none " style="white-space: break-spaces">
             {!! $post->getTranslation('content', app()->getLocale()) !!}
         </section>
+
+        <style>
+            .prose-neutral pre {
+                white-space: break-spaces;
+            }
+        </style>
     </article>
 </div>
