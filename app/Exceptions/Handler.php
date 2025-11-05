@@ -72,7 +72,13 @@ class Handler extends ExceptionHandler
                 ], 404);
             }
 
-            return response()->view('errors.404', [], 404);
+            // Проверяем существование представления
+            if (view()->exists('errors.404')) {
+                return response()->view('errors.404', [], 404);
+            }
+            
+            // Fallback на простой текст, если представления нет
+            return response('Page not found', 404);
         }
 
         // Обработка ошибок валидации
@@ -110,7 +116,13 @@ class Handler extends ExceptionHandler
                 ], 500);
             }
 
-            return response()->view('errors.500', [], 500);
+            // Проверяем существование представления
+            if (view()->exists('errors.500')) {
+                return response()->view('errors.500', [], 500);
+            }
+            
+            // Fallback на простой текст, если представления нет
+            return response('Internal server error', 500);
         }
 
         return parent::render($request, $e);
@@ -140,6 +152,6 @@ class Handler extends ExceptionHandler
             ], 401);
         }
 
-        return redirect()->guest(route('login'));
+        return redirect()->guest(route('filament.lunar.auth.login'));
     }
 }

@@ -40,6 +40,10 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'staff' => [
+            'driver' => 'session',
+            'provider' => 'staff',
+        ],
     ],
 
     /*
@@ -62,7 +66,12 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => App\Models\User::class,
+            'model' => Lunar\Models\Customer::class,
+        ],
+
+        'staff' => [
+            'driver' => 'eloquent',
+            'model' => Lunar\Admin\Models\Staff::class,
         ],
 
         // 'users' => [
