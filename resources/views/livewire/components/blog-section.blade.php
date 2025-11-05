@@ -10,13 +10,11 @@
                 $slug = $post->slug; // Используем непереводимый slug
                 $hasValidSlug = is_string($slug) && trim($slug) !== '';
 
-                $routeParams = ['slug' => $slug];
-                if ($locale !== config('app.fallback_locale')) {
-                    $routeParams['locale'] = $locale;
-                }
+                // Всегда добавляем locale в параметры
+                $routeParams = ['locale' => $locale, 'slug' => $slug];
 
                 // Если slug валиден, формируем URL для поста, иначе для главной страницы
-                $postUrl = $hasValidSlug ? route('blog.post', $routeParams, false) : route('home', $locale !== config('app.fallback_locale') ? ['locale' => $locale] : [], false);
+                $postUrl = $hasValidSlug ? route('blog.post', $routeParams, false) : route('home', ['locale' => $locale], false);
             @endphp
 
             <a
@@ -51,7 +49,7 @@
 
     @if ($posts->count() > 0)
         <a
-            href="{{ route('blog.index', $locale !== config('app.fallback_locale') ? ['locale' => $locale] : []) }}"
+            href="{{ route('blog.index', ['locale' => $locale]) }}"
             class="flex gap-2 justify-center items-center self-center px-6 py-2.5 mt-5 text-base font-bold leading-snug text-green-600 whitespace-nowrap rounded-2xl border-2 border-green-600 border-solid min-h-11 max-md:px-5 hover:bg-green-50 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-offset-2 transition-colors"
             aria-label="{{ __('messages.blog.read_more') }}"
         >
