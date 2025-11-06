@@ -306,13 +306,7 @@
                                 </div>
                             </div>
 
-                            @if (!$hasValidSlug)
-                                <div class="p-4 text-red-600 text-sm">
-                                    {{ __('messages.catalog.missing_slug_warning', ['id' => $product->id, 'locale' => app()->getLocale()]) }}
-                                    @dump($product->urls->toArray())
-                                    @dump($product->slug)
-                                </div>
-                            @endif
+
                         </div>
                     </article>
                 @empty

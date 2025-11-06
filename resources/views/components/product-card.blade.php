@@ -84,13 +84,5 @@
             <livewire:components.add-to-cart :purchasable="$product->variants->first()" :key="'add-to-cart-' . $product->id" />
         </div>
 
-        @if (!$hasValidSlug)
-            <div class="p-4 text-red-600 text-sm">
-                {{ __('messages.catalog.warning_no_slug') }}: {{ $product->id }} ({{ __('messages.catalog.locale') }}: {{ app()->getLocale() }})
-                @dump($product->urls->toArray())
-                @dump($product->localizedUrl?->toArray())
-                @dump($product->defaultUrl?->toArray())
-                @dump($product->slug)
-            </div>
-    @endif
+
 </article>
