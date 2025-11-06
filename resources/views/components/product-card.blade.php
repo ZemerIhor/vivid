@@ -32,28 +32,12 @@
 
     // Generate product URL
     $productUrl = $hasValidSlug
-        ? route('product.view', ['locale' => $locale, 'slug' => $slug], false)
-        : route('home', ['locale' => $locale], false);
+        ? route('product.view', ['locale' => $locale, 'slug' => $slug])
+        : route('home', ['locale' => $locale]);
 
     // Extract translations
     $nameValue = $product->translateAttribute('name') ?? 'Product';
     $descriptionValue = $product->translateAttribute('description') ?? '';
-
-    // Debug logging
-    \Log::info('ProductCard Debug', [
-        'product_id' => $product->id,
-        'locale' => $locale,
-        'fallback_locale' => config('app.fallback_locale'),
-        'name' => $product->attribute_data['name'] ?? null,
-        'nameValue' => $nameValue,
-        'descriptionValue' => $descriptionValue,
-        'attribute_data' => $product->attribute_data->toArray(),
-        'slug' => $slug,
-        'localizedUrl_slug' => $product->urls()->where('language_id', $languageId)->first()?->slug,
-        'defaultUrl_slug' => $product->defaultUrl?->slug,
-        'urls' => $product->urls->toArray(),
-        'productUrl' => $productUrl,
-    ]);
 @endphp
 
 <article class="overflow-hidden product-card flex-1 shrink self-stretch my-auto rounded-3xl basis-0 bg-neutral-200 h-full" role="listitem">

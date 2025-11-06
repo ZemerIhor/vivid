@@ -241,18 +241,10 @@
                         $hasValidSlug = is_string($slug) && trim($slug) !== '';
                         // Generate locale-agnostic product URL
                         $productUrl = $hasValidSlug
-                            ? route('product.view', ['locale' => $locale, 'slug' => $slug], false)
-                            : route('home', ['locale' => $locale], false);
+                            ? route('product.view', ['locale' => $locale, 'slug' => $slug])
+                            : route('home', ['locale' => $locale]);
                         $nameValue = $product->translateAttribute('name') ?? 'Product';
                         $descriptionValue = $product->translateAttribute('description') ?? '';
-                        // Debug logging
-                        \Log::info('Product URL Generated', [
-                            'product_id' => $product->id,
-                            'locale' => $locale,
-                            'slug' => $slug,
-                            'productUrl' => $productUrl,
-                            'urls' => $product->urls->toArray(),
-                        ]);
                     @endphp
 
                     <article wire:key="product-{{ $product->id }}"
