@@ -234,10 +234,13 @@
                 @forelse ($products as $product)
                     @php
                         $locale = app()->getLocale();
+                        $language = \Lunar\Models\Language::where('code', $locale)->first();
+                        $languageId = $language ? $language->id : 1;
+                        
                         // Get the slug for the current locale
-                        $slug = $product->urls()
-                            ->where('language_id', \Lunar\Models\Language::where('code', $locale)->first()->id ?? 1)
-                            ->first()?->slug ?? $product->slug ?? 'product-' . $product->id;
+                        $url = $product->urls()->where('language_id', $languageId)->first();
+                        $slug = $url?->slug ?? $product->defaultUrl?->slug ?? 'product-' . $product->id;
+                        
                         $hasValidSlug = is_string($slug) && trim($slug) !== '';
                         // Generate locale-agnostic product URL
                         $productUrl = $hasValidSlug

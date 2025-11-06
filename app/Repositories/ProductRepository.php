@@ -20,9 +20,16 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
      */
     public function findBySlug(string $slug): ?Product
     {
-        return Cache::remember("product.slug.{$slug}", 3600, function () use ($slug) {
+        $locale = app()->getLocale();
+        $language = \Lunar\Models\Language::where('code', $locale)->first();
+        $languageId = $language ? $language->id : 1;
+        
+        return Cache::remember("product.slug.{$slug}.{$locale}", 3600, function () use ($slug, $languageId) {
+            // Try to find URL for current language
+            // Note: Lunar stores element_type as 'product', not full class name
             $url = Url::where('slug', $slug)
-                ->where('element_type', Product::class)
+                ->where('element_type', 'product')
+                ->where('language_id', $languageId)
                 ->with([
                     'element.media',
                     'element.variants.basePrices.currency',
@@ -32,10 +39,24 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
                 ])
                 ->first();
 
+            // Fallback: check any language
+            if (!$url) {
+                $url = Url::where('slug', $slug)
+                    ->where('element_type', 'product')
+                    ->with([
+                        'element.media',
+                        'element.variants.basePrices.currency',
+                        'element.variants.basePrices.priceable',
+                        'element.variants.values.option',
+                        'element.collections',
+                    ])
+                    ->first();
+            }
+
             // Fallback: check alternative slugs
             if (!$url) {
                 $url = Url::whereIn('slug', [$slug, $slug . 'vfv', str_replace('vfv', '', $slug)])
-                    ->where('element_type', Product::class)
+                    ->where('element_type', 'product')
                     ->with([
                         'element.media',
                         'element.variants.basePrices.currency',
