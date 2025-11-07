@@ -151,24 +151,26 @@
                     {{ strip_tags($this->product->translateAttribute('description')) }}
                 </p>
 
-                <table class="product-properties flex relative flex-col items-start self-stretch" role="table" aria-label="{{ __('messages.product.attributes_table') }}">
+                @if ($this->product->shortPoints->count() > 0)
+                <table class="product-properties flex relative flex-col items-start self-stretch" role="table" aria-label="{{ __('messages.product.short_specs') }}">
                     <tbody class="w-full">
-                    @foreach ($this->getAttributesProperty() as $attribute)
+                    @foreach ($this->product->shortPoints as $point)
                         <tr class="flex relative items-center self-stretch {{ $loop->even ? 'bg-white' : '' }} rounded-lg">
                             <td class="flex relative gap-2.5 items-center px-4 py-2 flex-[1_0_0]">
                                 <span class="relative text-base font-semibold leading-5 flex-[1_0_0] text-zinc-600 max-sm:text-sm">
-                                    {{ $attribute['name'] }}
+                                    {{ $point->name[app()->getLocale()] ?? $point->name['en'] ?? '' }}
                                 </span>
                             </td>
                             <td class="flex relative gap-2.5 justify-end items-center px-4 py-2 flex-[1_0_0]">
                                 <span class="relative text-base font-semibold leading-5 text-right flex-[1_0_0] text-zinc-800 max-sm:text-sm">
-                                    {{ $attribute['value'] }}
+                                    {{ $point->value[app()->getLocale()] ?? $point->value['en'] ?? '' }}
                                 </span>
                             </td>
                         </tr>
                     @endforeach
                     </tbody>
                 </table>
+                @endif
 
                 <!-- Price and Actions Section -->
                 <div class="flex relative justify-between items-center self-stretch h-11">
@@ -223,10 +225,7 @@
     </section>
 
     <!-- Characteristics Section -->
-    @php
-        $characteristics = $this->product->attribute_data['characteristics'][app()->getLocale()] ?? $this->product->attribute_data['characteristics'] ?? [];
-    @endphp
-
+    @if ($this->product->characteristics->count() > 0)
     <section class="characteristics-section flex relative flex-col gap-4 items-start self-stretch">
         <h2 class="relative self-stretch text-xl font-bold leading-6 text-black max-sm:text-lg">
             {{ __('messages.product.characteristics') }}
@@ -253,33 +252,27 @@
             </tr>
             </thead>
             <tbody>
-            @foreach ($characteristics as $characteristic)
+            @foreach ($this->product->characteristics as $characteristic)
                 <tr class="flex relative w-full items-center self-stretch border-b border-gray-200">
                     <td class="flex relative gap-2.5 items-center px-4 py-2 flex-[1_0_0]">
                             <span class="relative text-base font-medium leading-5 text-black max-sm:text-sm">
-                                {{ $characteristic['name'] ?? '' }}
+                                {{ $characteristic->name[app()->getLocale()] ?? $characteristic->name['en'] ?? '' }}
                             </span>
                     </td>
                     <td class="flex relative gap-2.5 justify-end items-center px-4 py-2 flex-[1_0_0]">
                             <span class="relative text-base font-medium leading-5 text-right text-black max-sm:text-sm">
-                                {{ $characteristic['standard'] ?? '' }}
+                                {{ $characteristic->standard[app()->getLocale()] ?? $characteristic->standard['en'] ?? '' }}
                             </span>
                     </td>
                     <td class="flex relative gap-2.5 justify-end items-center px-4 py-2 flex-[1_0_0]">
                             <span class="relative text-base font-medium leading-5 text-right text-black max-sm:text-sm">
-                                {{ $characteristic['actual'] ?? '' }}
+                                {{ $characteristic->actual[app()->getLocale()] ?? $characteristic->actual['en'] ?? '' }}
                             </span>
                     </td>
                 </tr>
             @endforeach
-            @if (empty($characteristics))
-                <tr class="flex relative w-full items-center self-stretch">
-                    <td colspan="3" class="px-4 py-2 text-center text-base font-medium text-gray-500">
-                        {{ __('messages.product.no_characteristics') }}
-                    </td>
-                </tr>
-            @endif
             </tbody>
         </table>
     </section>
+    @endif
 </main>

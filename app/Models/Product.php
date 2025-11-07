@@ -48,4 +48,20 @@ class Product extends LunarProduct
 
         return 'product-' . $this->id;
     }
+
+    /**
+     * Get the characteristics for the product.
+     */
+    public function characteristics(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(ProductCharacteristic::class)->orderBy('sort_order');
+    }
+
+    /**
+     * Get the short points for the product.
+     */
+    public function shortPoints(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(ProductShortPoint::class)->orderBy('sort_order');
+    }
 }

@@ -54,7 +54,8 @@ class AppServiceProvider extends ServiceProvider
                 ->resources([
                     BlogPostResource::class,
                     ReviewResource::class,
-                    ProductResource::class,
+                    \App\Filament\Resources\ProductCharacteristicResource::class,
+                    \App\Filament\Resources\ProductShortPointResource::class,
                 ])
                 ->plugins([
                     new ShippingPlugin,
@@ -122,6 +123,8 @@ class AppServiceProvider extends ServiceProvider
             ShippingModifier::class
         );
 
+
+
         \Lunar\Facades\ModelManifest::replace(
             \Lunar\Models\Contracts\Product::class,
             \App\Models\Product::class,
@@ -164,4 +167,6 @@ class AppServiceProvider extends ServiceProvider
             fn (): string => BladeFacade::render('filament.trix-font-size-script')
         );
     }
+
+
 }
