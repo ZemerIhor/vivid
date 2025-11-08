@@ -29,19 +29,31 @@ class ProductPage extends Component
 
     public function mount($slug): void
     {
-        // Find product using repository
-        $this->product = $this->productRepository->findBySlug($slug);
-        
-        if (!$this->product) {
-            abort(404, 'Product not found');
-        }
-
         $this->slug = $slug;
+        $this->loadProduct();
+    }
 
-        // Initialize selected option values
-        $this->selectedOptionValues = $this->productOptions->mapWithKeys(function ($data) {
-            return [$data['option']->id => $data['values']->first()->id];
-        })->toArray();
+    public function hydrate()
+    {
+        $this->loadProduct();
+    }
+
+    protected function loadProduct(): void
+    {
+        if (!$this->product || !$this->product->exists) {
+            $this->product = $this->productRepository->findBySlug($this->slug);
+            
+            if (!$this->product) {
+                abort(404, 'Product not found');
+            }
+
+            // Initialize selected option values only on first load
+            if (empty($this->selectedOptionValues) && $this->productOptions->count() > 0) {
+                $this->selectedOptionValues = $this->productOptions->mapWithKeys(function ($data) {
+                    return [$data['option']->id => $data['values']->first()->id];
+                })->toArray();
+            }
+        }
     }
     public function getVariantProperty(): ProductVariant
     {
