@@ -178,9 +178,6 @@
                         <span class="relative text-2xl font-bold leading-7 text-zinc-800 max-sm:text-xl">
                             <x-product-price :variant="$this->variant" />
                         </span>
-                        <span class="relative text-2xl font-bold leading-7 text-zinc-800 max-sm:text-xl">
-                            {{ __('messages.product.currency') }}
-                        </span>
                     </div>
                     <div class="flex relative gap-4 items-center max-sm:flex-col max-sm:gap-3">
                         <!-- Quantity Selection -->
