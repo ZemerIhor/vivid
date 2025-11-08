@@ -311,6 +311,8 @@ return [
     ],
 
     'product' => [
+        'default_title' => 'Produkt',
+        'default_meta_description' => 'Opis produktu',
         'sku_label' => 'ID/Kod/Artykuł',
         'image_gallery' => 'Galeria obrazów produktu',
         'image' => 'Obraz',

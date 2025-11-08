@@ -308,6 +308,8 @@ return [
         'warehouse_empty_error' => 'No branches found for the selected city. Please try another one.',
     ],
     'product' => [
+        'default_title' => 'Product',
+        'default_meta_description' => 'Product description',
         'sku_label' => 'ID/Code/SKU',
         'image_gallery' => 'Product Image Gallery',
         'image' => 'Image',
