@@ -53,6 +53,13 @@ return [
         'home' => 'Strona główna',
     ],
     
+    'error_404' => [
+        'title' => '404',
+        'subtitle' => 'nie znaleziono',
+        'message' => 'Niestety, strona, której szukasz, nie została znaleziona.',
+        'home_button' => 'Strona główna',
+    ],
+    
     'banner' => [
         'hero_heading' => 'Brykiety z ukraińskiego torfu — ciepło, któremu ufają od dziesięcioleci.',
         'hero_subheading' => 'Eksport dostaw torfu frezowanego i brykietów bezpośrednio od producenta.',

@@ -54,6 +54,13 @@ return [
         'home' => 'Home',
     ],
     
+    'error_404' => [
+        'title' => '404',
+        'subtitle' => 'not found',
+        'message' => 'Unfortunately, the page you are looking for could not be found.',
+        'home_button' => 'Go to Home',
+    ],
+    
     'banner' => [
         'hero_heading' => 'Ukrainian peat briquettes — warmth trusted for decades.',
         'hero_subheading' => 'Export supplies of milled peat and briquettes directly from the manufacturer.',
