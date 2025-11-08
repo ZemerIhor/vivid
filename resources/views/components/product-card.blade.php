@@ -62,7 +62,7 @@
             <div class="flex-1 flex flex-col justify-between">
                 <div class="w-full text-zinc-800 p-4">
                     <h2 class="text-base font-bold leading-5 text-zinc-800">{{ $nameValue }}</h2>
-                    <p class="mt-3 text-xs font-semibold leading-5 text-zinc-800">{!! $descriptionValue !!}</p>
+                    <p class="mt-3 text-xs font-semibold leading-5 text-zinc-800">{!! nl2br(e(html_entity_decode(strip_tags($descriptionValue)))) !!}</p>
                 </div>
                 <div class="w-full p-4 flex justify-center">
                     <button

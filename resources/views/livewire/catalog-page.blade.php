@@ -287,7 +287,7 @@
                                 <div class="p-4 w-full">
                                     <div class="w-full text-zinc-800">
                                         <h2 class="text-base font-bold leading-5 text-zinc-800">{{ $nameValue }}</h2>
-                                        <p class="mt-3 text-xs font-semibold leading-5 text-zinc-800">{{ strip_tags($descriptionValue) }}</p>
+                                        <p class="mt-3 text-xs font-semibold leading-5 text-zinc-800">{!! nl2br(e(html_entity_decode(strip_tags($descriptionValue)))) !!}</p>
                                         @if ($product->brand)
                                             <p class="text-xs mt-1">{{ __('messages.catalog.brand') }}
                                                 : {{ $product->brand->translateAttribute('name') ?? $product->brand->name ?? 'N/A' }}</p>

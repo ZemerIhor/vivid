@@ -90,7 +90,7 @@
                     ? $product->translateAttribute('name')
                     : __('messages.product.default_title', [], $locale);
                 $pageDescription = $product && $product->translateAttribute('description')
-                    ? strip_tags($product->translateAttribute('description'))
+                    ? html_entity_decode(strip_tags($product->translateAttribute('description')))
                     : __('messages.product.default_meta_description', [], $locale);
                 break;
             case 'collection.view':
@@ -107,7 +107,7 @@
                 }
                 $collection = $url ? \Lunar\Models\Collection::where('id', $url->element_id)->first() : null;
                 $pageTitle = $collection ? ($collection->translateAttribute('name') ?? __('messages.collection.title', [], $locale)) : __('messages.collection.title', [], $locale);
-                $pageDescription = $collection ? (strip_tags($collection->translateAttribute('description')) ?? __('messages.collection.meta_description', [], $locale)) : __('messages.collection.meta_description', [], $locale);
+                $pageDescription = $collection ? (html_entity_decode(strip_tags($collection->translateAttribute('description'))) ?? __('messages.collection.meta_description', [], $locale)) : __('messages.collection.meta_description', [], $locale);
                 break;
             case 'search.view':
             case 'products.index':
@@ -117,7 +117,7 @@
             case 'blog.post':
                 $post = \App\Models\BlogPost::where('slug', request()->route()->parameter('slug'))->first();
                 $pageTitle = $post ? ($post->getTranslation('title', $locale) ?? __('messages.blog.post_default_title', [], $locale)) : __('messages.blog.post_default_title', [], $locale);
-                $pageDescription = $post ? (strip_tags($post->getTranslation('excerpt', $locale)) ?? __('messages.blog.post_default_meta_description', [], $locale)) : __('messages.blog.post_default_meta_description', [], $locale);
+                $pageDescription = $post ? (html_entity_decode(strip_tags($post->getTranslation('excerpt', $locale))) ?? __('messages.blog.post_default_meta_description', [], $locale)) : __('messages.blog.post_default_meta_description', [], $locale);
                 break;
             case 'privacy-policy':
                 $pageTitle = __('messages.privacy-policy.title', [], $locale);
