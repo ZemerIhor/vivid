@@ -456,4 +456,9 @@ return [
         'enter_max_price' => 'Wprowadź maksymalną cenę',
         'pagination' => 'Nawigacja po stronach',
     ],
+
+    'filters' => [
+        'peat_type' => 'Rodzaj torfu',
+        'weight' => 'Waga',
+    ],
 ];

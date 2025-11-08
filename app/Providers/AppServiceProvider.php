@@ -23,7 +23,6 @@ use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\ServiceProvider;
 use Kenepa\TranslationManager\TranslationManagerPlugin;
-use Lunar\Admin\Filament\Resources\ProductResource;
 use Lunar\Admin\Support\Facades\LunarPanel;
 use Lunar\Admin\Support\Facades\AttributeData as LunarAttributeData;
 use Lunar\Base\ShippingModifiers;
@@ -56,6 +55,8 @@ class AppServiceProvider extends ServiceProvider
                     ReviewResource::class,
                     \App\Filament\Resources\ProductCharacteristicResource::class,
                     \App\Filament\Resources\ProductShortPointResource::class,
+                    \App\Filament\Resources\PeatTypeResource::class,
+                    \App\Filament\Resources\ProductWeightResource::class,
                 ])
                 ->plugins([
                     new ShippingPlugin,
@@ -122,8 +123,6 @@ class AppServiceProvider extends ServiceProvider
         $shippingModifiers->add(
             ShippingModifier::class
         );
-
-
 
         \Lunar\Facades\ModelManifest::replace(
             \Lunar\Models\Contracts\Product::class,

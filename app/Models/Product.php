@@ -11,6 +11,15 @@ class Product extends LunarProduct
 {
     use HasFactory;
 
+    protected $fillable = [
+        'attribute_data',
+        'product_type_id',
+        'status',
+        'brand_id',
+        'peat_type_id',
+        'product_weight_id',
+    ];
+
     public function localizedUrl(): \Illuminate\Database\Eloquent\Relations\MorphOne
     {
         $locale = app()->getLocale();
@@ -63,5 +72,21 @@ class Product extends LunarProduct
     public function shortPoints(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(ProductShortPoint::class)->orderBy('sort_order');
+    }
+
+    /**
+     * Get the peat type for the product.
+     */
+    public function peatType(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(PeatType::class, 'peat_type_id');
+    }
+
+    /**
+     * Get the product weight for the product.
+     */
+    public function productWeight(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(ProductWeight::class, 'product_weight_id');
     }
 }

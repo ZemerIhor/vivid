@@ -24,6 +24,8 @@ class CatalogPage extends Component
     public $view = 'grid';
     public $locale;
     public $currency;
+    public $peatTypes = [];
+    public $productWeights = [];
 
     public function mount(): void
     {
@@ -34,6 +36,8 @@ class CatalogPage extends Component
         $this->brands = Request::query('brands', []);
         $this->sort = Request::query('sort', 'name_asc');
         $this->view = Request::query('view', 'grid');
+        $this->peatTypes = Request::query('peat_types', []);
+        $this->productWeights = Request::query('product_weights', []);
 
         Log::info('Catalog Page Mounted', [
             'locale' => $this->locale,
@@ -85,6 +89,20 @@ class CatalogPage extends Component
     {
         $this->brands = [];
         $this->priceMax = null;
+        $this->peatTypes = [];
+        $this->productWeights = [];
+        $this->updateUrl();
+    }
+    
+    public function removePeatType($id)
+    {
+        $this->peatTypes = array_diff($this->peatTypes, [$id]);
+        $this->updateUrl();
+    }
+    
+    public function removeProductWeight($id)
+    {
+        $this->productWeights = array_diff($this->productWeights, [$id]);
         $this->updateUrl();
     }
 
@@ -107,6 +125,8 @@ class CatalogPage extends Component
         $query = array_filter([
             'price_max' => $this->priceMax ? $this->priceMax / 100 : null,
             'brands' => !empty($this->brands) ? $this->brands : null,
+            'peat_types' => !empty($this->peatTypes) ? $this->peatTypes : null,
+            'product_weights' => !empty($this->productWeights) ? $this->productWeights : null,
             'sort' => $this->sort !== 'name_asc' ? $this->sort : null,
             'view' => $this->view !== 'grid' ? $this->view : null,
         ]);
@@ -128,6 +148,14 @@ class CatalogPage extends Component
 
         if (!empty($this->brands)) {
             $productsQuery->whereIn('brand_id', $this->brands);
+        }
+
+        if (!empty($this->peatTypes)) {
+            $productsQuery->whereIn('peat_type_id', $this->peatTypes);
+        }
+
+        if (!empty($this->productWeights)) {
+            $productsQuery->whereIn('product_weight_id', $this->productWeights);
         }
 
         if ($this->priceMax !== null) {
@@ -199,6 +227,20 @@ class CatalogPage extends Component
     public function getAvailableBrandsProperty()
     {
         return Brand::whereHas('products')->get();
+    }
+
+    public function getAvailablePeatTypesProperty()
+    {
+        return \App\Models\PeatType::where('is_active', true)
+            ->orderBy('sort_order')
+            ->get();
+    }
+
+    public function getAvailableProductWeightsProperty()
+    {
+        return \App\Models\ProductWeight::where('is_active', true)
+            ->orderBy('sort_order')
+            ->get();
     }
 
     public function getPriceRangeProperty()

@@ -152,6 +152,72 @@
                     <hr class="w-full rounded-sm bg-zinc-300 min-h-px border-0"/>
                 </div>
 
+                <!-- Peat Type Filter -->
+                <section class="w-full rounded-2xl text-zinc-800">
+                    <button
+                        type="button"
+                        class="flex gap-4 items-center px-4 w-full text-sm font-bold leading-tight rounded-2xl bg-neutral-200 min-h-10 hover:bg-neutral-300 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-offset-2"
+                        aria-expanded="true" aria-controls="type-options">
+                        <span class="flex-1 shrink self-stretch my-auto basis-0 text-zinc-800">{{ __('messages.filters.peat_type') }}</span>
+                        <div class="flex shrink-0 self-stretch my-auto w-4 h-4 rotate-[-3.1415925661670165rad]"
+                             aria-hidden="true"></div>
+                    </button>
+                    <div id="type-options"
+                         class="flex items-start pr-0.5 pb-2 w-full text-xs font-semibold whitespace-nowrap rounded-2xl bg-neutral-200">
+                        <fieldset class="flex-1 shrink w-full basis-0 min-w-60">
+                            <legend class="sr-only">{{ __('messages.filters.peat_type') }}</legend>
+                            @foreach ($this->availablePeatTypes as $type)
+                                <div class="flex gap-2 items-center px-4 py-2 w-full min-h-10">
+                                    <input type="checkbox" name="peat_types[]" id="peat-type-{{ $type->id }}"
+                                           value="{{ $type->id }}"
+                                           {{ in_array($type->id, $peatTypes) ? 'checked' : '' }}
+                                           class="w-6 h-6 text-green-600 bg-white border-neutral-400 rounded focus:ring-green-500 focus:ring-2"/>
+                                    <label for="peat-type-{{ $type->id }}"
+                                           class="flex-1 shrink self-stretch my-auto basis-0 text-zinc-800 cursor-pointer">{{ $type->translate() }}</label>
+                                </div>
+                            @endforeach
+                        </fieldset>
+                    </div>
+                </section>
+
+                <!-- Separator -->
+                <div class="px-4 w-full">
+                    <hr class="w-full rounded-sm bg-zinc-300 min-h-px border-0"/>
+                </div>
+
+                <!-- Product Weight Filter -->
+                <section class="w-full rounded-2xl text-zinc-800">
+                    <button
+                        type="button"
+                        class="flex gap-4 items-center px-4 w-full text-sm font-bold leading-tight rounded-2xl bg-neutral-200 min-h-10 hover:bg-neutral-300 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-offset-2"
+                        aria-expanded="true" aria-controls="weight-options">
+                        <span class="flex-1 shrink self-stretch my-auto basis-0 text-zinc-800">{{ __('messages.filters.weight') }}</span>
+                        <div class="flex shrink-0 self-stretch my-auto w-4 h-4 rotate-[-3.1415925661670165rad]"
+                             aria-hidden="true"></div>
+                    </button>
+                    <div id="weight-options"
+                         class="flex items-start pr-0.5 pb-2 w-full text-xs font-semibold whitespace-nowrap rounded-2xl bg-neutral-200">
+                        <fieldset class="flex-1 shrink w-full basis-0 min-w-60">
+                            <legend class="sr-only">{{ __('messages.filters.weight') }}</legend>
+                            @foreach ($this->availableProductWeights as $weight)
+                                <div class="flex gap-2 items-center px-4 py-2 w-full min-h-10">
+                                    <input type="checkbox" name="product_weights[]" id="weight-{{ $weight->id }}"
+                                           value="{{ $weight->id }}"
+                                           {{ in_array($weight->id, $productWeights) ? 'checked' : '' }}
+                                           class="w-6 h-6 text-green-600 bg-white border-neutral-400 rounded focus:ring-green-500 focus:ring-2"/>
+                                    <label for="weight-{{ $weight->id }}"
+                                           class="flex-1 shrink self-stretch my-auto basis-0 text-zinc-800 cursor-pointer">{{ $weight->translate() }}</label>
+                                </div>
+                            @endforeach
+                        </fieldset>
+                    </div>
+                </section>
+
+                <!-- Separator -->
+                <div class="px-4 w-full">
+                    <hr class="w-full rounded-sm bg-zinc-300 min-h-px border-0"/>
+                </div>
+
                 <!-- Price Filter (Single Slider) -->
                 <section class="py-4 w-full rounded-2xl bg-neutral-200">
                     <button
