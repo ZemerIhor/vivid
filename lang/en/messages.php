@@ -48,6 +48,12 @@ return [
     'Ошибка сохранения данных' => 'Error saving data',
     'Locale' => 'Locale',
     'Value' => 'Value',
+    
+    'navigation' => [
+        'breadcrumb' => 'Breadcrumb',
+        'home' => 'Home',
+    ],
+    
     'banner' => [
         'hero_heading' => 'Ukrainian peat briquettes — warmth trusted for decades.',
         'hero_subheading' => 'Export supplies of milled peat and briquettes directly from the manufacturer.',
@@ -114,6 +120,39 @@ return [
         'more_button' => 'More',
         'more_button_aria_label' => 'Show more reviews',
         'no_items' => 'No reviews available',
+        'rating_aria_label' => ':rating stars',
+        'section_aria_label' => 'Customer reviews',
+        'articles' => 'Customer reviews',
+    ],
+    
+    'submit_review' => [
+        'title' => 'Submit Your Review',
+        'description' => 'Share your experience with our products',
+        'breadcrumb' => 'Submit Review',
+        'form_title' => 'Your Review',
+        'name_label' => 'Your Name',
+        'name_placeholder' => 'Enter your name',
+        'rating_label' => 'Rating',
+        'rating_placeholder' => 'Select rating',
+        'rating_stars' => ':count stars',
+        'comment_label' => 'Your Review',
+        'comment_placeholder' => 'Share your experience with our products',
+        'submit_button' => 'Submit Review',
+        'submit_loading' => 'Submitting...',
+        'success_message' => 'Your review has been submitted and is awaiting moderation. Thank you for your feedback!',
+        'error_message' => 'An error occurred while submitting your review. Please try again.',
+        
+        // Validation messages
+        'validation' => [
+            'name_required' => 'Name is required',
+            'name_min' => 'Name must be at least :min characters',
+            'name_max' => 'Name must not exceed :max characters',
+            'rating_required' => 'Please select a rating',
+            'rating_between' => 'Rating must be between :min and :max stars',
+            'comment_required' => 'Review text is required',
+            'comment_min' => 'Review must be at least :min characters',
+            'comment_max' => 'Review must not exceed :max characters',
+        ],
     ],
     'products' => [
         'title' => 'All Products',

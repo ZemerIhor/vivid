@@ -26,16 +26,19 @@ class SubmitReview extends Component
         'comment' => 'required|string|max:1000|min:10',
     ];
 
-    protected $messages = [
-        'name.required' => 'Имя обязательно для заполнения',
-        'name.min' => 'Имя должно содержать минимум 2 символа',
-        'name.max' => 'Имя не должно превышать 255 символов',
-        'rating.required' => 'Пожалуйста, выберите рейтинг',
-        'rating.between' => 'Рейтинг должен быть от 1 до 5 звезд',
-        'comment.required' => 'Комментарий обязателен',
-        'comment.min' => 'Комментарий должен содержать минимум 10 символов',
-        'comment.max' => 'Комментарий не должен превышать 1000 символов',
-    ];
+    protected function messages()
+    {
+        return [
+            'name.required' => __('messages.submit_review.validation.name_required'),
+            'name.min' => __('messages.submit_review.validation.name_min', ['min' => 2]),
+            'name.max' => __('messages.submit_review.validation.name_max', ['max' => 255]),
+            'rating.required' => __('messages.submit_review.validation.rating_required'),
+            'rating.between' => __('messages.submit_review.validation.rating_between', ['min' => 1, 'max' => 5]),
+            'comment.required' => __('messages.submit_review.validation.comment_required'),
+            'comment.min' => __('messages.submit_review.validation.comment_min', ['min' => 10]),
+            'comment.max' => __('messages.submit_review.validation.comment_max', ['max' => 1000]),
+        ];
+    }
 
     public function submit()
     {
@@ -62,7 +65,7 @@ class SubmitReview extends Component
             $review = $this->reviewService->createReview($reviewData);
 
             // Показываем сообщение об успехе
-            session()->flash('success', __('Ваш отзыв отправлен и ожидает модерации. Спасибо за обратную связь!'));
+            session()->flash('success', __('messages.submit_review.success_message'));
 
             // Сбрасываем поля формы
             $this->reset(['name', 'rating', 'comment']);
@@ -89,7 +92,7 @@ class SubmitReview extends Component
             ]);
 
             // Показываем пользователю общую ошибку
-            session()->flash('error', __('Произошла ошибка при отправке отзыва. Пожалуйста, попробуйте еще раз.'));
+            session()->flash('error', __('messages.submit_review.error_message'));
         } finally {
             $this->isSubmitting = false;
         }
@@ -102,7 +105,7 @@ class SubmitReview extends Component
     {
         if ($value < 1 || $value > 5) {
             $this->rating = null;
-            $this->addError('rating', 'Рейтинг должен быть от 1 до 5 звезд');
+            $this->addError('rating', __('messages.submit_review.validation.rating_between', ['min' => 1, 'max' => 5]));
         }
     }
 

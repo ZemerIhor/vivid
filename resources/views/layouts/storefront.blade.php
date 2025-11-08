@@ -37,8 +37,8 @@
                 $pageDescription = $settings->reviews_meta_description[$locale] ?? __('messages.reviews.meta_description', [], $locale);
                 break;
             case 'submit-review':
-                $pageTitle = $settings->submit_review_title[$locale] ?? __('messages.submit-review.title', [], $locale);
-                $pageDescription = $settings->submit_review_meta_description[$locale] ?? __('messages.submit-review.meta_description', [], $locale);
+                $pageTitle = $settings->submit_review_title[$locale] ?? __('messages.submit_review.title', [], $locale);
+                $pageDescription = $settings->submit_review_meta_description[$locale] ?? __('messages.submit_review.description', [], $locale);
                 break;
             case 'blog.index':
                 $pageTitle = $settings->blog_title[$locale] ?? __('messages.blog.title', [], $locale);

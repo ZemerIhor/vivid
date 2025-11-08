@@ -47,6 +47,12 @@ return [
     'Ошибка сохранения данных' => 'Błąd zapisu danych',
     'Locale' => 'Lokalizacja',
     'Value' => 'Wartość',
+    
+    'navigation' => [
+        'breadcrumb' => 'Ścieżka nawigacji',
+        'home' => 'Strona główna',
+    ],
+    
     'banner' => [
         'hero_heading' => 'Brykiety z ukraińskiego torfu — ciepło, któremu ufają od dziesięcioleci.',
         'hero_subheading' => 'Eksport dostaw torfu frezowanego i brykietów bezpośrednio od producenta.',
@@ -113,6 +119,39 @@ return [
         'more_button' => 'Więcej',
         'more_button_aria_label' => 'Pokaż więcej opinii',
         'no_items' => 'Brak opinii',
+        'rating_aria_label' => ':rating gwiazdek',
+        'section_aria_label' => 'Opinie klientów',
+        'articles' => 'Opinie klientów',
+    ],
+    
+    'submit_review' => [
+        'title' => 'Prześlij swoją opinię',
+        'description' => 'Podziel się swoim doświadczeniem z naszymi produktami',
+        'breadcrumb' => 'Dodaj opinię',
+        'form_title' => 'Twoja opinia',
+        'name_label' => 'Twoje imię',
+        'name_placeholder' => 'Wpisz swoje imię',
+        'rating_label' => 'Ocena',
+        'rating_placeholder' => 'Wybierz ocenę',
+        'rating_stars' => ':count gwiazdek',
+        'comment_label' => 'Twoja opinia',
+        'comment_placeholder' => 'Podziel się swoim doświadczeniem z naszymi produktami',
+        'submit_button' => 'Wyślij opinię',
+        'submit_loading' => 'Wysyłanie...',
+        'success_message' => 'Twoja opinia została przesłana i oczekuje na moderację. Dziękujemy za opinię!',
+        'error_message' => 'Wystąpił błąd podczas przesyłania opinii. Spróbuj ponownie.',
+        
+        // Validation messages
+        'validation' => [
+            'name_required' => 'Imię jest wymagane',
+            'name_min' => 'Imię musi mieć co najmniej :min znaków',
+            'name_max' => 'Imię nie może przekraczać :max znaków',
+            'rating_required' => 'Proszę wybrać ocenę',
+            'rating_between' => 'Ocena musi być między :min a :max gwiazdkami',
+            'comment_required' => 'Tekst opinii jest wymagany',
+            'comment_min' => 'Opinia musi mieć co najmniej :min znaków',
+            'comment_max' => 'Opinia nie może przekraczać :max znaków',
+        ],
     ],
     'products' => [
         'title' => 'Wszystkie produkty',
