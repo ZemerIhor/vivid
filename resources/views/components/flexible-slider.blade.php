@@ -62,18 +62,57 @@
             display: none;
         }
     </style>
-    <!-- @pushOnce('scripts')
+    @pushOnce('scripts')
         <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                document.querySelectorAll('.swiper').forEach(function (el) {
-                    const config = JSON.parse(el.dataset.swiperConfig || '{}');
-                    const swiper = new Swiper(el, config);
-
-                    setTimeout(() => {
-                        swiper.update();
-                    }, 100);
+            (function() {
+                const swiperInstances = new Map();
+                
+                function initFlexibleSliders() {
+                    document.querySelectorAll('.swiper[data-swiper-config]').forEach(function (el) {
+                        // Skip if already initialized
+                        if (el.swiper || swiperInstances.has(el)) {
+                            return;
+                        }
+                        
+                        try {
+                            const config = JSON.parse(el.dataset.swiperConfig || '{}');
+                            const swiper = new Swiper(el, config);
+                            swiperInstances.set(el, swiper);
+                            
+                            setTimeout(() => {
+                                if (swiper && !swiper.destroyed) {
+                                    swiper.update();
+                                }
+                            }, 100);
+                        } catch (error) {
+                            console.error('Error initializing Swiper:', error);
+                        }
+                    });
+                }
+                
+                function destroyFlexibleSliders() {
+                    swiperInstances.forEach((swiper, el) => {
+                        if (swiper && !swiper.destroyed) {
+                            swiper.destroy(true, true);
+                        }
+                    });
+                    swiperInstances.clear();
+                }
+                
+                // Initialize on load
+                document.addEventListener('DOMContentLoaded', initFlexibleSliders);
+                
+                // Reinitialize on Livewire navigation
+                document.addEventListener('livewire:navigated', function() {
+                    destroyFlexibleSliders();
+                    setTimeout(initFlexibleSliders, 100);
                 });
-            });
+                
+                // Handle Livewire updates
+                document.addEventListener('livewire:update', function() {
+                    setTimeout(initFlexibleSliders, 100);
+                });
+            })();
         </script>
-    @endpushOnce -->
+    @endpushOnce
 </div>

@@ -119,13 +119,11 @@ function initApp() {
     function initializeReviewSwiper() {
         const swiperContainer = document.querySelector('.reviews-swiper');
         if (!swiperContainer) {
-            console.log('Контейнер .reviews-swiper не найден');
             return;
         }
 
         // Проверяем, не инициализирован ли Swiper уже
         if (swiperContainer.swiper) {
-            console.log('Swiper уже инициализирован для .reviews-swiper');
             return;
         }
 
@@ -147,10 +145,25 @@ function initApp() {
                 navigation: false,
                 pagination: false,
             });
-            console.log('Swiper для отзывов успешно инициализирован');
         } catch (error) {
             console.error('Ошибка при инициализации Swiper:', error);
         }
+    }
+
+    // Уничтожение всех Swiper экземпляров
+    function destroyAllSwipers() {
+        // Уничтожаем reviewSwiper
+        if (window.reviewSwiper && !window.reviewSwiper.destroyed) {
+            window.reviewSwiper.destroy(true, true);
+            window.reviewSwiper = null;
+        }
+        
+        // Уничтожаем все остальные Swiper экземпляры
+        document.querySelectorAll('.swiper').forEach(el => {
+            if (el.swiper && !el.swiper.destroyed) {
+                el.swiper.destroy(true, true);
+            }
+        });
     }
 
     // Обработка элементов с data-toggle
@@ -162,16 +175,11 @@ function initApp() {
 
 // Слушаем события
 document.addEventListener('DOMContentLoaded', initApp);
+
 document.addEventListener('livewire:navigated', () => {
-    console.log('Livewire navigated, переинициализация');
-    // Уничтожаем Swiper, если он существует
-    if (typeof window.reviewSwiper !== 'undefined' && window.reviewSwiper) {
-        window.reviewSwiper.destroy(true, true);
-        window.reviewSwiper = null;
-        console.log('Swiper уничтожен');
-    }
-    initApp();
+    destroyAllSwipers();
+    setTimeout(initApp, 100);
 });
+
 document.addEventListener('livewire:init', initApp);
-document.addEventListener('livewire:update', initApp);
 
