@@ -117,7 +117,7 @@
     height: 42px !important;
     color: #228f5d;
     /* --swiper-navigation-size: 24px; */
-    z-index: 99;
+    z-index: 1000 !important;
     cursor: pointer;
     pointer-events: auto;
     display: block;
