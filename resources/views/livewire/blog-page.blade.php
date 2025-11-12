@@ -90,7 +90,7 @@
                                     $postUrl = $hasValidSlug ? route('blog.post', $routeParams, false) : route('home', ['locale' => $locale], false);
                                 @endphp
 
-                            <article wire:key="post-{{ $post->id }}" class="flex flex-col items-start rounded-3xl bg-neutral-200 relative blog-card max-sm:w-full overflow-hidden" style="border-radius: 20px" tabindex="0" role="article">
+                            <article wire:key="post-{{ $post->id }}" class="flex flex-col items-start bg-neutral-200 relative blog-card max-sm:w-full overflow-hidden" style="border-radius: 20px" tabindex="0" role="article">
                                 <div class="flex justify-center items-center self-stretch h-[153px] overflow-hidden rounded-t-3xl">
                                     <img
                                         src="{{ $post->banner ? Storage::url($post->banner) : 'https://via.placeholder.com/300x158' }}"
