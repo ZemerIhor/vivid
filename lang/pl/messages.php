@@ -300,6 +300,7 @@ return [
         'home' => 'Strona główna',
         'title' => 'O nas',
         'no_advantages' => 'Nie znaleziony produkty',
+        'about_description_fallback' => 'Opis o nas',
         'breadcrumbs_aria_label' => 'Nawigacja okruszkowa',
         'hero_background_image_alt' => 'Obraz tła strony O nas',
         'hero_logo_alt' => 'Logo firmy',

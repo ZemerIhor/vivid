@@ -299,6 +299,7 @@ return [
         'home' => 'Home',
         'title' => 'About Us',
         'no_advantages' => 'No advantages',
+        'about_description_fallback' => 'About us description',
         'breadcrumbs_aria_label' => 'Breadcrumbs navigation',
         'hero_background_image_alt' => 'About Us Hero Background',
         'hero_logo_alt' => 'Company Logo',
