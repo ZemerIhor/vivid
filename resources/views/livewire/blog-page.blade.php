@@ -91,7 +91,7 @@
                                 @endphp
 
                             <article wire:key="post-{{ $post->id }}" class="flex flex-col items-start bg-neutral-200 relative blog-card max-sm:w-full overflow-hidden" tabindex="0" role="article">
-                                <div class="flex justify-center items-center self-stretch h-[153px] overflow-hidden rounded-t-3xl">
+                                <div class="flex justify-center items-center self-stretch h-[153px] overflow-hidden">
                                     <img
                                         src="{{ $post->banner ? Storage::url($post->banner) : 'https://via.placeholder.com/300x158' }}"
                                         alt="{{ $post->getTranslation('title', app()->getLocale()) }}"
