@@ -47,19 +47,19 @@ return [
     'Ошибка сохранения данных' => 'Błąd zapisu danych',
     'Locale' => 'Lokalizacja',
     'Value' => 'Wartość',
-    
+
     'navigation' => [
         'breadcrumb' => 'Ścieżka nawigacji',
         'home' => 'Strona główna',
     ],
-    
+
     'error_404' => [
         'title' => '404',
         'subtitle' => 'nie znaleziono',
         'message' => 'Niestety, strona, której szukasz, nie została znaleziona.',
         'home_button' => 'Strona główna',
     ],
-    
+
     'banner' => [
         'hero_heading' => 'Brykiety z ukraińskiego torfu — ciepło, któremu ufają od dziesięcioleci.',
         'hero_subheading' => 'Eksport dostaw torfu frezowanego i brykietów bezpośrednio od producenta.',
@@ -130,7 +130,7 @@ return [
         'section_aria_label' => 'Opinie klientów',
         'articles' => 'Opinie klientów',
     ],
-    
+
     'submit_review' => [
         'title' => 'Prześlij swoją opinię',
         'description' => 'Podziel się swoim doświadczeniem z naszymi produktami',
@@ -147,7 +147,7 @@ return [
         'submit_loading' => 'Wysyłanie...',
         'success_message' => 'Twoja opinia została przesłana i oczekuje na moderację. Dziękujemy za opinię!',
         'error_message' => 'Wystąpił błąd podczas przesyłania opinii. Spróbuj ponownie.',
-        
+
         // Validation messages
         'validation' => [
             'name_required' => 'Imię jest wymagane',
@@ -299,6 +299,7 @@ return [
     'about_us' => [
         'home' => 'Strona główna',
         'title' => 'O nas',
+        'no_advantages' => 'Nie znaleziony produkty',
         'breadcrumbs_aria_label' => 'Nawigacja okruszkowa',
         'hero_background_image_alt' => 'Obraz tła strony O nas',
         'hero_logo_alt' => 'Logo firmy',

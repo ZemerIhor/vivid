@@ -48,19 +48,19 @@ return [
     'Ошибка сохранения данных' => 'Error saving data',
     'Locale' => 'Locale',
     'Value' => 'Value',
-    
+
     'navigation' => [
         'breadcrumb' => 'Breadcrumb',
         'home' => 'Home',
     ],
-    
+
     'error_404' => [
         'title' => '404',
         'subtitle' => 'not found',
         'message' => 'Unfortunately, the page you are looking for could not be found.',
         'home_button' => 'Go to Home',
     ],
-    
+
     'banner' => [
         'hero_heading' => 'Ukrainian peat briquettes — warmth trusted for decades.',
         'hero_subheading' => 'Export supplies of milled peat and briquettes directly from the manufacturer.',
@@ -131,7 +131,7 @@ return [
         'section_aria_label' => 'Customer reviews',
         'articles' => 'Customer reviews',
     ],
-    
+
     'submit_review' => [
         'title' => 'Submit Your Review',
         'description' => 'Share your experience with our products',
@@ -148,7 +148,7 @@ return [
         'submit_loading' => 'Submitting...',
         'success_message' => 'Your review has been submitted and is awaiting moderation. Thank you for your feedback!',
         'error_message' => 'An error occurred while submitting your review. Please try again.',
-        
+
         // Validation messages
         'validation' => [
             'name_required' => 'Name is required',
@@ -298,6 +298,7 @@ return [
     'about_us' => [
         'home' => 'Home',
         'title' => 'About Us',
+        'no_advantages' => 'No advantages',
         'breadcrumbs_aria_label' => 'Breadcrumbs navigation',
         'hero_background_image_alt' => 'About Us Hero Background',
         'hero_logo_alt' => 'Company Logo',
