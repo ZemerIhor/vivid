@@ -36,34 +36,34 @@ class GlobalSet extends Page implements HasForms
     {
         $settings = app(GlobalSettings::class);
 
-        // Инициализация данных формы из настроек
+        // Инициализация данных формы из настроек с дефолтными переводами EN/PL
         $this->data = [
-            'site_name' => $settings->site_name ?? ['en' => '', 'pl' => ''],
-            'meta_description' => $settings->meta_description ?? ['en' => '', 'pl' => ''],
+            'site_name' => $settings->site_name ?? ['en' => 'My Website', 'pl' => 'Moja Strona'],
+            'meta_description' => $settings->meta_description ?? ['en' => 'Welcome to my website', 'pl' => 'Witamy na mojej stronie'],
             'logo' => $settings->logo ?? '',
             'favicon' => $settings->favicon ?? '',
             'contact_email' => $settings->contact_email ?? 'contact@example.com',
-            'feedback_form_title' => $settings->feedback_form_title ?? ['en' => '', 'pl' => ''],
-            'feedback_form_description' => $settings->feedback_form_description ?? ['en' => '', 'pl' => ''],
+            'feedback_form_title' => $settings->feedback_form_title ?? ['en' => 'Feedback Form', 'pl' => 'Formularz opinii'],
+            'feedback_form_description' => $settings->feedback_form_description ?? ['en' => 'Please leave your feedback', 'pl' => 'Proszę zostawić swoją opinię'],
             'feedback_form_image' => $settings->feedback_form_image ?? '',
-            'home_title' => $settings->home_title ?? ['en' => 'Home Page', 'pl' => 'Головна сторінка'],
-            'home_meta_description' => $settings->home_meta_description ?? ['en' => 'Welcome to our site’s home page', 'pl' => 'Ласкаво просимо на головну сторінку нашого сайту'],
-            'about_us_title' => $settings->about_us_title ?? ['en' => 'About Us', 'pl' => 'Про нас'],
-            'about_us_meta_description' => $settings->about_us_meta_description ?? ['en' => 'Learn more about our company', 'pl' => 'Дізнайтесь більше про нашу компанію'],
-            'contacts_title' => $settings->contacts_title ?? ['en' => 'Contacts', 'pl' => 'Контакти'],
-            'contacts_meta_description' => $settings->contacts_meta_description ?? ['en' => 'Get in touch with us', 'pl' => 'Зв’яжіться з нами'],
-            'faq_title' => $settings->faq_title ?? ['en' => 'FAQ', 'pl' => 'Поширені запитання'],
-            'faq_meta_description' => $settings->faq_meta_description ?? ['en' => 'Answers to frequently asked questions', 'pl' => 'Відповіді на поширені запитання'],
-            'reviews_title' => $settings->reviews_title ?? ['en' => 'Reviews', 'pl' => 'Відгуки'],
-            'reviews_meta_description' => $settings->reviews_meta_description ?? ['en' => 'Read our customer reviews', 'pl' => 'Читайте відгуки наших клієнтів'],
-            'submit_review_title' => $settings->submit_review_title ?? ['en' => 'Submit Review', 'pl' => 'Залишити відгук'],
-            'submit_review_meta_description' => $settings->submit_review_meta_description ?? ['en' => 'Share your feedback about our products', 'pl' => 'Поділіться своїм відгуком про наші продукти'],
-            'blog_title' => $settings->blog_title ?? ['en' => 'Blog', 'pl' => 'Блог'],
-            'blog_meta_description' => $settings->blog_meta_description ?? ['en' => 'Read our latest articles and news', 'pl' => 'Читайте наші останні статті та новини'],
-            'checkout_title' => $settings->checkout_title ?? ['en' => 'Checkout', 'pl' => 'Оформлення замовлення'],
-            'checkout_meta_description' => $settings->checkout_meta_description ?? ['en' => 'Complete your order quickly and easily', 'pl' => 'Оформіть ваше замовлення швидко та зручно'],
-            'checkout_success_title' => $settings->checkout_success_title ?? ['en' => 'Order Successfully Placed', 'pl' => 'Замовлення успішно оформлено'],
-            'checkout_success_meta_description' => $settings->checkout_success_meta_description ?? ['en' => 'Thank you for your order!', 'pl' => 'Дякуємо за ваше замовлення!'],
+            'home_title' => $settings->home_title ?? ['en' => 'Home Page', 'pl' => 'Strona Główna'],
+            'home_meta_description' => $settings->home_meta_description ?? ['en' => 'Welcome to the home page of our website', 'pl' => 'Witamy na stronie głównej naszej witryny'],
+            'about_us_title' => $settings->about_us_title ?? ['en' => 'About Us', 'pl' => 'O Nas'],
+            'about_us_meta_description' => $settings->about_us_meta_description ?? ['en' => 'Learn more about our company', 'pl' => 'Dowiedz się więcej o naszej firmie'],
+            'contacts_title' => $settings->contacts_title ?? ['en' => 'Contacts', 'pl' => 'Kontakt'],
+            'contacts_meta_description' => $settings->contacts_meta_description ?? ['en' => 'Get in touch with us', 'pl' => 'Skontaktuj się z nami'],
+            'faq_title' => $settings->faq_title ?? ['en' => 'FAQ', 'pl' => 'Najczęściej zadawane pytania'],
+            'faq_meta_description' => $settings->faq_meta_description ?? ['en' => 'Answers to frequently asked questions', 'pl' => 'Odpowiedzi na najczęściej zadawane pytania'],
+            'reviews_title' => $settings->reviews_title ?? ['en' => 'Reviews', 'pl' => 'Recenzje'],
+            'reviews_meta_description' => $settings->reviews_meta_description ?? ['en' => 'Read our customer reviews', 'pl' => 'Przeczytaj recenzje naszych klientów'],
+            'submit_review_title' => $settings->submit_review_title ?? ['en' => 'Submit Review', 'pl' => 'Dodaj Recenzję'],
+            'submit_review_meta_description' => $settings->submit_review_meta_description ?? ['en' => 'Share your feedback about our products', 'pl' => 'Podziel się opinią o naszych produktach'],
+            'blog_title' => $settings->blog_title ?? ['en' => 'Blog', 'pl' => 'Blog'],
+            'blog_meta_description' => $settings->blog_meta_description ?? ['en' => 'Read our latest articles and news', 'pl' => 'Przeczytaj nasze najnowsze artykuły i wiadomości'],
+            'checkout_title' => $settings->checkout_title ?? ['en' => 'Checkout', 'pl' => 'Zamówienie'],
+            'checkout_meta_description' => $settings->checkout_meta_description ?? ['en' => 'Complete your order quickly and easily', 'pl' => 'Sfinalizuj swoje zamówienie szybko i łatwo'],
+            'checkout_success_title' => $settings->checkout_success_title ?? ['en' => 'Order Successfully Placed', 'pl' => 'Zamówienie zostało złożone'],
+            'checkout_success_meta_description' => $settings->checkout_success_meta_description ?? ['en' => 'Thank you for your order!', 'pl' => 'Dziękujemy za zamówienie!'],
         ];
 
         Log::info('Global Settings form initialized', ['data' => $this->data]);
@@ -152,87 +152,24 @@ class GlobalSet extends Page implements HasForms
                                         Translate::make()
                                             ->locales(['en', 'pl'])
                                             ->schema([
-                                                TextInput::make('home_title')
-                                                    ->label(__('messages.settings.home_title'))
-                                                    ->required()
-                                                    ->maxLength(255),
-                                                Textarea::make('home_meta_description')
-                                                    ->label(__('messages.settings.home_meta_description'))
-                                                    ->rows(4)
-                                                    ->required()
-                                                    ->maxLength(500),
-                                                TextInput::make('about_us_title')
-                                                    ->label(__('messages.settings.about_us_title'))
-                                                    ->required()
-                                                    ->maxLength(255),
-                                                Textarea::make('about_us_meta_description')
-                                                    ->label(__('messages.settings.about_us_meta_description'))
-                                                    ->rows(4)
-                                                    ->required()
-                                                    ->maxLength(500),
-                                                TextInput::make('contacts_title')
-                                                    ->label(__('messages.settings.contacts_title'))
-                                                    ->required()
-                                                    ->maxLength(255),
-                                                Textarea::make('contacts_meta_description')
-                                                    ->label(__('messages.settings.contacts_meta_description'))
-                                                    ->rows(4)
-                                                    ->required()
-                                                    ->maxLength(500),
-                                                TextInput::make('faq_title')
-                                                    ->label(__('messages.settings.faq_title'))
-                                                    ->required()
-                                                    ->maxLength(255),
-                                                Textarea::make('faq_meta_description')
-                                                    ->label(__('messages.settings.faq_meta_description'))
-                                                    ->rows(4)
-                                                    ->required()
-                                                    ->maxLength(500),
-                                                TextInput::make('reviews_title')
-                                                    ->label(__('messages.settings.reviews_title'))
-                                                    ->required()
-                                                    ->maxLength(255),
-                                                Textarea::make('reviews_meta_description')
-                                                    ->label(__('messages.settings.reviews_meta_description'))
-                                                    ->rows(4)
-                                                    ->required()
-                                                    ->maxLength(500),
-                                                TextInput::make('submit_review_title')
-                                                    ->label(__('messages.settings.submit_review_title'))
-                                                    ->required()
-                                                    ->maxLength(255),
-                                                Textarea::make('submit_review_meta_description')
-                                                    ->label(__('messages.settings.submit_review_meta_description'))
-                                                    ->rows(4)
-                                                    ->required()
-                                                    ->maxLength(500),
-                                                TextInput::make('blog_title')
-                                                    ->label(__('messages.settings.blog_title'))
-                                                    ->required()
-                                                    ->maxLength(255),
-                                                Textarea::make('blog_meta_description')
-                                                    ->label(__('messages.settings.blog_meta_description'))
-                                                    ->rows(4)
-                                                    ->required()
-                                                    ->maxLength(500),
-                                                TextInput::make('checkout_title')
-                                                    ->label(__('messages.settings.checkout_title'))
-                                                    ->required()
-                                                    ->maxLength(255),
-                                                Textarea::make('checkout_meta_description')
-                                                    ->label(__('messages.settings.checkout_meta_description'))
-                                                    ->rows(4)
-                                                    ->required()
-                                                    ->maxLength(500),
-                                                TextInput::make('checkout_success_title')
-                                                    ->label(__('messages.settings.checkout_success_title'))
-                                                    ->required()
-                                                    ->maxLength(255),
-                                                Textarea::make('checkout_success_meta_description')
-                                                    ->label(__('messages.settings.checkout_success_meta_description'))
-                                                    ->rows(4)
-                                                    ->required()
-                                                    ->maxLength(500),
+                                                TextInput::make('home_title')->required()->maxLength(255),
+                                                Textarea::make('home_meta_description')->rows(4)->required()->maxLength(500),
+                                                TextInput::make('about_us_title')->required()->maxLength(255),
+                                                Textarea::make('about_us_meta_description')->rows(4)->required()->maxLength(500),
+                                                TextInput::make('contacts_title')->required()->maxLength(255),
+                                                Textarea::make('contacts_meta_description')->rows(4)->required()->maxLength(500),
+                                                TextInput::make('faq_title')->required()->maxLength(255),
+                                                Textarea::make('faq_meta_description')->rows(4)->required()->maxLength(500),
+                                                TextInput::make('reviews_title')->required()->maxLength(255),
+                                                Textarea::make('reviews_meta_description')->rows(4)->required()->maxLength(500),
+                                                TextInput::make('submit_review_title')->required()->maxLength(255),
+                                                Textarea::make('submit_review_meta_description')->rows(4)->required()->maxLength(500),
+                                                TextInput::make('blog_title')->required()->maxLength(255),
+                                                Textarea::make('blog_meta_description')->rows(4)->required()->maxLength(500),
+                                                TextInput::make('checkout_title')->required()->maxLength(255),
+                                                Textarea::make('checkout_meta_description')->rows(4)->required()->maxLength(500),
+                                                TextInput::make('checkout_success_title')->required()->maxLength(255),
+                                                Textarea::make('checkout_success_meta_description')->rows(4)->required()->maxLength(500),
                                             ]),
                                     ])
                                     ->columns(2),
