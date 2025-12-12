@@ -79,6 +79,7 @@ return [
     'faq' => [
         'title' => 'Frequently Asked Questions',
         'no_image' => 'No image available',
+        'no_items' => 'No comparison items available',
         'no_icon' => 'No icon available',
         'show_more' => 'Show more',
         'icon_alt' => 'Icon for question: :question',

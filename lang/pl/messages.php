@@ -79,6 +79,7 @@ return [
         'title' => 'Najczęściej zadawane pytania',
         'no_image' => 'Brak obrazu',
         'no_icon' => 'Brak ikony',
+        'no_items' => 'Brak pytania',
         'show_more' => 'Więcej',
         'icon_alt' => 'Ikona dla pytania: :question',
     ],
