@@ -348,10 +348,21 @@
                 </div>
 
                 <!-- Fullscreen Modal -->
-                <div id="fullscreen-modal" class="fixed inset-0 bg-black bg-opacity-80 hidden flex items-center justify-center z-50 p-4">
-                    <div class="relative max-w-3xl max-h-[90vh] bg-white rounded-2xl shadow-2xl p-6">
-                        <button id="close-modal" class="absolute top-2 right-2 text-gray-600 hover:text-gray-800 text-3xl z-50">&times;</button>
-                        <img id="modal-image" src="" alt="Fullscreen Certificate" class="object-contain max-w-full max-h-[80vh] mx-auto rounded-xl" />
+                <div id="fullscreen-modal" class="fixed inset-0 bg-black bg-opacity-90 hidden items-center justify-center z-50 p-4">
+                    <div class="relative w-full max-w-4xl max-h-[90vh] flex items-center justify-center">
+                        <!-- Close Button -->
+                        <button id="close-modal" class="absolute top-4 right-4 text-white hover:text-gray-300 text-4xl z-50 bg-black bg-opacity-50 rounded-full w-12 h-12 flex items-center justify-center">&times;</button>
+
+                        <!-- Previous Button -->
+                        <button id="prev-cert" class="absolute left-4 text-white hover:text-gray-300 text-4xl z-50 bg-black bg-opacity-50 rounded-full w-12 h-12 flex items-center justify-center">‹</button>
+
+                        <!-- Image Container -->
+                        <div class="bg-white rounded-2xl shadow-2xl p-6 max-w-full max-h-full overflow-auto">
+                            <img id="modal-image" src="" alt="Fullscreen Certificate" class="object-contain max-w-full max-h-[80vh] mx-auto rounded-xl" />
+                        </div>
+
+                        <!-- Next Button -->
+                        <button id="next-cert" class="absolute right-4 text-white hover:text-gray-300 text-4xl z-50 bg-black bg-opacity-50 rounded-full w-12 h-12 flex items-center justify-center">›</button>
                     </div>
                 </div>
             @else
@@ -361,27 +372,75 @@
 
         @push('scripts')
             <script>
+                let currentCertIndex = 0;
+                let certificates = [];
+
                 function openModal(element) {
                     const modal = document.getElementById('fullscreen-modal');
                     const modalImage = document.getElementById('modal-image');
+
+                    // Get all certificate images
+                    certificates = Array.from(document.querySelectorAll('.certificate-slide img'));
+                    currentCertIndex = certificates.indexOf(element);
+
                     modalImage.src = element.getAttribute('data-fullscreen-src');
                     modalImage.alt = element.alt;
                     modal.classList.remove('hidden');
+                    modal.classList.add('flex');
+                }
+
+                function showCertificate(index) {
+                    const modalImage = document.getElementById('modal-image');
+                    if (certificates[index]) {
+                        modalImage.src = certificates[index].getAttribute('data-fullscreen-src');
+                        modalImage.alt = certificates[index].alt;
+                        currentCertIndex = index;
+                    }
+                }
+
+                function nextCertificate() {
+                    const nextIndex = (currentCertIndex + 1) % certificates.length;
+                    showCertificate(nextIndex);
+                }
+
+                function prevCertificate() {
+                    const prevIndex = (currentCertIndex - 1 + certificates.length) % certificates.length;
+                    showCertificate(prevIndex);
                 }
 
                 document.addEventListener('DOMContentLoaded', function () {
                     const modal = document.getElementById('fullscreen-modal');
                     const closeModal = document.getElementById('close-modal');
+                    const prevBtn = document.getElementById('prev-cert');
+                    const nextBtn = document.getElementById('next-cert');
 
-                    // Close modal on close button click
+                    // Close modal
                     closeModal.addEventListener('click', function () {
                         modal.classList.add('hidden');
+                        modal.classList.remove('flex');
                     });
 
-                    // Close modal on click outside
+                    // Close on click outside
                     modal.addEventListener('click', function (e) {
                         if (e.target === modal) {
                             modal.classList.add('hidden');
+                            modal.classList.remove('flex');
+                        }
+                    });
+
+                    // Navigation buttons
+                    nextBtn.addEventListener('click', nextCertificate);
+                    prevBtn.addEventListener('click', prevCertificate);
+
+                    // Keyboard navigation
+                    document.addEventListener('keydown', function(e) {
+                        if (!modal.classList.contains('hidden')) {
+                            if (e.key === 'ArrowRight') nextCertificate();
+                            if (e.key === 'ArrowLeft') prevCertificate();
+                            if (e.key === 'Escape') {
+                                modal.classList.add('hidden');
+                                modal.classList.remove('flex');
+                            }
                         }
                     });
                 });
