@@ -83,8 +83,7 @@ class Contacts extends Page implements HasForms
                                             ->schema([
                                                 TextInput::make('number')
                                                     ->label('Phone')
-                                                    ->numeric()
-                                                    ->maxLength(20),
+                                                    ->numeric(),
                                             ])
                                             ->collapsible()
                                             ->cloneable(),
@@ -101,8 +100,7 @@ class Contacts extends Page implements HasForms
                                     ->schema([
                                         TextInput::make('export_phone')
                                             ->label('Export Phone')
-                                            ->numeric()
-                                            ->maxLength(20),
+                                            ->numeric(),
                                         TextInput::make('export_contact')
                                             ->label('Export Contact')
                                             ->maxLength(255),
