@@ -11,19 +11,15 @@ use Filament\Forms\Contracts\HasForms;
 use Filament\Forms\Form;
 use Filament\Notifications\Notification;
 use Filament\Pages\Page;
-use SolutionForest\FilamentTranslateField\Forms\Component\Translate;
 
 class Header extends Page implements HasForms
 {
     use InteractsWithForms;
 
     protected static ?string $navigationIcon = 'heroicon-o-globe-alt';
-
     protected static string $view = 'filament.pages.header';
-
     protected static string $settings = HeaderSettings::class;
-
-    protected static ?string $navigationLabel = 'Налаштування шапки';
+    protected static ?string $navigationLabel = 'Header Settings';
 
     public static function getSlug(): string
     {
@@ -51,29 +47,22 @@ class Header extends Page implements HasForms
             ->schema([
                 Tabs::make('Tabs')
                     ->tabs([
-                        Tabs\Tab::make(__('Социальные сети'))
+                        Tabs\Tab::make('Social Media')
                             ->schema([
                                 Section::make()
                                     ->schema([
-                                        Translate::make()
-                                            ->locales(['en', 'pl'])
-                                            ->schema([
-                                                TextInput::make('instagram_url')
-                                                    ->label(__('Instagram URL'))
-                                                    ->url()
-                                                    ->required()
-                                                    ->maxLength(255),
-                                                TextInput::make('facebook_url')
-                                                    ->label(__('Facebook URL'))
-                                                    ->url()
-                                                    ->required()
-                                                    ->maxLength(255),
-                                                TextInput::make('telegram_url')
-                                                    ->label(__('Telegram URL'))
-                                                    ->url()
-                                                    ->required()
-                                                    ->maxLength(255),
-                                            ]),
+                                        TextInput::make('instagram_url')
+                                            ->label('Instagram URL')
+                                            ->url()
+                                            ->maxLength(255),
+                                        TextInput::make('facebook_url')
+                                            ->label('Facebook URL')
+                                            ->url()
+                                            ->maxLength(255),
+                                        TextInput::make('telegram_url')
+                                            ->label('Telegram URL')
+                                            ->url()
+                                            ->maxLength(255),
                                     ]),
                             ]),
                     ])
@@ -94,13 +83,13 @@ class Header extends Page implements HasForms
             $settings->save();
 
             Notification::make()
-                ->title(__('Дані шапки збережено!'))
+                ->title('Header Settings Saved!')
                 ->success()
                 ->send();
         } catch (\Exception $e) {
             \Illuminate\Support\Facades\Log::error('Error saving Header Settings', ['error' => $e->getMessage()]);
             Notification::make()
-                ->title(__('Помилка збереження налаштувань'))
+                ->title('Error saving Header Settings')
                 ->body($e->getMessage())
                 ->danger()
                 ->send();

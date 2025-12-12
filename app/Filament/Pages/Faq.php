@@ -14,18 +14,14 @@ use Filament\Forms\Contracts\HasForms;
 use Filament\Forms\Form;
 use Filament\Notifications\Notification;
 use Filament\Pages\Page;
-use SolutionForest\FilamentTranslateField\Forms\Component\Translate;
 
 class Faq extends Page implements HasForms
 {
     use InteractsWithForms;
 
     protected static ?string $navigationIcon = 'heroicon-o-question-mark-circle';
-
     protected static string $view = 'filament.pages.faq';
-
     protected static string $settings = FaqSettings::class;
-
     protected static ?string $navigationLabel = 'FAQ Settings';
 
     public static function getSlug(): string
@@ -52,58 +48,48 @@ class Faq extends Page implements HasForms
             ->schema([
                 Tabs::make('Tabs')
                     ->tabs([
-                        Tabs\Tab::make(__('Часто задаваемые вопросы'))
+                        Tabs\Tab::make('Frequently Asked Questions')
                             ->schema([
                                 Section::make()
                                     ->schema([
-                                        Translate::make()
-                                            ->locales(['en', 'pl'])
+                                        Repeater::make('faq_blocks')
+                                            ->label('FAQ Blocks')
                                             ->schema([
-                                                Repeater::make('faq_blocks')
-                                                    ->label(__('Блоки FAQ'))
+                                                FileUpload::make('main_image')
+                                                    ->label('Main Image')
+                                                    ->image()
+                                                    ->disk('public')
+                                                    ->directory('faq-images/main'),
+                                                TextInput::make('main_image_alt')
+                                                    ->label('Alt text for main image')
+                                                    ->maxLength(255),
+                                                Repeater::make('items')
+                                                    ->label('Questions and Answers')
                                                     ->schema([
-                                                        FileUpload::make('main_image')
-                                                            ->label(__('Основное изображение'))
+                                                        FileUpload::make('thumbnail')
+                                                            ->label('Thumbnail')
                                                             ->image()
                                                             ->disk('public')
-                                                            ->directory('faq-images/main')
-                                                            ->required(),
-                                                        TextInput::make('main_image_alt')
-                                                            ->label(__('Alt-текст основного изображения'))
-                                                            ->required()
+                                                            ->directory('faq-images/thumbnails'),
+                                                        TextInput::make('thumbnail_alt')
+                                                            ->label('Alt text for thumbnail')
                                                             ->maxLength(255),
-                                                        Repeater::make('items')
-                                                            ->label(__('Вопросы и ответы'))
-                                                            ->schema([
-                                                                FileUpload::make('thumbnail')
-                                                                    ->label(__('Миниатюра'))
-                                                                    ->image()
-                                                                    ->disk('public')
-                                                                    ->directory('faq-images/thumbnails')
-                                                                    ->required(),
-                                                                TextInput::make('thumbnail_alt')
-                                                                    ->label(__('Alt-текст миниатюры'))
-                                                                    ->required()
-                                                                    ->maxLength(255),
-                                                                TextInput::make('question')
-                                                                    ->label(__('Вопрос'))
-                                                                    ->required()
-                                                                    ->maxLength(255),
-                                                                Textarea::make('answer')
-                                                                    ->label(__('Ответ'))
-                                                                    ->required()
-                                                                    ->maxLength(1000),
-                                                            ])
-                                                            ->columns(2)
-                                                            ->itemLabel(fn (array $state): ?string => $state['question'] ?? null)
-                                                            ->collapsible()
-                                                            ->cloneable(),
+                                                        TextInput::make('question')
+                                                            ->label('Question')
+                                                            ->maxLength(255),
+                                                        Textarea::make('answer')
+                                                            ->label('Answer')
+                                                            ->maxLength(1000),
                                                     ])
                                                     ->columns(2)
-                                                    ->itemLabel(fn (array $state): ?string => $state['main_image_alt'] ?? null)
+                                                    ->itemLabel(fn (array $state): ?string => $state['question'] ?? null)
                                                     ->collapsible()
                                                     ->cloneable(),
-                                            ]),
+                                            ])
+                                            ->columns(2)
+                                            ->itemLabel(fn (array $state): ?string => $state['main_image_alt'] ?? null)
+                                            ->collapsible()
+                                            ->cloneable(),
                                     ]),
                             ]),
                     ])
@@ -124,13 +110,13 @@ class Faq extends Page implements HasForms
             $settings->save();
 
             Notification::make()
-                ->title(__('Настройки FAQ сохранены!'))
+                ->title('FAQ Settings Saved!')
                 ->success()
                 ->send();
         } catch (\Exception $e) {
-            \Illuminate\Support\Facades\Log::error('Ошибка сохранения настроек FAQ', ['error' => $e->getMessage()]);
+            \Illuminate\Support\Facades\Log::error('Error saving FAQ settings', ['error' => $e->getMessage()]);
             Notification::make()
-                ->title(__('Ошибка сохранения настроек'))
+                ->title('Error saving FAQ settings')
                 ->body($e->getMessage())
                 ->danger()
                 ->send();
