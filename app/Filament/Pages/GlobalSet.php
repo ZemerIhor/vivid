@@ -36,7 +36,6 @@ class GlobalSet extends Page implements HasForms
     {
         $settings = app(GlobalSettings::class);
 
-        // Инициализация данных формы из настроек с дефолтными переводами EN/PL
         $this->data = [
             'site_name' => $settings->site_name ?? ['en' => 'My Website', 'pl' => 'Moja Strona'],
             'meta_description' => $settings->meta_description ?? ['en' => 'Welcome to my website', 'pl' => 'Witamy na mojej stronie'],
@@ -84,35 +83,24 @@ class GlobalSet extends Page implements HasForms
                                         Translate::make()
                                             ->locales(['en', 'pl'])
                                             ->schema([
-                                                TextInput::make('site_name')
-                                                    ->label(__('messages.settings.site_name'))
-                                                    ->required()
-                                                    ->maxLength(255),
-                                                Textarea::make('meta_description')
-                                                    ->label(__('messages.settings.meta_description'))
-                                                    ->rows(4)
-                                                    ->required()
-                                                    ->maxLength(500),
+                                                TextInput::make('site_name')->required()->maxLength(255),
+                                                Textarea::make('meta_description')->rows(4)->required()->maxLength(500),
                                             ]),
                                         FileUpload::make('logo')
                                             ->label(__('messages.settings.logo'))
-                                            ->image()
                                             ->disk('public')
                                             ->directory('logos')
                                             ->nullable()
-                                            ->rules(['nullable', 'image', 'mimes:jpeg,png,jpg,gif,webp']),
+                                            ->rules(['nullable', 'mimes:jpeg,png,jpg,gif,webp,svg+xml'])
+                                            ->imagePreview(fn($value) => $value ? asset('storage/logos/' . basename($value)) : null),
                                         FileUpload::make('favicon')
                                             ->label(__('messages.settings.favicon'))
-                                            ->image()
                                             ->disk('public')
                                             ->directory('favicons')
                                             ->nullable()
-                                            ->rules(['nullable', 'image', 'mimes:jpeg,png,jpg,gif,webp']),
-                                        TextInput::make('contact_email')
-                                            ->label(__('messages.settings.contact_email'))
-                                            ->email()
-                                            ->required()
-                                            ->maxLength(255),
+                                            ->rules(['nullable', 'mimes:jpeg,png,jpg,gif,webp,svg+xml'])
+                                            ->imagePreview(fn($value) => $value ? asset('storage/favicons/' . basename($value)) : null),
+                                        TextInput::make('contact_email')->email()->required()->maxLength(255),
                                     ])
                                     ->columns(2),
                             ]),
@@ -124,23 +112,16 @@ class GlobalSet extends Page implements HasForms
                                         Translate::make()
                                             ->locales(['en', 'pl'])
                                             ->schema([
-                                                TextInput::make('feedback_form_title')
-                                                    ->label(__('messages.settings.feedback_form_title'))
-                                                    ->required()
-                                                    ->maxLength(255),
-                                                Textarea::make('feedback_form_description')
-                                                    ->label(__('messages.settings.feedback_form_description'))
-                                                    ->rows(4)
-                                                    ->required()
-                                                    ->maxLength(500),
+                                                TextInput::make('feedback_form_title')->required()->maxLength(255),
+                                                Textarea::make('feedback_form_description')->rows(4)->required()->maxLength(500),
                                             ]),
                                         FileUpload::make('feedback_form_image')
                                             ->label(__('messages.settings.feedback_form_image'))
-                                            ->image()
                                             ->disk('public')
                                             ->directory('feedback-images')
                                             ->nullable()
-                                            ->rules(['nullable', 'image', 'mimes:jpeg,png,jpg,gif,webp']),
+                                            ->rules(['nullable', 'mimes:jpeg,png,jpg,gif,webp,svg+xml'])
+                                            ->imagePreview(fn($value) => $value ? asset('storage/feedback-images/' . basename($value)) : null),
                                     ])
                                     ->columns(2),
                             ]),
@@ -185,7 +166,6 @@ class GlobalSet extends Page implements HasForms
         try {
             $data = $this->form->getState();
 
-            // Логирование MIME-типа для изображений
             foreach (['logo', 'favicon', 'feedback_form_image'] as $field) {
                 if (isset($data[$field]) && is_object($data[$field])) {
                     Log::info("MIME type for {$field}", ['mime' => $data[$field]->getMimeType()]);
@@ -198,12 +178,9 @@ class GlobalSet extends Page implements HasForms
             $settings->fill($data);
             $settings->save();
 
-            Notification::make()
-                ->title(__('messages.settings.saved'))
-                ->success()
-                ->send();
+            Notification::make()->title(__('messages.settings.saved'))->success()->send();
         } catch (ValidationException $e) {
-            Log::error('Ошибки валидации в глобальных настройках', [
+            Log::error('Validation errors in global settings', [
                 'errors' => $e->errors(),
                 'message' => $e->getMessage(),
             ]);
@@ -214,7 +191,7 @@ class GlobalSet extends Page implements HasForms
                 ->danger()
                 ->send();
         } catch (\Exception $e) {
-            Log::error('Ошибка сохранения глобальных настроек', [
+            Log::error('Error saving global settings', [
                 'error' => $e->getMessage(),
                 'trace' => $e->getTraceAsString(),
             ]);
