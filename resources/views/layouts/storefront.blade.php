@@ -3,7 +3,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     @php
         $settings = app(\App\Settings\GlobalSettings::class);
         $locale = app()->getLocale();
@@ -61,7 +63,7 @@
             case 'product.view':
                 $language = \Lunar\Models\Language::where('code', $locale)->first();
                 $languageId = $language ? $language->id : 1;
-                
+
                 $url = \Lunar\Models\Url::where('slug', request()->route()->parameter('slug'))
                     ->where('element_type', 'Lunar\Models\Product')
                     ->where('language_id', $languageId)
@@ -87,7 +89,7 @@
                 if ($product) {
                     // Try translateAttribute first
                     $productName = $product->translateAttribute('name', $locale);
-                    
+
                     // If empty, try direct attribute access
                     if (empty($productName) && isset($product->attribute_data['name'])) {
                         $nameAttr = $product->attribute_data['name'];
@@ -102,7 +104,7 @@
                             $productName = $nameAttr;
                         }
                     }
-                    
+
                     $productDescription = $product->translateAttribute('description', $locale);
                     if (empty($productDescription) && isset($product->attribute_data['description'])) {
                         $descAttr = $product->attribute_data['description'];
@@ -121,12 +123,12 @@
                     if (!empty($productName)) {
                         $pageTitle = is_string($productName) ? $productName : (string) $productName;
                     }
-                    
+
                     if (!empty($productDescription)) {
                         $descText = is_string($productDescription) ? $productDescription : (string) $productDescription;
                         $pageDescription = html_entity_decode(strip_tags($descText));
                     }
-                    
+
                     // Debug logging
                     \Log::info('Product SEO Meta', [
                         'product_id' => $product->id,

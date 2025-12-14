@@ -725,3 +725,8 @@ grid-row-gap: 0px;
         max-width: 1280px;
     }
 }
+
+
+body {
+    font-family: 'Open Sans', sans-serif;
+}
