@@ -191,12 +191,6 @@
                                     <path d="M17.2174 12.5C17.6496 12.5 18 12.1642 18 11.75C18 11.3358 17.6496 11 17.2174 11H6.78261C6.35039 11 6 11.3358 6 11.75C6 11.5858 6.35039 12.5 6.78261 12.5H17.2174Z" fill="#333333"/>
                                 </svg>
                             </button>
-
-                            <div class="flex relative gap-2.5 justify-center items-center">
-                                <span class="relative text-base font-semibold leading-5 text-zinc-800 max-sm:text-sm">
-                                    {{ $this->quantity }}
-                                </span>
-                            </div>
                             <button wire:click="incrementQuantity"
                                     class="flex relative gap-2.5 items-center"
                                     aria-label="{{ __('messages.product.increment_quantity') }}">
@@ -204,6 +198,12 @@
                                     <path d="M12.75 7C12.75 6.58579 12.4142 6.25 12 6.25C11.5858 6.25 11.25 6.58579 11.25 7L11.25 11.25H7C6.58579 11.25 6.25 11.5858 6.25 12C6.25 12.4142 6.58579 12.75 7 12.75H11.25V17C11.25 17.4142 11.5858 17.75 12 17.75C12.4142 17.75 12.75 17.4142 12.75 17L12.75 12.75H17C17.4142 12.75 17.75 12.4142 17.75 12C17.75 11.5858 17.4142 11.25 17 11.25H12.75V7Z" fill="#333333"/>
                                 </svg>
                             </button>
+
+                            <div class="flex relative gap-2.5 justify-center items-center">
+                                <span class="relative text-base font-semibold leading-5 text-zinc-800 max-sm:text-sm">
+                                    {{ $this->quantity }}
+                                </span>
+                            </div>
                         </div>
                         <livewire:components.add-to-cart :purchasable="$this->variant" :quantity="$this->quantity" :wire:key="$this->variant->id" />
                     </div>
