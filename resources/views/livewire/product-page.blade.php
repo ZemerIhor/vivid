@@ -199,6 +199,7 @@
                                 </svg>
                             </button>
 
+
                             <div class="flex relative gap-2.5 justify-center items-center">
                                 <span class="relative text-base font-semibold leading-5 text-zinc-800 max-sm:text-sm">
                                     {{ $this->quantity }}
